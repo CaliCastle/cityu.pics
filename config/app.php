@@ -12,7 +12,9 @@ return [
     | any other location as required by the application or its packages.
     */
 
-    'name' => 'Laravel',
+    'name' => 'CityU Pics',
+
+    'slogan' => 'CityU Photo Sharing Platform',
 
     /*
     |--------------------------------------------------------------------------
