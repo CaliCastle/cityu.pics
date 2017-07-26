@@ -20,6 +20,7 @@
             'csrfToken' => csrf_token(),
         ]) !!};
     </script>
+    <script src="https://use.fontawesome.com/d91fbb53d7.js"></script>
 
     <!-- Icons -->
     <link rel="apple-touch-icon" sizes="57x57" href="/icons/apple-icon-57x57.png">
@@ -35,8 +36,8 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="96x96" href="/icons/favicon-96x96.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
-    <link rel="icon" type="image/png" href="/logo.png">
-    <link rel="shortcut icon" type="image/png" href="/logo.png">
+    <link rel="icon" type="image/x-icon" href="/logo.png">
+    <link rel="shortcut icon" type="image/x-icon" href="/logo.png">
     <link rel="manifest" href="/manifest.json">
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/icons/ms-icon-144x144.png">
@@ -58,7 +59,7 @@
 
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        <img src="/logo.png" alt="Logo">
+                        <img src="/logo-light.png" alt="Logo">
                         {{ config('app.name') }}
                     </a>
                 </div>
@@ -66,35 +67,87 @@
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
-                        &nbsp;
+                        <li>
+                            <a href="#" title="Home">
+                                <i class="fa fa-home"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" title="Privacy">
+                                <i class="fa fa-user-secret"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" title="Help">
+                                <i class="fa fa-question-circle"></i>
+                            </a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->
-                        @if (Auth::guest())
-                            <li><a href="{{ route('login') }}">Login</a></li>
-                        @else
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
-
-                                <ul class="dropdown-menu" role="menu">
-                                    <li>
-                                        <a href="{{ route('logout') }}"
-                                            onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                            Logout
-                                        </a>
-
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                            {{ csrf_field() }}
-                                        </form>
-                                    </li>
-                                </ul>
-                            </li>
-                        @endif
+                        {{--@if (Auth::guest())--}}
+                            {{--<li><a href="{{ route('login') }}">
+                                <i class="fa.fa-login"></i>
+                            </a></li>--}}
+                        {{--@else--}}
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                <img src="/avatar.png" alt="Avatar" class="img-responsive img-circle nav-avatar">
+                                &nbsp;Cali Castle
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="rank">
+                                    <!-- TODO: change color -->
+                                    <span class="rank-icon rank-label" data-rank="5"></span>
+                                    <span class="exp-label">Exp: 1,500</span>
+                                </li>
+                                <li>
+                                    <a href="#" class="menu-link">
+                                        <i class="fa fa-user-circle-o"></i>&nbsp;Profile
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="menu-link">
+                                        <i class="fa fa-check-circle-o"></i>&nbsp;Achievements
+                                    </a>
+                                </li>
+                                <li class="divider" role="separator"></li>
+                                <li class="checkin"><!-- class="completed" -->
+                                    <i class="fa fa-calendar-o"></i>
+                                    <div class="today">
+                                        <span class="month">Jul</span>
+                                        <span class="date">25</span>
+                                    </div>
+                                    <div class="checkin-button">
+                                        <button>Check in</button>
+                                    </div>
+                                </li>
+                                <li class="divider" role="separator"></li>
+                                <li>
+                                    <a href="#" class="menu-link">
+                                        <i class="fa fa-sign-out"></i>&nbsp;Sign out
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#" class="notif-button">
+                                <i class="fa fa-bell-o"></i>
+                            </a>
+                        </li>
+                        <li class="search-container">
+                            <a href="#">
+                                <i class="fa fa-search"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="fa fa-plus-circle"></i>
+                            </a>
+                        </li>
+                        {{--@endif--}}
                     </ul>
                 </div>
             </div>
