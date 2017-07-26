@@ -9,7 +9,7 @@
                 @for($i = 1; $i < 35; $i++)
                 <div class="feed-layout__panel">
                     <div class="feed-layout__panel-content">
-                        <img src="/images/p{{ $n = rand(1, 8) }}.{{ $n == 5 ? 'png' : 'jpg' }}" alt="Picture">
+                        <img src="/images/p{{ $n = rand(1, 11) }}.{{ $n == 5 ? 'png' : 'jpg' }}" alt="Picture">
                         <div class="feed-details">
                             <!-- Tags -->
                             <div class="feed-details__header">
@@ -30,7 +30,7 @@
                             </div>
                             <!-- Content -->
                             <div class="feed-details__content">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur, assumenda deserunt expedita fugiat id minima quibusdam repellendus sunt! </p>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi, aperiam consectetur maiores maxime placeat repellendus vel.</p>
                             </div>
                             <!-- Avatar and actions -->
                             <div class="feed-details__footer">
@@ -44,7 +44,7 @@
                                 </a>
                                 <div class="feed-details__actions">
                                     <a class="feed-action__like" href="#">
-                                        <span class="feed-like__count">129</span>
+                                        <span class="feed-like__count">{{ random_int(5, 999) }}</span>
                                         <i class="fa fa-heart-o"></i>
                                     </a>
                                     <a class="feed-action__comment" href="#">
