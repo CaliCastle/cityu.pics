@@ -19,3 +19,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 Route::get('/feed', 'HomeController@showFeed');
+
+Route::group(['prefix' => 'admin'], function () {
+    Voyager::routes();
+});
