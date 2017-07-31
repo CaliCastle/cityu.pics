@@ -330,3 +330,11 @@
 .feed-layout__panel:hover .feed-details__tags {
     color: rgb(225, 225, 225);
 }
+body.auth {
+    height: 100%;
+    position: relative;
+}
+body.auth .hero {
+    height: 100%;
+    background: url("/images/cityu1.jpg");
+}
