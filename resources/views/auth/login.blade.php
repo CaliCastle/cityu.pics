@@ -1,26 +1,28 @@
 @extends('layouts.auth')
 
+@section('title', 'Login')
+
 @section('sidebar')
     <div class="col-xs-12 col-sm-4 col-md-3 login-sidebar animated fadeInRightBig">
 
         <div class="login-container animated fadeInRightBig">
 
-            <h2>Sign In Below:</h2>
+            <h2><i class="fa fa-vcard-o"></i> Sign In Below:</h2>
 
-            <form action="{{ route('voyager.login') }}" method="POST">
+            <form action="{{ route('login') }}" method="POST">
                 {{ csrf_field() }}
                 <div class="group">
-                    <input type="text" name="email" value="{{ old('email') }}" required>
+                    <input type="email" name="email" value="{{ old('email') }}" required>
                     <span class="highlight"></span>
                     <span class="bar"></span>
-                    <label><i class="fa fa-user"></i><span class="span-input"> E-mail</span></label>
+                    <label><i class="fa fa-user-circle"></i><span class="span-input"> E-mail (CityU Only)</span></label>
                 </div>
 
                 <div class="group">
                     <input type="password" name="password" required>
                     <span class="highlight"></span>
                     <span class="bar"></span>
-                    <label><i class="fa fa-lock"></i><span class="span-input"> Password</span></label>
+                    <label><i class="fa fa-key"></i><span class="span-input"> Password</span></label>
                 </div>
 
                 <button type="submit" class="btn btn-block login-button">
@@ -28,10 +30,15 @@
                     <span class="signin">Login</span>
                 </button>
 
+                @if(Route::has('register'))
+                    <a class="other-link" href="{{ route('register') }}">
+                        First time here? Register
+                    </a>
+                @endif
             </form>
 
             @if(!$errors->isEmpty())
-                <div class="alert alert-black">
+                <div class="alert alert-black animated bounceInUp">
                     <ul class="list-unstyled">
                         @foreach($errors->all() as $err)
                             <li>{{ $err }}</li>

@@ -1,76 +1,101 @@
-@extends('layouts.app')
+@extends('layouts.auth')
 
-@section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Register</div>
-                <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ route('register') }}">
-                        {{ csrf_field() }}
+@section('sidebar')
+    <div class="col-xs-12 col-sm-4 col-md-3 login-sidebar animated fadeInRightBig">
 
-                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label">Name</label>
+        <div class="login-container register-form animated fadeInRightBig">
 
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus>
+            <h2><i class="fa fa-vcard-o"></i> Register Below:</h2>
 
-                                @if ($errors->has('name'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('name') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">E-Mail Address</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
-
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-4 control-label">Password</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password" required>
-
-                                @if ($errors->has('password'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="password-confirm" class="col-md-4 control-label">Confirm Password</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Register
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+            <form action="{{ route('register') }}" method="POST">
+                {{ csrf_field() }}
+                <div class="group">
+                    <input type="email" name="email" value="{{ old('email') }}" required>
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label><i class="fa fa-at"></i><span class="span-input"> E-mail (CityU Only)</span></label>
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
-@endsection
+
+                <div class="group">
+                    <input type="text" name="name" value="{{ old('name') }}" required>
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label><i class="fa fa-vcard"></i><span class="span-input"> Your Name</span></label>
+                </div>
+
+                <div class="group">
+                    <input type="password" name="password" required>
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label><i class="fa fa-key"></i><span class="span-input"> Password</span></label>
+                </div>
+
+                <div class="group">
+                    <input type="password" name="password_confirmation" required>
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label><i class="fa fa-key"></i><span class="span-input"> Confirm Password</span></label>
+                </div>
+
+                <button type="submit" class="btn btn-block login-button">
+                    <span class="registering hidden"><span class="fa fa-spinner fa-spin fa-fw"></span> Registering...</span>
+                    <span class="register">Register</span>
+                </button>
+
+                @if(Route::has('login'))
+                    <a class="other-link" href="{{ route('register') }}">
+                        Got an account? Login
+                    </a>
+                @endif
+
+            </form>
+
+            @if(!$errors->isEmpty())
+                <div class="alert alert-black animated bounceInUp">
+                    <ul class="list-unstyled">
+                        @foreach($errors->all() as $err)
+                            <li>{{ $err }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
+        </div> <!-- .login-container -->
+        @stop
+
+        @push('styles')
+            <link rel="stylesheet" href="{{ voyager_asset('css/login.css') }}">
+            <style>
+                body {
+                    background-image:url('{{ Voyager::image( Voyager::setting("admin_bg_image"), config('voyager.assets_path') . "/images/bg.jpg" ) }}');
+                    background-color: {{ Voyager::setting("admin_bg_color", "#FFFFFF" ) }};
+                }
+                .login-sidebar:after {
+                    background: linear-gradient(-135deg, {{config('voyager.login.gradient_a','#ffffff')}}, {{config('voyager.login.gradient_b','#ffffff')}});
+                    background: -webkit-linear-gradient(-135deg, {{config('voyager.login.gradient_a','#ffffff')}}, {{config('voyager.login.gradient_b','#ffffff')}});
+                }
+                .login-button, .bar:before, .bar:after{
+                    background:{{ config('voyager.primary_color','#22A7F0') }};
+                }
+
+            </style>
+        @endpush
+
+        @push('meta')
+            <meta name="robots" content="none" />
+        @endpush
+
+        @push('scripts')
+            <script>
+                var btn = document.querySelector('button[type="submit"]');
+                var form = document.forms[0];
+                btn.addEventListener('click', function(ev){
+                    if (form.checkValidity()) {
+                        btn.querySelector('.registering').className = 'registering';
+                        btn.querySelector('.register').className = 'register hidden';
+                    } else {
+                        ev.preventDefault();
+                    }
+                });
+            </script>
+    @endpush

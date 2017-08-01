@@ -20,6 +20,10 @@ Auth::routes();
 Route::get('/home', 'HomeController@index');
 Route::get('/feed', 'HomeController@showFeed');
 
+// Voyager routes
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
+
+    Route::get('login', 'Auth\LoginController@showLoginForm')->name('voyager.login');
+    Route::post('login', 'Auth\LoginController@login');
 });

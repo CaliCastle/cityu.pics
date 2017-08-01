@@ -214,7 +214,7 @@ return [
         'gradient_b' => '#ffffff',
     ],
 
-    'primary_color' => '#22A7F0',
+    'primary_color' => '#0D3B62',
 
     'show_dev_tips' => true, // Show development tip "How To Use:" in Menu and Settings
 
