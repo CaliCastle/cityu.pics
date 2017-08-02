@@ -53,7 +53,7 @@
                         @else
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                <img src="{{ Auth::user()->avatar }}" alt="Avatar" class="img-responsive img-circle nav-avatar">
+                                <img src="{{ Voyager::image(Auth::user()->avatar) }}" alt="Avatar" class="img-responsive img-circle nav-avatar">
                                 &nbsp;{{ Auth::user()->name }}
                             </a>
                             <ul class="dropdown-menu">

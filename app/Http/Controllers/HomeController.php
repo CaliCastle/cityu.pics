@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -34,5 +35,17 @@ class HomeController extends Controller
     public function showFeed()
     {
         return view('feed');
+    }
+
+    public function confirmUser($token)
+    {
+        $user = User::where('remember_token', $token)->first();
+
+        if ($user !== null || !$user->confirmed) {
+            $user->confirmed();
+            return 'Confirmed!';
+        } else {
+            return 'Nope!';
+        }
     }
 }

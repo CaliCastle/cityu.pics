@@ -19,6 +19,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 Route::get('/feed', 'HomeController@showFeed');
+Route::get('/confirm/{token}', 'HomeController@confirmUser');
 
 // Voyager routes
 Route::group(['prefix' => 'admin'], function () {

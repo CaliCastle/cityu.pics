@@ -27,4 +27,23 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * Get the confirmation email link.
+     *
+     * @return string
+     */
+    public function getConfirmationLink()
+    {
+        return secure_url('confirm/' . $this->getRememberToken());
+    }
+
+    /**
+     * Set confirmation.
+     */
+    public function confirmed()
+    {
+        $this->confirmed = 1;
+        $this->saveOrFail();
+    }
 }
