@@ -37,15 +37,26 @@ class HomeController extends Controller
         return view('feed');
     }
 
+    /**
+     * Confirm the user from email link.
+     *
+     * @param $token
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function confirmUser($token)
     {
         $user = User::where('remember_token', $token)->first();
 
         if ($user !== null || !$user->confirmed) {
             $user->confirmed();
-            return 'Confirmed!';
+            return redirect('feed')->with('status', [
+                'message' => 'Your account has been confirmed!'
+            ]);
         } else {
-            return 'Nope!';
+            return redirect('feed')->with('status', [
+                'type'    => 'error',
+                'message' => 'The account cannot be confirmed.'
+            ]);
         }
     }
 }

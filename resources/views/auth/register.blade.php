@@ -11,6 +11,7 @@
 
             <form action="{{ route('register') }}" method="POST">
                 {{ csrf_field() }}
+                <input type="checkbox" name="remember" checked hidden>
                 <div class="group">
                     <input type="email" name="email" value="{{ old('email') }}" required>
                     <span class="highlight"></span>

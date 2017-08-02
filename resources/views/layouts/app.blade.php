@@ -92,9 +92,12 @@
                                 </li>
                                 <li class="divider" role="separator"></li>
                                 <li>
-                                    <a href="#" class="menu-link">
-                                        <i class="fa fa-sign-out"></i>&nbsp;Sign out
-                                    </a>
+                                    <form action="{{ route('logout') }}" method="POST">
+                                        {{ csrf_field() }}
+                                        <button type="submit" class="menu-link">
+                                            <i class="fa fa-sign-out"></i>&nbsp;Sign out
+                                        </button>
+                                    </form>
                                 </li>
                             </ul>
                         </li>
@@ -124,5 +127,30 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ voyager_asset('lib/js/toastr.min.js') }}"></script>
+    <script>
+        toastr.options = {
+            'progressBar': true,
+            'showEasing': "swing",
+            'hideEasing': "linear",
+            'showMethod': "fadeIn",
+            'hideMethod': "fadeOut"
+        }
+
+        function displayStatus(type, message) {
+            setTimeout(function () {
+                toastr[type](message);
+            }, 350);
+        }
+
+        @if(session('status'))
+        var alert = {!! json_encode(session('status')) !!};
+
+            if (alert.type)
+                displayStatus(alert.type, alert.message);
+            else
+                displayStatus('success', alert.message);
+        @endif
+    </script>
 </body>
 </html>

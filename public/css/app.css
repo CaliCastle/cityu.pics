@@ -68,8 +68,13 @@
     background: #0d3b62 !important;
     color: #fff !important;
 }
-.dropdown-menu> li > a {
+.dropdown-menu> li .menu-link {
     padding: 8px 20px;
+}
+.dropdown-menu > li button.menu-link {
+    border: 0;
+    background: transparent;
+    width: 100%;
 }
 .dropdown.open > .dropdown-menu::before {
     content: '';

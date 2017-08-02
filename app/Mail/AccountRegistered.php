@@ -36,6 +36,9 @@ class AccountRegistered extends Mailable
      */
     public function build()
     {
+        if (!$this->user->getRememberToken())
+            $this->user->setRememberToken(str_random(60));
+
         return $this->from(config('mail.from.address'))
                     ->view('emails.registered');
     }

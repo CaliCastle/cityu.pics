@@ -14,7 +14,9 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/animate.css') }}">
-    @stack('styles')
+    <link rel="stylesheet" href="{{ voyager_asset('lib/css/toastr.min.css') }}">
+
+@stack('styles')
 
     <!-- Scripts -->
     <script>
