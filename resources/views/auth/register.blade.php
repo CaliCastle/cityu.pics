@@ -1,5 +1,7 @@
 @extends('layouts.auth')
 
+@section('title', 'Register')
+
 @section('sidebar')
     <div class="col-xs-12 col-sm-4 col-md-3 login-sidebar animated fadeInRightBig">
 
@@ -43,7 +45,7 @@
                 </button>
 
                 @if(Route::has('login'))
-                    <a class="other-link" href="{{ route('register') }}">
+                    <a class="other-link" href="{{ route('login') }}">
                         Got an account? Login
                     </a>
                 @endif

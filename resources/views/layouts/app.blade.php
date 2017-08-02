@@ -43,15 +43,18 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->
-                        {{--@if (Auth::guest())--}}
-                            {{--<li><a href="{{ route('login') }}">
-                                <i class="fa.fa-login"></i>
-                            </a></li>--}}
-                        {{--@else--}}
+                        @if (Auth::guest())
+                            <li>
+                                <a href="{{ route('login') }}">Login</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('register') }}">Register</a>
+                            </li>
+                        @else
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                <img src="/avatar.png" alt="Avatar" class="img-responsive img-circle nav-avatar">
-                                &nbsp;Cali Castle
+                                <img src="{{ Auth::user()->avatar }}" alt="Avatar" class="img-responsive img-circle nav-avatar">
+                                &nbsp;{{ Auth::user()->name }}
                             </a>
                             <ul class="dropdown-menu">
                                 <li class="rank">
@@ -59,6 +62,13 @@
                                     <span class="rank-icon rank-label" data-rank="5"></span>
                                     <span class="exp-label">Exp: 1,500</span>
                                 </li>
+                                @if(Auth::user()->hasPermission('browse_admin'))
+                                <li>
+                                    <a href="{{ route('voyager.dashboard') }}" class="menu-link" target="_blank">
+                                        <i class="fa fa-cogs"></i>&nbsp;Admin
+                                    </a>
+                                </li>
+                                @endif
                                 <li>
                                     <a href="#" class="menu-link">
                                         <i class="fa fa-user-circle-o"></i>&nbsp;Profile
@@ -73,8 +83,8 @@
                                 <li class="checkin"><!-- class="completed" -->
                                     <i class="fa fa-calendar-o"></i>
                                     <div class="today">
-                                        <span class="month">Jul</span>
-                                        <span class="date">25</span>
+                                        <span class="month">{{ \Carbon\Carbon::today()->format('M') }}</span>
+                                        <span class="date">{{ \Carbon\Carbon::today()->day }}</span>
                                     </div>
                                     <div class="checkin-button">
                                         <button>Check in</button>
@@ -103,7 +113,7 @@
                                 <i class="fa fa-plus-circle"></i>
                             </a>
                         </li>
-                        {{--@endif--}}
+                        @endif
                     </ul>
                 </div>
             </div>

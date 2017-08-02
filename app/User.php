@@ -2,12 +2,13 @@
 
 namespace App;
 
+use TCG\Voyager\Traits\VoyagerUser;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, VoyagerUser;
 
     /**
      * The attributes that are mass assignable.
