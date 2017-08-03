@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -15,6 +16,7 @@ class HomeController extends Controller
     public function __construct()
     {
 //        $this->middleware('auth');
+        $this->middleware('confirmed', ['except' => ['showLocked', 'unlock']]);
     }
 
     /**
@@ -41,13 +43,14 @@ class HomeController extends Controller
      * Confirm the user from email link.
      *
      * @param $token
+     * @param $email
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function confirmUser($token)
+    public function confirmUser($token, $email)
     {
         $user = User::where('remember_token', $token)->first();
 
-        if ($user !== null || !$user->confirmed) {
+        if ($user && !$user->hasConfirmed() && $user->email == $email) {
             $user->confirmed();
             return redirect('feed')->with('status', [
                 'message' => 'Your account has been confirmed!'
@@ -58,5 +61,37 @@ class HomeController extends Controller
                 'message' => 'The account cannot be confirmed.'
             ]);
         }
+    }
+
+    /**
+     * Show locked page.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     */
+    public function showLocked()
+    {
+        if (Auth::user() && Auth::user()->hasConfirmed())
+            return redirect()->intended();
+
+        return view('locked');
+    }
+
+    /**
+     * Unlock a user.
+     *
+     * @param Request $request
+     * @return $this|\Illuminate\Http\RedirectResponse
+     */
+    public function unlock(Request $request)
+    {
+        $code = $request->input('code');
+        if ($request->user()->validateConfirmation($code))
+            return redirect('feed')->with('status', [
+                'message' => 'Your account has been confirmed!'
+            ]);
+
+        return redirect('locked')->withErrors(validator($request->all(), [
+            'code' => 'required|digits:5|in:incorrect'
+        ]));
     }
 }

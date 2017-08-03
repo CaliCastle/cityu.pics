@@ -1,0 +1,98 @@
+html {
+    height: 100%;
+}
+
+body {
+    font-family: 'Raleway', sans-serif;
+    /*background-color: #0D3B62;*/
+    background: linear-gradient(to bottom, #29628f 0%, #0b3152 100%);
+    color: #fff;
+    margin: 0;
+    height: 100%;
+}
+
+.main {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+}
+
+.box {
+    width: 700px;
+    height: 600px;
+    /*background-color: #fff;*/
+}
+
+.logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo > img {
+    display: block;
+    width: 70px;
+    height: 70px;
+}
+
+.callout {
+    font-size: 50px;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.description {
+    font-size: 22px;
+    font-weight: 400;
+    color: #aaa;
+}
+
+.enter-box {
+    margin: 40px 20px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.enter-box .number-box {
+    flex: 1;
+    height: 100px;
+    background-color: #fff;
+    margin: 0 15px;
+    border-radius: 8px;
+    cursor: text;
+    position: relative;
+    text-align: center;
+    font-size: 75px;
+    color: #111;
+}
+
+.error {
+    color: #e63929;
+}
+
+.error h3 {
+    text-transform: uppercase;
+}
+
+.center {
+    text-align: center;
+}
+
+.hidden {
+    display: none;
+    visibility: hidden;
+}
+
+@media screen and (max-width: 700px) {
+    .box {
+        width: 85%;
+    }
+
+    .enter-box .number-box {
+        margin: 0 8px;
+    }
+}

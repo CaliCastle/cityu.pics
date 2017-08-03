@@ -19,7 +19,11 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 Route::get('/feed', 'HomeController@showFeed');
-Route::get('/confirm/{token}', 'HomeController@confirmUser');
+Route::get('/confirm/{token}/{email}', 'HomeController@confirmUser');
+
+// Locked
+Route::get('locked', 'HomeController@showLocked')->name('locked');
+Route::post('locked', 'HomeController@unlock');
 
 // Voyager routes
 Route::group(['prefix' => 'admin'], function () {

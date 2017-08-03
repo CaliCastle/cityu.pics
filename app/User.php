@@ -25,7 +25,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token', 'confirm_token'
     ];
 
     /**
@@ -35,15 +35,44 @@ class User extends Authenticatable
      */
     public function getConfirmationLink()
     {
-        return secure_url('confirm/' . $this->getRememberToken());
+        return secure_url('confirm/' . $this->confirm_token . '/' . $this->email);
     }
 
     /**
      * Set confirmation.
+     *
+     * @return bool
      */
     public function confirmed()
     {
         $this->confirmed = 1;
+        $this->confirm_token = '';
         $this->saveOrFail();
+
+        return true;
+    }
+
+    /**
+     * Check if user has confirmed.
+     *
+     * @return bool
+     */
+    public function hasConfirmed()
+    {
+        return $this->confirmed;
+    }
+
+    /**
+     * Validates confirmation code.
+     *
+     * @param $code
+     * @return bool
+     */
+    public function validateConfirmation($code)
+    {
+        if ($code == $this->confirm_token && !$this->hasConfirmed())
+            return $this->confirmed();
+
+        return false;
     }
 }
