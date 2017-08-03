@@ -39,6 +39,16 @@ class User extends Authenticatable
     }
 
     /**
+     * Get confirmation token.
+     *
+     * @return string
+     */
+    public function getConfirmationCode()
+    {
+        return $this->confirm_token;
+    }
+
+    /**
      * Set confirmation.
      *
      * @return bool
