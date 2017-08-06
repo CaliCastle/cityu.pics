@@ -49,6 +49,19 @@ class User extends Authenticatable
     }
 
     /**
+     * Reset confirmation code/token.
+     *
+     * @return bool
+     */
+    public function resetConfirmationCode()
+    {
+        $this->confirm_token = random_int(0, 9) . random_int(0, 9) . random_int(0, 9) . random_int(0, 9) . random_int(0, 9);
+        $this->confirmed = 0;
+
+        return $this->saveOrFail();
+    }
+
+    /**
      * Set confirmation.
      *
      * @return bool

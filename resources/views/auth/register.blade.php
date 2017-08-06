@@ -30,7 +30,7 @@
                     <input type="password" name="password" required>
                     <span class="highlight"></span>
                     <span class="bar"></span>
-                    <label><i class="fa fa-key"></i><span class="span-input"> Password</span></label>
+                    <label><i class="fa fa-key"></i><span class="span-input"> Password (At least 6 characters)</span></label>
                 </div>
 
                 <div class="group">

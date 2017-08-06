@@ -12,9 +12,12 @@
     <title>@yield('title') :: {{ config('app.slogan') }}</title>
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/animate.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/feed.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/composer.css') }}">
     <link rel="stylesheet" href="{{ voyager_asset('lib/css/toastr.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/dropzone.min.css') }}">
 
 @stack('styles')
 

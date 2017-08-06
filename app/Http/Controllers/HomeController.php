@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Auth;
+use Mail;
 use App\User;
 use Illuminate\Http\Request;
+use App\Mail\AccountRegistered;
 
 class HomeController extends Controller
 {
@@ -16,7 +18,7 @@ class HomeController extends Controller
     public function __construct()
     {
 //        $this->middleware('auth');
-        $this->middleware('confirmed', ['except' => ['showLocked', 'unlock']]);
+        $this->middleware('confirmed', ['except' => ['confirmUser', 'showLocked', 'unlock', 'resendCode']]);
     }
 
     /**
@@ -93,5 +95,19 @@ class HomeController extends Controller
         return redirect('locked')->withErrors(validator($request->all(), [
             'code' => 'required|digits:5|in:incorrect'
         ]));
+    }
+
+    /**
+     * @param Request $request
+     * @return array
+     */
+    public function resendCode(Request $request)
+    {
+        $request->user()->resetConfirmationCode();
+        Mail::to($request->user())->sendNow(new AccountRegistered($request->user()));
+
+        return [
+            'sent' => 1
+        ];
     }
 }

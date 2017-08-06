@@ -10,6 +10,7 @@
                 <div class="feed-layout__panel">
                     <div class="feed-layout__panel-content">
                         <img src="/images/p{{ $n = rand(1, 11) }}.{{ $n == 5 ? 'png' : 'jpg' }}" alt="Picture">
+                        <img src="/images/p{{ $n = rand(1, 11) }}.{{ $n == 5 ? 'png' : 'jpg' }}" alt="Picture">
                         <div class="feed-details">
                             <!-- Tags -->
                             <div class="feed-details__header">

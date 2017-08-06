@@ -1,0 +1,157 @@
+/* Feed */
+.feed-content {
+
+}
+.feed-content .feed-layout {
+    column-count: 4;
+    column-gap: 0;
+}
+.feed-content .feed-layout__panel {
+    break-inside: avoid;
+    padding: 5px;
+}
+.feed-content .feed-layout__panel-content {
+    border-radius: 8px;
+    background: #fff;
+    overflow: hidden;
+    box-shadow: 0 2.5px 15px rgba(0, 0, 0, .3);
+    transition: box-shadow .2s ease-out
+}
+.feed-content .feed-layout__panel-content:hover {
+    -webkit-box-shadow: 0 5px 15px rgba(251, 251, 251, 0.55);
+    -moz-box-shadow: 0 5px 15px rgba(251, 251, 251, 0.55);
+    box-shadow: 0 5px 15px rgba(251, 251, 251, 0.55);
+}
+.feed-content .feed-layout__panel-content img {
+    width: 100%;
+    display: block;
+    z-index: 95;
+}
+.feed-content .feed-layout__panel-content .feed-details {
+    padding: 10px;
+    position: relative;
+}
+/* Feed header (Tags) */
+.feed-content .feed-layout__panel-content .feed-details__header {
+    position: absolute;
+    left: 0;
+    top: -30px;
+    width: 100%;
+    height: 30px;
+    padding: 0 10px;
+    z-index: 97;
+}
+.feed-content .feed-layout__panel-content .feed-details__header:before {
+    content: '';
+    display: block;
+    position: absolute;
+    background: linear-gradient(to bottom, transparent 0%, rgba(255, 255, 255, .4) 35%, rgba(255, 255, 255, .65) 55%, #fff 100%);
+    left: 0;
+    top: -45px;
+    width: 100%;
+    height: 75px;
+    z-index: -1;
+}
+.feed-content .feed-layout__panel-content .feed-details__tags {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    line-height: 30px;
+    z-index: 99;
+    color: rgba(125, 125, 125, 0.55);
+    max-height: 30px;
+    overflow: hidden;
+    transition: color .35s ease-in-out
+}
+.feed-content .feed-layout__panel-content .feed-details__tags > li {
+    display: inline-block;
+    margin: 0 2px;
+}
+.feed-content .feed-details__tags .feed-tag {
+    font-weight: 600;
+    color: inherit;
+}
+.feed-content .feed-details__tags .feed-tag:before {
+    content: '#';
+    color: inherit;
+}
+/* Feed content */
+.feed-content .feed-details__content {
+    width: 100%;
+    min-height: 20px;
+}
+.feed-content .feed-details__content p {
+    word-break: break-all;
+    word-wrap: break-word;
+    hyphens: auto;
+}
+/* Feed footer */
+.feed-content .feed-details__footer {
+    display: flex;
+    max-height: 36px;
+    justify-content: center;
+    align-items: center;
+}
+.feed-content .feed-details__footer .feed-details__user {
+    flex: 5;
+    display: block;
+    text-decoration: none;
+    max-width: 55%;
+    position: relative;
+}
+.feed-content .feed-details__footer .feed-details__user .name {
+    display: inline-block;
+    font-weight: bold;
+    vertical-align: top;
+    max-width: 75%;
+}
+.feed-content .feed-details__footer .feed-details__user .name.verified:after {
+    content: '\f058';
+    font-family: "FontAwesome";
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    position: absolute;
+    left: 25px;
+    bottom: -5px;
+    color: #f12f2f
+}
+.feed-content .feed-details__footer .feed-details__user .name span {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: block;
+}
+.feed-content .feed-details__footer .avatar {
+    max-width: 30px;
+    max-height: 30px;
+    display: inline-block;
+}
+.feed-content .feed-details__footer .avatar img {
+    width: 100%;
+    height: 100%;
+}
+.feed-content .feed-details__footer .feed-details__actions {
+    flex: 4;
+    text-align: right;
+    padding-right: 3px;
+    line-height: 36px;
+}
+.feed-content .feed-details__footer .feed-details__actions > a {
+    display: inline-block;
+    font-size: 20px;
+    color: #888;
+    margin: 0 0 0 7px;
+    text-decoration: none;
+}
+.feed-content .feed-details__footer .feed-like__count {
+    font-size: 12px;
+    vertical-align: top;
+}
+/* Feed panel hover */
+.feed-layout__panel:hover .feed-details__header:before {
+    background: linear-gradient(to bottom, transparent 0%, #111 100%);
+}
+.feed-layout__panel:hover .feed-details__tags {
+    color: rgb(225, 225, 225);
+}

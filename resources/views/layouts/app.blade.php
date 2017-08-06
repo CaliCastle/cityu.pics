@@ -1,5 +1,8 @@
 @include('layouts.header')
 <body>
+    <!-- Add 'present' class -->
+    <div class="full-overlay "></div>
+
     <div id="app">
         <nav class="navbar navbar-default navbar-static-top">
             <div class="container">
@@ -53,16 +56,16 @@
                         @else
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                <img src="{{ Voyager::image(Auth::user()->avatar) }}" alt="Avatar" class="img-responsive img-circle nav-avatar">
-                                &nbsp;{{ Auth::user()->name }}
+                                <img src="{{ Voyager::image(($user = Auth::user())->avatar) }}" alt="Avatar" class="img-responsive img-circle nav-avatar">
+                                &nbsp;{{ $user->name }}&nbsp;<span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu">
                                 <li class="rank">
                                     <!-- TODO: change color -->
                                     <span class="rank-icon rank-label" data-rank="5"></span>
-                                    <span class="exp-label">Exp: 1,500</span>
+                                    <span class="exp-label">Exp: {{ $user->experience }}</span>
                                 </li>
-                                @if(Auth::user()->hasPermission('browse_admin'))
+                                @if($user->hasPermission('browse_admin'))
                                 <li>
                                     <a href="{{ route('voyager.dashboard') }}" class="menu-link" target="_blank">
                                         <i class="fa fa-cogs"></i>&nbsp;Admin
@@ -123,11 +126,37 @@
         </nav>
 
         @yield('content')
+
     </div>
+
+    @if(Auth::check())
+    <div class="composer "><!-- add 'open' -->
+        {{--<div class="composer-box animated fadeInDown">--}}
+        <div class="composer-box animated">
+            <div class="composer-user-section">
+                <img class="img-circle" src="{{ Voyager::image($user->avatar) }}" alt="{{ $user->name }}">
+                <b>{{ $user->name }}:</b>
+                <a href="#" class="close-button">
+                    <i class="fa fa-close"></i>
+                </a>
+            </div>
+            <div class="composer-images-section"></div>
+            <div class="composer-comment-section"></div>
+            <div class="composer-tags-section"></div>
+            <div class="composer-actions"></div>
+        </div>
+    </div>
+    @endif
+
+    <!-- Footer section -->
+    <footer>
+
+    </footer>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ voyager_asset('lib/js/toastr.min.js') }}"></script>
+    <script src="{{ asset('js/dropzone.min.js') }}"></script>
     <script>
         toastr.options = {
             'progressBar': true,

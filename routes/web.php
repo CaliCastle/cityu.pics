@@ -24,6 +24,7 @@ Route::get('/confirm/{token}/{email}', 'HomeController@confirmUser');
 // Locked
 Route::get('locked', 'HomeController@showLocked')->name('locked');
 Route::post('locked', 'HomeController@unlock');
+Route::put('locked', 'HomeController@resendCode');
 
 // Voyager routes
 Route::group(['prefix' => 'admin'], function () {
