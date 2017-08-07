@@ -4,12 +4,28 @@ namespace App\Http\Controllers;
 
 use Auth;
 use Mail;
+use Storage;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Mail\AccountRegistered;
 
 class HomeController extends Controller
 {
+    /**
+     * Storage root directory path for uploaded files.
+     *
+     * @var string
+     */
+    protected $uploadStorageRoot = 'public/users/';
+
+    /**
+     * Url for uploaded files.
+     *
+     * @var string
+     */
+    protected $storageUrl = 'users/';
+
     /**
      * Create a new controller instance.
      *
@@ -98,6 +114,8 @@ class HomeController extends Controller
     }
 
     /**
+     * Resend confirmation code.
+     *
      * @param Request $request
      * @return array
      */
@@ -108,6 +126,25 @@ class HomeController extends Controller
 
         return [
             'sent' => 1
+        ];
+    }
+
+    /**
+     * Handler for uploading images.
+     *
+     * @param Request $request
+     * @return array
+     */
+    public function uploadImages(Request $request)
+    {
+        if (!$request->file('file')->isValid())
+            return response('Error', 403);
+
+        $fileName = str_random(40) . '.' . $request->file('file')->extension();
+        $request->file('file')->storeAs($this->uploadStorageRoot . Carbon::now()->format('FY'), $fileName);
+
+        return [
+            'path' => Storage::url($this->storageUrl . Carbon::now()->format('FY') . '/' . $fileName)
         ];
     }
 }

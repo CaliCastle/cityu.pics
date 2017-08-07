@@ -29,7 +29,7 @@ class User extends Authenticatable
     ];
 
     /**
-     * Get the confirmation email link.
+     * Gets the confirmation email link.
      *
      * @return string
      */
@@ -39,7 +39,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Get confirmation token.
+     * Gets confirmation token.
      *
      * @return string
      */
@@ -49,7 +49,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Reset confirmation code/token.
+     * Resets confirmation code/token.
      *
      * @return bool
      */
@@ -62,7 +62,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Set confirmation.
+     * Sets confirmation.
      *
      * @return bool
      */
@@ -76,7 +76,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Check if user has confirmed.
+     * Checks if user has confirmed.
      *
      * @return bool
      */
@@ -97,5 +97,15 @@ class User extends Authenticatable
             return $this->confirmed();
 
         return false;
+    }
+
+    /**
+     * Gets user's posts collection.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
     }
 }

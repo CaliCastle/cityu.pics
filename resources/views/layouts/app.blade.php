@@ -1,7 +1,7 @@
 @include('layouts.header')
 <body>
     <!-- Add 'present' class -->
-    <div class="full-overlay "></div>
+    <div class="full-overlay present"></div>
 
     <div id="app">
         <nav class="navbar navbar-default navbar-static-top">
@@ -130,7 +130,7 @@
     </div>
 
     @if(Auth::check())
-    <div class="composer "><!-- add 'open' -->
+    <div class="composer open"><!-- add 'open' -->
         {{--<div class="composer-box animated fadeInDown">--}}
         <div class="composer-box animated">
             <div class="composer-user-section">
@@ -140,10 +140,30 @@
                     <i class="fa fa-close"></i>
                 </a>
             </div>
-            <div class="composer-images-section"></div>
-            <div class="composer-comment-section"></div>
-            <div class="composer-tags-section"></div>
-            <div class="composer-actions"></div>
+            <div class="composer-images-section">
+                <form class="dropzone" id="composer-dropzone" action="{{ route('upload') }}" method="POST" enctype="multipart/form-data">
+                    {{ csrf_field() }}
+                    <div class="dz-message">
+                        <i class="composer-images"></i>
+                        <span>Add images by dragging files here or selecting...</span>
+                        <br>
+                        <span>(Only allows 6 images maximum, each smaller than 2 MB)</span>
+                    </div>
+                    <div class="fallback">
+                        <input type="file" name="file" multiple>
+                    </div>
+                </form>
+            </div>
+            <div class="composer-comment-section">
+                <div class="composer-comment-area" id="composer-comment-area" contenteditable></div>
+            </div>
+            <div class="composer-tags-section">
+                {{--<input type="text">--}}
+            </div>
+            <div class="composer-actions">
+                <a class="composer-cancel" href="#">Cancel</a>
+                <a class="composer-post" href="#">Post</a>
+            </a>
         </div>
     </div>
     @endif
@@ -155,8 +175,64 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/emojionearea.min.js') }}"></script>
     <script src="{{ voyager_asset('lib/js/toastr.min.js') }}"></script>
+
+    @if(Auth::check())
     <script src="{{ asset('js/dropzone.min.js') }}"></script>
+    <script>
+        var uploadedImages = [];
+
+        Dropzone.options.composerDropzone = {
+            paramName: "file",
+            maxFilesize: 2,
+            thumbnailWidth: 130,
+            thumbnailHeight: 130,
+            acceptedFiles: 'image/*',
+            addRemoveLinks: true,
+            maxFiles: 6,
+            init: function () {
+                var $this = this;
+                $this.on("complete", function (file) {
+                    if (!file.accepted || file.status == "error") {
+                        setTimeout(function () {
+                            $this.removeFile(file);
+                        }, 3500);
+                        return;
+                    }
+
+                    var $url = JSON.parse(file.xhr.response).path;
+                    uploadedImages.push($url);
+                });
+
+                $this.on("removedfile", function (file) {
+                    if (!file.accepted || file.status == "error")
+                        return;
+
+                    var removedUrl = JSON.parse(file.xhr.response).path;
+                    uploadedImages = uploadedImages.filter(function (item) {
+                        return item != removedUrl;
+                    });
+                });
+            }
+        }
+
+        function doneCompose() {
+
+        }
+
+        $(document).ready(function () {
+            $('#composer-comment-area').emojioneArea({
+                pickerPosition: "top",
+                tonesStyle: "bullet",
+                inline: true,
+                placeholder: "✍ Add a comment...",
+                useSprite: true
+            });
+        });
+    </script>
+    @endif
+
     <script>
         toastr.options = {
             'progressBar': true,

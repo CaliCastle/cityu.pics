@@ -20,6 +20,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index');
 Route::get('/feed', 'HomeController@showFeed');
 Route::get('/confirm/{token}/{email}', 'HomeController@confirmUser');
+Route::post('/upload', 'HomeController@uploadImages')->name('upload');
 
 // Locked
 Route::get('locked', 'HomeController@showLocked')->name('locked');
