@@ -8,10 +8,26 @@
     justify-content: center;
     align-items: center;
     z-index: 99999;
+    opacity: 1;
 }
 
 .composer.open {
     display: flex !important;
+}
+
+.composer.posting {
+    opacity: .6;
+    pointer-events: none;
+}
+
+.composer.posting:before {
+    content: '\f1ce';
+    display: inline-block;
+    position: absolute;
+    z-index: 99999;
+    font-size: 80px;
+    font-family: "FontAwesome";
+    animation: fa-spin .85s infinite;
 }
 
 .composer-box {
@@ -114,12 +130,23 @@
     left: 10px !important;
     overflow: scroll !important;
     height: 70px !important;
+    line-height: 1.5 !important;
+    background: #fff !important;
+}
+
+.composer-tags-section {
+    position: relative;
+}
+
+.composer-tags-section #composer-tags-input {
+    border-top: 1px solid rgba(25, 25, 25, .15);
 }
 
 .composer-actions {
     display: flex;
     justify-content: space-around;
     align-items: center;
+    clear: both;
 }
 
 .composer-actions .composer-cancel {
@@ -132,6 +159,13 @@
     color: #fff;
     font-weight: 600;
     border-bottom-right-radius: 8px;
+    transition: opacity .37s ease-in;
+}
+
+.composer-actions .composer-post.disabled {
+    pointer-events: none;
+    opacity: .5;
+    cursor: not-allowed;
 }
 
 .composer-actions > a {
@@ -141,6 +175,14 @@
     padding: 10px 0;
     text-decoration: none;
     text-transform: uppercase;
+}
+
+.dropdown-menu.textcomplete-dropdown[data-strategy=emojionearea] {
+    z-index: 100000 !important;
+}
+
+.dropdown-menu.textcomplete-dropdown[data-strategy=emojionearea] li.textcomplete-item.active a, .dropdown-menu.textcomplete-dropdown[data-strategy=emojionearea] li.textcomplete-item:hover a {
+    color: #fff !important;
 }
 
 .dropzone.dz-drag-hover {

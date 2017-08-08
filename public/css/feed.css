@@ -1,6 +1,6 @@
 /* Feed */
 .feed-content {
-
+    margin-top: 75px;
 }
 .feed-content .feed-layout {
     column-count: 4;
@@ -22,10 +22,16 @@
     -moz-box-shadow: 0 5px 15px rgba(251, 251, 251, 0.55);
     box-shadow: 0 5px 15px rgba(251, 251, 251, 0.55);
 }
-.feed-content .feed-layout__panel-content img {
+.feed-content .feed-layout__panel-content img:not(.emojioneemoji) {
     width: 100%;
     display: block;
     z-index: 95;
+}
+.feed-content .feed-layout__panel-content .emojioneemoji {
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    margin: 0 1.5px;
 }
 .feed-content .feed-layout__panel-content .feed-details {
     padding: 10px;

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Auth;
 use Mail;
 use Storage;
+use App\Tag;
+use App\Post;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -137,6 +139,10 @@ class HomeController extends Controller
      */
     public function uploadImages(Request $request)
     {
+        $this->validate($request, [
+            'file' => 'image|max:2000'
+        ]);
+
         if (!$request->file('file')->isValid())
             return response('Error', 403);
 
@@ -145,6 +151,24 @@ class HomeController extends Controller
 
         return [
             'path' => Storage::url($this->storageUrl . Carbon::now()->format('FY') . '/' . $fileName)
+        ];
+    }
+
+    /**
+     * @param Request $request
+     * @return array
+     */
+    public function postNew(Request $request)
+    {
+        $post = Post::createFromComposer($request->all());
+
+        $request->user()->posts()->save($post);
+
+        // Generates associated tags.
+        Tag::generate($request->input('tags'), $post);
+
+        return [
+            'status' => 'success'
         ];
     }
 }

@@ -1,10 +1,10 @@
 @include('layouts.header')
 <body>
     <!-- Add 'present' class -->
-    <div class="full-overlay present"></div>
+    <div class="full-overlay"></div>
 
     <div id="app">
-        <nav class="navbar navbar-default navbar-static-top">
+        <nav class="navbar navbar-default navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
 
@@ -115,7 +115,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="#" id="compose-new" class="composer-new">
                                 <i class="fa fa-plus-circle"></i>
                             </a>
                         </li>
@@ -130,9 +130,9 @@
     </div>
 
     @if(Auth::check())
-    <div class="composer open"><!-- add 'open' -->
+    <div class="composer"><!-- add 'open' -->
         {{--<div class="composer-box animated fadeInDown">--}}
-        <div class="composer-box animated">
+        <div class="composer-box animated bounceIn">
             <div class="composer-user-section">
                 <img class="img-circle" src="{{ Voyager::image($user->avatar) }}" alt="{{ $user->name }}">
                 <b>{{ $user->name }}:</b>
@@ -155,14 +155,14 @@
                 </form>
             </div>
             <div class="composer-comment-section">
-                <div class="composer-comment-area" id="composer-comment-area" contenteditable></div>
+                <div class="composer-comment-area" id="composer-comment-area"></div>
             </div>
             <div class="composer-tags-section">
-                {{--<input type="text">--}}
+                <div id="composer-tags-input"></div>
             </div>
             <div class="composer-actions">
                 <a class="composer-cancel" href="#">Cancel</a>
-                <a class="composer-post" href="#">Post</a>
+                <a class="composer-post disabled" href="javascript:void(0)">Post</a>
             </a>
         </div>
     </div>
@@ -176,19 +176,22 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/emojionearea.min.js') }}"></script>
+    <script src="{{ asset('js/taggle.js') }}"></script>
     <script src="{{ voyager_asset('lib/js/toastr.min.js') }}"></script>
 
     @if(Auth::check())
     <script src="{{ asset('js/dropzone.min.js') }}"></script>
     <script>
         var uploadedImages = [];
+        var composedTags = [];
+        var caption = '';
 
         Dropzone.options.composerDropzone = {
             paramName: "file",
             maxFilesize: 2,
             thumbnailWidth: 130,
             thumbnailHeight: 130,
-            acceptedFiles: 'image/*',
+            acceptedFiles: 'image/*,video/*',
             addRemoveLinks: true,
             maxFiles: 6,
             init: function () {
@@ -203,6 +206,9 @@
 
                     var $url = JSON.parse(file.xhr.response).path;
                     uploadedImages.push($url);
+
+                    if ($('a.composer-post').hasClass('disabled'))
+                        toggleComposerPostButton();
                 });
 
                 $this.on("removedfile", function (file) {
@@ -213,21 +219,103 @@
                     uploadedImages = uploadedImages.filter(function (item) {
                         return item != removedUrl;
                     });
+
+                    if (uploadedImages.length == 0) {
+                        if (!$('a.composer-post').hasClass('disabled'))
+                            toggleComposerPostButton();
+                    }
                 });
             }
         }
 
-        function doneCompose() {
+        function toggleComposerPostButton() {
+            $('.composer a.composer-post').toggleClass('disabled');
+        }
 
+        function doneCompose() {
+            caption = $('.emojionearea-editor').html();
+
+            if (uploadedImages.length == 0)
+                return false;
+
+            $('.composer').addClass('posting');
+            $.post({
+                url: '{{ route('post-new', [], false) }}',
+                data: {
+                    _token: Laravel.csrfToken,
+                    media: uploadedImages,
+                    caption: caption,
+                    tags: composedTags
+                },
+                success: function (status) {
+                    if(status.status != 'success')
+                        return false;
+
+                    setTimeout(function () {
+                        window.location.reload();
+                    }, 500);
+                },
+                error: function () {
+                    toastr.error('Something went wrong, try again.')
+                },
+                complete: function () {
+                    $('.composer').removeClass('posting');
+                }
+            });
+        }
+
+        function toggleComposer() {
+            var $composer = $('body > .composer');
+
+            if ($($composer).hasClass('open')) {
+                $('body > .composer > .composer-box').toggleClass('bounceOut');
+                setTimeout(function () {
+                    $('body > .full-overlay').removeClass('present');
+                    $($composer).removeClass('open');
+                    $('body > .composer > .composer-box').toggleClass('bounceOut');
+                }, 750);
+            } else {
+                $('body > .full-overlay').addClass('present');
+                $($composer).addClass('open');
+            }
+        }
+
+        function clickToggleComposer(e) {
+            e.preventDefault();
+
+            toggleComposer();
+
+            return false;
         }
 
         $(document).ready(function () {
+            // Bind composer events.
+            $('#compose-new').on('click', clickToggleComposer);
+            $('.composer-actions .composer-cancel').on('click', clickToggleComposer);
+            $('.composer .close-button').on('click', clickToggleComposer);
+            $('.composer .composer-post').on('click', doneCompose);
+
+            // Set up Emoji One Caption.
             $('#composer-comment-area').emojioneArea({
                 pickerPosition: "top",
                 tonesStyle: "bullet",
                 inline: true,
-                placeholder: "✍ Add a comment...",
+                placeholder: "Add a comment ✍ ...",
                 useSprite: true
+            });
+
+            // Set up Taggle for hashtags.
+            new Taggle('composer-tags-input', {
+                duplicateTagClass: 'bounce',
+                placeholder: 'Enter #hashtags 🙌 without "#"',
+                onTagAdd: function (event, tag) {
+                    composedTags.push(tag);
+                },
+                onTagRemove: function (event, tag) {
+                    composedTags = composedTags.filter(function (item) {
+                        return item != tag;
+                    });
+                }
             });
         });
     </script>

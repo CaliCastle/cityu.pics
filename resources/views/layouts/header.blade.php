@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="{{ asset('css/composer.css') }}">
     <link rel="stylesheet" href="{{ voyager_asset('lib/css/toastr.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/dropzone.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/taggle.min.css') }}">
 
 @stack('styles')
 

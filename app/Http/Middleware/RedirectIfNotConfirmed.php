@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use Auth;
 use Closure;
 
 class RedirectIfNotConfirmed
@@ -15,6 +16,9 @@ class RedirectIfNotConfirmed
      */
     public function handle($request, Closure $next)
     {
+        if (Auth::guest())
+            return redirect('/login');
+
         if ($request->user()->hasConfirmed())
             return $next($request);
 

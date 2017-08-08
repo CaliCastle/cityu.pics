@@ -15,9 +15,12 @@
     height: 75px;
     display: flex;
     align-items: center;
-    box-shadow: 0 0 18px rgba(0, 0, 0, .2);
+    box-shadow: 0 0 12px rgba(0, 0, 0, .33);
     border-color: transparent;
     background-color: #0b3252;
+}
+#app > nav + div {
+    margin-top: 90px;
 }
 #app > nav .navbar-brand {
     color: #fff;

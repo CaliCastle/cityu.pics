@@ -1,0 +1,256 @@
+@-webkit-keyframes a {
+    0%, 20%, 50%, 80%, to {
+        -webkit-transform: translateY(0)
+    }
+    40% {
+        -webkit-transform: translateY(-16px)
+    }
+    60% {
+        -webkit-transform: translateY(-7px)
+    }
+}
+
+@keyframes a {
+    0%, 20%, 50%, 80%, to {
+        -webkit-transform: translateY(0);
+        transform: translateY(0)
+    }
+    40% {
+        -webkit-transform: translateY(-16px);
+        transform: translateY(-16px)
+    }
+    60% {
+        -webkit-transform: translateY(-7px);
+        transform: translateY(-7px)
+    }
+}
+
+.bounce {
+    -webkit-animation-name: a;
+    animation-name: a
+}
+
+.taggle_list {
+    float: left;
+    width: 100%;
+    margin: 0;
+    padding: 5px 20px;
+    line-height: 25px
+}
+
+.taggle_input {
+    border: none;
+    outline: none;
+    font-size: 15px;
+    font-weight: 300
+}
+
+.taggle_list li {
+    float: left;
+    display: inline-block;
+    white-space: nowrap;
+    font-weight: 500;
+    margin-bottom: 5px
+}
+
+.taggle_list .taggle:before {
+    content: '#';
+}
+
+.taggle_list .taggle {
+    margin-right: 8px;
+    color: #a7a5a5;
+    padding: 5px 2px;
+    background: transparent;
+    border-radius: 3px;
+    position: relative;
+    cursor: pointer;
+    transition: all .3s;
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both
+}
+
+.taggle_list .taggle_hot {
+    background: #cac8c4
+}
+
+.taggle_list .taggle .close {
+    font-size: 2rem;
+    position: absolute;
+    top: 8px;
+    right: 2px;
+    text-decoration: none;
+    padding-left: 2px;
+    padding-top: 3px;
+    line-height: .5;
+    color: #382929;
+    padding-bottom: 4px;
+    display: none;
+    border: 0;
+    background: none;
+    cursor: pointer
+}
+
+.taggle_list .taggle:hover {
+    padding: 5px;
+    padding-right: 15px;
+    background: #ccc;
+    transition: all .3s
+}
+
+.taggle_list .taggle:hover > .close {
+    display: block
+}
+
+.taggle_list .taggle .close:hover {
+    color: #903
+}
+
+.taggle_placeholder {
+    position: absolute;
+    color: #ccc;
+    top: 15px;
+    left: 20px;
+    transition: opacity, .25s;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none
+}
+
+.taggle_input {
+    padding: 8px;
+    padding-left: 0;
+    float: left;
+    margin-top: -5px;
+    background: none;
+    width: auto !important;
+    max-width: 100%
+}
+
+.taggle_sizer {
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    top: -500px;
+    z-index: -1;
+    visibility: hidden
+}
+
+.placeholder_input {
+    position: relative
+}
+
+.placeholder_input span {
+    position: absolute;
+    color: #aaa;
+    top: 50%;
+    margin-top: -11px;
+    left: 10px
+}
+
+.placeholder_input input {
+    width: 120px
+}
+
+.ui-autocomplete {
+    position: absolute;
+    top: 0;
+    left: 0
+}
+
+.ui-menu {
+    list-style: none;
+    padding: 2px;
+    margin: 0;
+    display: block;
+    outline: none
+}
+
+.ui-widget-content {
+    background: #fff;
+    color: #903
+}
+
+.ui-menu .ui-menu-item {
+    margin: 0;
+    padding: 0;
+    width: 100%
+}
+
+.ui-menu .ui-menu-item a {
+    text-decoration: none;
+    display: block;
+    padding: 2px .4em;
+    line-height: 1.5;
+    min-height: 0;
+    font-weight: 400;
+    color: #8a8a8a;
+    cursor: pointer
+}
+
+.ui-menu .ui-menu-item a:hover {
+    color: #fff;
+    background: #903
+}
+
+.ui-state-focus, .ui-state-hover, .ui-widget-content .ui-state-focus, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-focus, .ui-widget-header .ui-state-hover {
+    background: #903;
+    color: #fff !important
+}
+
+.ui-state-hover a, .ui-state-hover a:hover, .ui-state-hover a:link, .ui-state-hover a:visited {
+    color: #fff
+}
+
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active {
+    border: 1px solid #aaa;
+    background: #fff;
+    font-weight: 400;
+    color: #212121
+}
+
+.ui-helper-hidden {
+    display: none
+}
+
+.ui-helper-hidden-accessible {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px
+}
+
+.autocomplete {
+    max-height: 200px;
+    overflow: scroll;
+    position: absolute;
+    top: 66px;
+    background: #fff;
+    width: 99.5%;
+    left: .25%;
+    z-index: 1
+}
+
+.autocomplete ul li {
+    display: block;
+    padding: 6px 8px
+}
+
+.autocomplete ul li.selected, .autocomplete ul li:hover {
+    background: #f63;
+    color: #fff;
+    cursor: pointer
+}
+
+.ui-autocomplete {
+    max-height: 200px;
+    overflow: scroll;
+    width: 99% !important
+}

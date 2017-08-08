@@ -12,7 +12,8 @@
 */
 
 Route::get('/', function () {
-    return view('feed');
+    return redirect('feed');
+//    return view('welcome');
 });
 
 Auth::routes();
@@ -21,6 +22,7 @@ Route::get('/home', 'HomeController@index');
 Route::get('/feed', 'HomeController@showFeed');
 Route::get('/confirm/{token}/{email}', 'HomeController@confirmUser');
 Route::post('/upload', 'HomeController@uploadImages')->name('upload');
+Route::post('/post', 'HomeController@postNew')->name('post-new');
 
 // Locked
 Route::get('locked', 'HomeController@showLocked')->name('locked');
