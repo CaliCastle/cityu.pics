@@ -12,11 +12,11 @@
     <title>@yield('title') :: {{ config('app.slogan') }}</title>
 
     <!-- Styles -->
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}?ver={{ config('app.version') }}">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}?v={{ config('app.version') }}">
     <link rel="stylesheet" href="{{ asset('css/animate.css') }}">
     <link rel="stylesheet" href="{{ asset('css/emojionearea.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/feed.css') }}?ver={{ config('app.version') }}">
-    <link rel="stylesheet" href="{{ asset('css/composer.css') }}?ver={{ config('app.version') }}">
+    <link rel="stylesheet" href="{{ asset('css/feed.css') }}?v={{ config('app.version') }}">
+    <link rel="stylesheet" href="{{ asset('css/composer.css') }}?v={{ config('app.version') }}">
     <link rel="stylesheet" href="{{ voyager_asset('lib/css/toastr.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/dropzone.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/taggle.min.css') }}">
