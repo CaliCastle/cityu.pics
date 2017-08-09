@@ -14,6 +14,8 @@ return [
 
     'name' => 'CityU Pics',
 
+    'version' => env('APP_VER', '1.0'),
+
     'slogan' => 'CityU Photo Sharing Platform',
 
     /*

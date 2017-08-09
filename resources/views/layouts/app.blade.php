@@ -174,7 +174,7 @@
     </footer>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/app.js') }}?ver={{ config('app.version') }}"></script>
     <script src="{{ asset('js/emojionearea.min.js') }}"></script>
     <script src="{{ asset('js/taggle.js') }}"></script>
     <script src="{{ voyager_asset('lib/js/toastr.min.js') }}"></script>
