@@ -41,7 +41,7 @@
                                     </div>
                                 </a>
                                 <div class="feed-details__actions">
-                                    <button class="feed-action__like{{ ($liked = $user->likedPost($post)) ? ' liked' : '' }}">
+                                    <button class="feed-action__like{{ ($liked = Auth::user()->likedPost($post)) ? ' liked' : '' }}">
                                         <span class="feed-like__count">{{ $post->likes }}</span>
                                         @if($liked)
                                         <span class="fa fa-heart"></span>
