@@ -147,7 +147,7 @@
                         <i class="composer-images"></i>
                         <span>Add images by dragging files here or selecting...</span>
                         <br>
-                        <span>(Only allows 6 images maximum, each smaller than 2 MB)</span>
+                        <span>(Only allows 6 images maximum, each smaller than 5 MB)</span>
                     </div>
                     <div class="fallback">
                         <input type="file" name="file" multiple>
@@ -191,7 +191,7 @@
 
         Dropzone.options.composerDropzone = {
             paramName: "file",
-            maxFilesize: 4,
+            maxFilesize: 5,
             thumbnailWidth: 130,
             thumbnailHeight: 130,
             acceptedFiles: 'image/*,video/*',
