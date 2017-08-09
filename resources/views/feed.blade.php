@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Feed')
+@section('title', trans('messages.titles.feed'))
 
 @section('content')
     <div class="feed-content">
@@ -312,10 +312,10 @@
                 method: 'PUT',
                 success: function (status) {
                     if (status.status != 'success')
-                        toastr.error('Something went wrong, try again.');
+                        displayErrorMessage();
                 },
                 error: function () {
-                    toastr.error('Something went wrong, try again.');
+                    displayErrorMessage();
                 }
             });
         }

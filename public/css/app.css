@@ -91,6 +91,14 @@
     z-index: 10000;
     border: 10px solid transparent;
 }
+.locale-img {
+    width: 30px;
+    height: 30px;
+}
+.locale-selector {
+    margin-left: -5px;
+    margin-right: 5px;
+}
 .rank-icon {
     position: relative;
     min-width: 40px;
@@ -179,6 +187,10 @@
 }
 .checkin.completed > .checkin-button {
     display: none;
+}
+
+.navbar .composer-new {
+    animation: wobble 1.4s 1s 15;
 }
 
 body.auth {

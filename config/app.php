@@ -16,8 +16,6 @@ return [
 
     'version' => env('APP_VER', '1.0'),
 
-    'slogan' => 'CityU Photo Sharing Platform',
-
     /*
     |--------------------------------------------------------------------------
     | Application Environment

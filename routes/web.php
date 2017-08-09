@@ -23,7 +23,7 @@ Route::get('/feed', 'HomeController@showFeed');
 Route::get('/confirm/{token}/{email}', 'HomeController@confirmUser');
 Route::post('/upload', 'HomeController@uploadImages')->name('upload');
 
-Route::get('language/{language}', 'GeneralController@switchLanguage');
+Route::get('language/{language}', 'GeneralController@switchLanguage')->name('language');
 
 // Post related
 Route::post('/post', 'HomeController@postNew')->name('post-new');

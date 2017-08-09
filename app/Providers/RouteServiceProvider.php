@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
@@ -65,6 +66,7 @@ class RouteServiceProvider extends ServiceProvider
             case "en":
             case "zh":
                 app()->setLocale($locale);
+                Carbon::setLocale($locale);
                 return;
             default:
                 return;

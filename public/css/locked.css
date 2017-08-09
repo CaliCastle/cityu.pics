@@ -48,6 +48,7 @@ body {
     font-size: 22px;
     font-weight: 400;
     color: #aaa;
+    line-height: 20px;
 }
 
 .enter-box {
@@ -117,7 +118,26 @@ body {
         width: 85%;
     }
 
+    .enter-box {
+        margin: 40px 0;
+    }
+
     .enter-box .number-box {
-        margin: 0 8px;
+        margin: 0 3px;
+        font-size: 65px;
+        height: 85px;
+    }
+
+    .logo img {
+        width: 50px;
+        height: 50px;
+    }
+
+    .callout {
+        font-size: 42px;
+    }
+
+    .description {
+        font-size: 17px;
     }
 }

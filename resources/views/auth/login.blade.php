@@ -1,13 +1,13 @@
 @extends('layouts.auth')
 
-@section('title', 'Login')
+@section('title', trans('auth.login'))
 
 @section('sidebar')
     <div class="col-xs-12 col-sm-4 col-md-3 login-sidebar animated fadeInRightBig">
 
         <div class="login-container animated fadeInRightBig">
 
-            <h2><i class="fa fa-vcard-o"></i> Sign In Below:</h2>
+            <h2><i class="fa fa-vcard-o"></i> @lang('messages.auth.login.heading'):</h2>
 
             <form action="{{ route('login') }}" method="POST">
                 {{ csrf_field() }}
@@ -16,24 +16,24 @@
                     <input type="email" name="email" value="{{ old('email') }}" required>
                     <span class="highlight"></span>
                     <span class="bar"></span>
-                    <label><i class="fa fa-user-circle"></i><span class="span-input"> E-mail (CityU Only)</span></label>
+                    <label><i class="fa fa-user-circle"></i><span class="span-input"> @lang('messages.auth.login.email')</span></label>
                 </div>
 
                 <div class="group">
                     <input type="password" name="password" required>
                     <span class="highlight"></span>
                     <span class="bar"></span>
-                    <label><i class="fa fa-key"></i><span class="span-input"> Password</span></label>
+                    <label><i class="fa fa-key"></i><span class="span-input"> @lang('auth.input.password')</span></label>
                 </div>
 
                 <button type="submit" class="btn btn-block login-button">
-                    <span class="signingin hidden"><span class="fa fa-spinner fa-spin fa-fw"></span> Loggin in...</span>
-                    <span class="signin">Login</span>
+                    <span class="signingin hidden"><span class="fa fa-spinner fa-spin fa-fw"></span> @lang('messages.auth.login.logging')...</span>
+                    <span class="signin">@lang('auth.login')</span>
                 </button>
 
                 @if(Route::has('register'))
                     <a class="other-link" href="{{ route('register') }}">
-                        First time here? Register
+                        @lang('messages.auth.login.first-time')
                     </a>
                 @endif
             </form>

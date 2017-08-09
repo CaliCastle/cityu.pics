@@ -10,7 +10,7 @@
 
                     <!-- Collapsed Hamburger -->
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
-                        <span class="sr-only">Toggle Navigation</span>
+                        <span class="sr-only">@lang('messages.navbar.sr-only')</span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
@@ -48,10 +48,10 @@
                         <!-- Authentication Links -->
                         @if (Auth::guest())
                             <li>
-                                <a href="{{ route('login') }}">Login</a>
+                                <a href="{{ route('login') }}">@lang('auth.login')</a>
                             </li>
                             <li>
-                                <a href="{{ route('register') }}">Register</a>
+                                <a href="{{ route('register') }}">@lang('auth.register')</a>
                             </li>
                         @else
                         <li class="dropdown">
@@ -68,18 +68,18 @@
                                 @if($user->hasPermission('browse_admin'))
                                 <li>
                                     <a href="{{ route('voyager.dashboard') }}" class="menu-link" target="_blank">
-                                        <i class="fa fa-cogs"></i>&nbsp;Admin
+                                        <i class="fa fa-cogs"></i>&nbsp;@lang('messages.navbar.user-menu.admin')
                                     </a>
                                 </li>
                                 @endif
                                 <li>
                                     <a href="#" class="menu-link">
-                                        <i class="fa fa-user-circle-o"></i>&nbsp;Profile
+                                        <i class="fa fa-user-circle-o"></i>&nbsp;@lang('messages.navbar.user-menu.profile')
                                     </a>
                                 </li>
                                 <li>
                                     <a href="#" class="menu-link">
-                                        <i class="fa fa-check-circle-o"></i>&nbsp;Achievements
+                                        <i class="fa fa-check-circle-o"></i>&nbsp;@lang('messages.navbar.user-menu.achievements')
                                     </a>
                                 </li>
                                 <li class="divider" role="separator"></li>
@@ -90,7 +90,7 @@
                                         <span class="date">{{ \Carbon\Carbon::today()->day }}</span>
                                     </div>
                                     <div class="checkin-button">
-                                        <button>Check in</button>
+                                        <button>@lang('messages.navbar.user-menu.checkin')</button>
                                     </div>
                                 </li>
                                 <li class="divider" role="separator"></li>
@@ -98,12 +98,31 @@
                                     <form action="{{ route('logout') }}" method="POST">
                                         {{ csrf_field() }}
                                         <button type="submit" class="menu-link">
-                                            <i class="fa fa-sign-out"></i>&nbsp;Sign out
+                                            <i class="fa fa-sign-out"></i>&nbsp;@lang('messages.navbar.user-menu.signout')
                                         </button>
                                     </form>
                                 </li>
                             </ul>
                         </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                    <img src="{{ asset('images/locale-' . app()->getLocale())  }}.png" alt="" class="locale-img">
+                                    &nbsp;
+                                @lang('languages.' . app()->getLocale())
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                @foreach(trans('languages') as $lang => $string)
+                                    @if($lang != app()->getLocale())
+                                    <li>
+                                        <a href="{{ route('language', ['language' => $lang]) }}" class="menu-link">
+                                            <img src="{{ asset('images/locale-' . $lang) }}.png" alt="" class="locale-img locale-selector">
+                                            <span>@lang('languages.' . $lang)</span>
+                                        </a>
+                                    </li>
+                                    @endif
+                                @endforeach
+                            </ul>
                         <li>
                             <a href="#" class="notif-button">
                                 <i class="fa fa-bell-o"></i>
@@ -115,7 +134,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#" id="compose-new" class="composer-new">
+                            <a href="#" id="compose-new" class="composer-new" title="@lang('messages.navbar.compose-new')" style="color: #f3e25c !important">
                                 <i class="fa fa-plus-circle"></i>
                             </a>
                         </li>
@@ -145,9 +164,9 @@
                     {{ csrf_field() }}
                     <div class="dz-message">
                         <i class="composer-images"></i>
-                        <span>Add images by dragging files here or selecting...</span>
+                        <span>@lang('messages.composer.description-title')...</span>
                         <br>
-                        <span>(Only allows 6 images maximum, each smaller than 5 MB)</span>
+                        <span>@lang('messages.composer.description-tips', ['size' => 5, 'count' => 6])</span>
                     </div>
                     <div class="fallback">
                         <input type="file" name="file" multiple>
@@ -161,8 +180,8 @@
                 <div id="composer-tags-input"></div>
             </div>
             <div class="composer-actions">
-                <a class="composer-cancel" href="#">Cancel</a>
-                <a class="composer-post disabled" href="javascript:void(0)">Post</a>
+                <a class="composer-cancel" href="#">@lang('messages.composer.cancel')</a>
+                <a class="composer-post disabled" href="javascript:void(0)">@lang('messages.composer.post')</a>
             </a>
         </div>
     </div>
@@ -179,6 +198,11 @@
     <script src="{{ asset('js/emojionearea.min.js') }}"></script>
     <script src="{{ asset('js/taggle.js') }}"></script>
     <script src="{{ voyager_asset('lib/js/toastr.min.js') }}"></script>
+    <script>
+        function displayErrorMessage() {
+            toastr.error('Something went wrong, try again.');
+        }
+    </script>
 
     @stack('scripts')
 
@@ -197,6 +221,11 @@
             acceptedFiles: 'image/*,video/*',
             addRemoveLinks: true,
             maxFiles: 6,
+            dictFileTooBig: "@lang('messages.composer.dropzone.too-big')",
+            dictInvalidFileType: "@lang('messages.composer.dropzone.invalid')",
+            dictCancelUpload: "@lang('messages.composer.dropzone.cancel')",
+            dictRemoveFile: "@lang('messages.composer.dropzone.remove')",
+            dictMaxFilesExceeded: "@lang('messages.composer.dropzone.max')",
             init: function () {
                 var $this = this;
                 $this.on("complete", function (file) {
@@ -256,10 +285,10 @@
 
                     setTimeout(function () {
                         window.location.reload();
-                    }, 500);
+                    }, 100);
                 },
                 error: function () {
-                    toastr.error('Something went wrong, try again.')
+                    displayErrorMessage();
                 },
                 complete: function () {
                     $('.composer').removeClass('posting');
@@ -303,14 +332,14 @@
                 pickerPosition: "top",
                 tonesStyle: "bullet",
                 inline: true,
-                placeholder: "Add a comment ✍ ...",
+                placeholder: "@lang('messages.composer.caption-placeholder') ✍ ...",
                 useSprite: true
             });
 
             // Set up Taggle for hashtags.
             new Taggle('composer-tags-input', {
                 duplicateTagClass: 'bounce',
-                placeholder: 'Enter #hashtags 🙌 without "#"',
+                placeholder: '🙌 @lang('messages.composer.hashtag-placeholder')',
                 onTagAdd: function (event, tag) {
                     composedTags.push(tag);
                 },

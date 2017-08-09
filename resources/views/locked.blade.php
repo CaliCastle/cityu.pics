@@ -8,7 +8,7 @@
     <meta name="robots" content="none">
     <meta name="csrf_token" content="{{ csrf_token() }}">
 
-    <title>Confirm Your Email</title>
+    <title>@lang('messages.titles.confirm') - @lang('messages.app.slogan')</title>
     <link rel="stylesheet" href="{{ asset('css/normalize.css') }}">
     <link rel="stylesheet" href="{{ asset('css/locked.css') }}">
     <link rel="stylesheet" href="{{ asset('css/animate.css') }}">
@@ -40,19 +40,19 @@
             <div class="logo center">
                 <img src="/logo-light.png" alt="Logo">
             </div>
-            <h1 class="callout center">Enter Code:</h1>
-            <h4 class="description center">Enter the 5-digit code from the confirmation email we sent to you.<br />Or you can click on the confirmation link to skip this process.</h4>
+            <h1 class="callout center">@lang('messages.auth.confirm.callout'):</h1>
+            <h4 class="description center">@lang('messages.auth.confirm.description')</h4>
             <div class="enter-box">
                 @for($i = 1; $i < 6; $i++)
-                <div class="number-box animated fadeInUp" contenteditable style="animation-delay: .{{ ($i * 12) + 5 }}s"></div>
+                <div class="number-box animated fadeInUp" contenteditable type="number" pattern="[0-9]*" style="animation-delay: .{{ ($i * 12) + 5 }}s"></div>
                 @endfor
             </div>
             <div class="error center @if($errors->isEmpty())hidden @endif animated bounceIn">
-                <h3>Wrong code!</h3>
+                <h3>@lang('messages.auth.confirm.wrong')!</h3>
             </div>
             <div class="resend center">
-                <button class="resend-button animated fadeIn">Resend the code</button>
-                <span class="animated fadeInLeft hidden">Code sent!</span>
+                <button class="resend-button animated fadeIn">@lang('messages.auth.confirm.resend')</button>
+                <span class="animated fadeInLeft hidden">@lang('messages.auth.confirm.sent')!</span>
             </div>
         </div>
     </div>
