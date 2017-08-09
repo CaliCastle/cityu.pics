@@ -19,28 +19,28 @@ class HomeController extends Controller
      *
      * @var string
      */
-    protected $uploadStorageRoot = 'public/users/';
+    protected $postUploadStorageRoot = 'public/posts/';
 
     /**
      * Url for uploaded files.
      *
      * @var string
      */
-    protected $storageUrl = 'users/';
+    protected $storageUrl = 'posts/';
 
     /**
-     * Create a new controller instance.
+     * Creates a new controller instance.
      *
      * @return void
      */
     public function __construct()
     {
 //        $this->middleware('auth');
-        $this->middleware('confirmed', ['except' => ['confirmUser', 'showLocked', 'unlock', 'resendCode']]);
+        $this->middleware('confirmed', ['except' => ['confirmUser', 'showLocked', 'unlock', 'resendCode', 'confirmUser']]);
     }
 
     /**
-     * Show the application dashboard.
+     * Shows the application dashboard.
      *
      * @return \Illuminate\Http\Response
      */
@@ -60,7 +60,7 @@ class HomeController extends Controller
     }
 
     /**
-     * Confirm the user from email link.
+     * Confirms the user from email link.
      *
      * @param $token
      * @param $email
@@ -84,7 +84,7 @@ class HomeController extends Controller
     }
 
     /**
-     * Show locked page.
+     * Shows locked page.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
      */
@@ -97,7 +97,7 @@ class HomeController extends Controller
     }
 
     /**
-     * Unlock a user.
+     * Unlocks a user.
      *
      * @param Request $request
      * @return $this|\Illuminate\Http\RedirectResponse
@@ -116,7 +116,7 @@ class HomeController extends Controller
     }
 
     /**
-     * Resend confirmation code.
+     * Resends confirmation code.
      *
      * @param Request $request
      * @return array
@@ -140,14 +140,14 @@ class HomeController extends Controller
     public function uploadImages(Request $request)
     {
         $this->validate($request, [
-            'file' => 'image|max:2000'
+            'file' => 'image|max:5000'
         ]);
 
         if (!$request->file('file')->isValid())
             return response('Error', 403);
 
         $fileName = str_random(40) . '.' . $request->file('file')->extension();
-        $request->file('file')->storeAs($this->uploadStorageRoot . Carbon::now()->format('FY'), $fileName);
+        $request->file('file')->storeAs($this->postUploadStorageRoot . Carbon::now()->format('FY'), $fileName);
 
         return [
             'path' => Storage::url($this->storageUrl . Carbon::now()->format('FY') . '/' . $fileName)
@@ -155,6 +155,8 @@ class HomeController extends Controller
     }
 
     /**
+     * Posts a new post.
+     *
      * @param Request $request
      * @return array
      */
@@ -165,7 +167,24 @@ class HomeController extends Controller
         $request->user()->posts()->save($post);
 
         // Generates associated tags.
-        Tag::generate($request->input('tags'), $post);
+        if ($request->has('tags') && $request->input('tags') != '')
+            Tag::generate($request->input('tags'), $post);
+
+        return [
+            'status' => 'success'
+        ];
+    }
+
+    /**
+     * Likes a post.
+     *
+     * @param Post $post
+     * @param Request $request
+     * @return array
+     */
+    public function likePost(Post $post, Request $request)
+    {
+        $request->user()->likePost($post);
 
         return [
             'status' => 'success'

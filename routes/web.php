@@ -22,7 +22,10 @@ Route::get('/home', 'HomeController@index');
 Route::get('/feed', 'HomeController@showFeed');
 Route::get('/confirm/{token}/{email}', 'HomeController@confirmUser');
 Route::post('/upload', 'HomeController@uploadImages')->name('upload');
+
+// Post related
 Route::post('/post', 'HomeController@postNew')->name('post-new');
+Route::put('like-post/{post}', 'HomeController@likePost')->name('like-post');
 
 // Locked
 Route::get('locked', 'HomeController@showLocked')->name('locked');

@@ -31,6 +31,16 @@ class Post extends Model
     }
 
     /**
+     * Its likes.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function likes()
+    {
+        return $this->belongsToMany(User::class, 'likes');
+    }
+
+    /**
      * Create a post instance from front-end ajax composer request.
      * 
      * @param array $data
@@ -52,5 +62,35 @@ class Post extends Model
     public function allMedia()
     {
         return explode(',', $this->media);
+    }
+
+    /**
+     * Checks if post has tags.
+     *
+     * @return bool
+     */
+    public function hasTags()
+    {
+        return $this->tags()->count() != 0;
+    }
+
+    /**
+     * Gets likes attribute.
+     *
+     * @return mixed
+     */
+    public function getLikesAttribute()
+    {
+        $likes = $this->likes()->count();
+
+        if ($likes >= pow(1000, 1) && $likes < pow(1000, 2)) {
+            $result = round($likes / pow(1000, 2), 2) . 'k';
+        } elseif ($likes >= pow(1000, 2)) {
+            $result = round($likes / pow(1000, 2), 2) . 'm';
+        } else {
+            $result = $likes;
+        }
+
+        return $result;
     }
 }

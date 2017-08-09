@@ -154,6 +154,35 @@
     font-size: 12px;
     vertical-align: top;
 }
+.feed-content .feed-details__footer .feed-action__like {
+    border: none;
+    background: transparent;
+    display: inline-block;
+    font-size: 20px;
+    color: #888;
+    margin: 0;
+    text-decoration: none;
+    padding: 0;
+    overflow: visible;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    position: relative;
+    outline: none;
+}
+.feed-content .feed-details__footer .feed-action__like:before,
+.feed-content .feed-details__footer .feed-action__like:after {
+    outline: none;
+}
+.feed-content .feed-details__footer .feed-action__like .fa {
+    padding-left: 1px
+}
+.feed-content .feed-details__footer .feed-action__like svg {
+    left: 0;
+}
+.feed-details__date {
+    text-align: right;
+    font-size: .85em;
+    color: #a2a1a1;
+}
 /* Feed panel hover */
 .feed-layout__panel:hover .feed-details__header:before {
     background: linear-gradient(to bottom, transparent 0%, #111 100%);

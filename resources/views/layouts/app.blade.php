@@ -179,6 +179,8 @@
     <script src="{{ asset('js/taggle.js') }}"></script>
     <script src="{{ voyager_asset('lib/js/toastr.min.js') }}"></script>
 
+    @stack('scripts')
+
     @if(Auth::check())
     <script src="{{ asset('js/dropzone.min.js') }}"></script>
     <script>
@@ -188,7 +190,7 @@
 
         Dropzone.options.composerDropzone = {
             paramName: "file",
-            maxFilesize: 2,
+            maxFilesize: 4,
             thumbnailWidth: 130,
             thumbnailHeight: 130,
             acceptedFiles: 'image/*,video/*',

@@ -108,4 +108,25 @@ class User extends Authenticatable
     {
         return $this->hasMany(Post::class);
     }
+
+    /**
+     * Like/unlike the given post.
+     *
+     * @param Post $post
+     */
+    public function likePost(Post $post)
+    {
+        $post->likes()->toggle($this->id);
+    }
+
+    /**
+     * Checks if liked the post.
+     *
+     * @param Post $post
+     * @return bool
+     */
+    public function likedPost(Post $post)
+    {
+        return !! $post->likes()->wherePivot('user_id', '=', $this->id)->first();
+    }
 }
