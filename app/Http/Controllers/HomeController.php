@@ -68,7 +68,7 @@ class HomeController extends Controller
      */
     public function confirmUser($token, $email)
     {
-        $user = User::where('remember_token', $token)->first();
+        $user = User::where('confirm_token', $token)->first();
 
         if ($user && !$user->hasConfirmed() && $user->email == $email) {
             $user->confirmed();

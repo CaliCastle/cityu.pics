@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
@@ -23,9 +24,8 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
-
         parent::boot();
+        $this->adjustLocale();
     }
 
     /**
@@ -40,6 +40,35 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapWebRoutes();
 
         //
+    }
+
+    /**
+     * Adjusts the locale with different browser languages
+     */
+    protected function adjustLocale()
+    {
+        if (request()->hasCookie('lang')) {
+            $this->setLocale(Crypt::decrypt(request()->cookie('lang')));
+        } else {
+            request()->header('accept-language') ? $this->setLocale(substr(request()->header('accept-language'), 0, 2)) : null;
+        }
+    }
+
+    /**
+     * Switch locale
+     *
+     * @param $locale
+     */
+    private function setLocale($locale)
+    {
+        switch ($locale) {
+            case "en":
+            case "zh":
+                app()->setLocale($locale);
+                return;
+            default:
+                return;
+        }
     }
 
     /**
