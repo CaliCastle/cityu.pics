@@ -35,8 +35,8 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-//        $this->middleware('auth');
-        $this->middleware('confirmed', ['except' => ['confirmUser', 'showLocked', 'unlock', 'resendCode', 'confirmUser']]);
+        $this->middleware('auth', ['except' => 'confirmUser']);
+        $this->middleware('confirmed', ['except' => ['confirmUser', 'showLocked', 'unlock', 'resendCode']]);
     }
 
     /**
@@ -77,7 +77,7 @@ class HomeController extends Controller
             ]);
         } else {
             return redirect('feed')->with('status', [
-                'type'    => 'error',
+                'type' => 'error',
                 'message' => 'The account cannot be confirmed.'
             ]);
         }
@@ -105,6 +105,7 @@ class HomeController extends Controller
     public function unlock(Request $request)
     {
         $code = $request->input('code');
+
         if ($request->user()->validateConfirmation($code))
             return redirect('feed')->with('status', [
                 'message' => 'Your account has been confirmed!'
@@ -189,5 +190,15 @@ class HomeController extends Controller
         return [
             'status' => 'success'
         ];
+    }
+
+    public function commentPost(Post $post, Request $request)
+    {
+
+    }
+
+    public function deletePost(Post $post, Request $request)
+    {
+
     }
 }

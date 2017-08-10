@@ -31,12 +31,11 @@
                             </div>
                             <!-- Avatar and actions -->
                             <div class="feed-details__footer">
-                                <a href="#" class="feed-details__user">
+                                <a href="{{ ($user = $post->user)->profileLink() }}" class="feed-details__user">
                                     <div class="avatar">
-                                        <img src="{{ Voyager::image(($user = $post->user)->avatar) }}" alt="{{ $user->name }}" class="img-circle">
+                                        <img src="{{ Voyager::image($user->avatar) }}" alt="{{ $user->name }}" class="img-circle">
                                     </div>
-                                    <div class="name">
-                                    {{--<div class="name verified">--}}
+                                    <div class="name{{ $user->isAdmin() ? ' admin' : ($user->isVerified() ? ' verified' : '') }}">
                                         <span>{{ $user->name }}</span>
                                     </div>
                                 </a>

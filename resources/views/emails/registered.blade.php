@@ -1,13 +1,13 @@
 <!doctype html>
-<html lang="en">
+<html lang="{{ app()->getLocale() }}">
 <head>
     <meta charset="UTF-8">
-    <title>Confirm Code: {{ $user->getConfirmationCode() }} - Account Registered</title>
+    <title>@lang('messages.email.confirm.title', ['code' => $code = $user->getConfirmationCode()])</title>
 </head>
 <body>
 <h2>Hi, {{ $user->name }}</h2>
-<p>Thanks for registering at our website, <a href="{{ $user->getConfirmationLink() }}">click to confirm your account</a> or enter the confirmation code {{ $user->getConfirmationCode() }}</p>
-<p>If you didn't register an account at our website, then ignore this e-mail.</p>
+<p>@lang('messages.email.confirm.message', ['url' => $user->getConfirmationLink(), 'code' => $code])</p>
+<p>@lang('messages.email.confirm.ignore')</p>
 <footer>
     <b>Thanks, CityU Pics</b><br>
     <a href="{{ url('/') }}">{{ url('/') }}</a>

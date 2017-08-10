@@ -73,12 +73,12 @@
                                 </li>
                                 @endif
                                 <li>
-                                    <a href="#" class="menu-link">
+                                    <a href="{{ Auth::user()->profileLink() }}" class="menu-link">
                                         <i class="fa fa-user-circle-o"></i>&nbsp;@lang('messages.navbar.user-menu.profile')
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#" class="menu-link">
+                                    <a href="#" class="menu-link disabled">
                                         <i class="fa fa-check-circle-o"></i>&nbsp;@lang('messages.navbar.user-menu.achievements')
                                     </a>
                                 </li>
@@ -182,9 +182,8 @@
             <div class="composer-actions">
                 <a class="composer-cancel" href="#">@lang('messages.composer.cancel')</a>
                 <a class="composer-post disabled" href="javascript:void(0)">@lang('messages.composer.post')</a>
-            </a>
+            </div>
         </div>
-    </div>
     </div>
     @endif
 

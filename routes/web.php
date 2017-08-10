@@ -18,21 +18,27 @@ Route::get('/', function () {
 
 Auth::routes();
 
+// Pages
 Route::get('/home', 'HomeController@index');
 Route::get('/feed', 'HomeController@showFeed');
+
+// Confirm
 Route::get('/confirm/{token}/{email}', 'HomeController@confirmUser');
-Route::post('/upload', 'HomeController@uploadImages')->name('upload');
 
 Route::get('language/{language}', 'GeneralController@switchLanguage')->name('language');
 
 // Post related
 Route::post('/post', 'HomeController@postNew')->name('post-new');
+Route::post('/upload', 'HomeController@uploadImages')->name('upload');
 Route::put('like-post/{post}', 'HomeController@likePost')->name('like-post');
 
 // Locked
 Route::get('locked', 'HomeController@showLocked')->name('locked');
 Route::post('locked', 'HomeController@unlock');
 Route::put('locked', 'HomeController@resendCode');
+
+// User
+Route::get('@{user}', 'UserController@showProfile')->name('profile');
 
 // Voyager routes
 Route::group(['prefix' => 'admin'], function () {

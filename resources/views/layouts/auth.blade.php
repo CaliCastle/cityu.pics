@@ -17,7 +17,7 @@
                             @endif
                             <div class="copy animated fadeIn">
                                 <h1>{{ Voyager::setting('admin_title', 'CityU Pics') }}</h1>
-                                <p>Welcome to CityU Pics. The Picture Sharing Site for CityU</p>
+                                <p>@lang('messages.auth.background-description')</p>
                             </div>
                         </div> <!-- .logo-title-container -->
                     </div>

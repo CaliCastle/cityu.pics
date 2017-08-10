@@ -23,11 +23,6 @@ return [
         'remember' => '记住我',
         'submit' => '提交'
     ],
-    'button' => [
-        'login' => '登录',
-        'register' => '注册',
-        'forgot' => '忘记密码了?'
-    ],
     'failed' => '用户名或者密码错误',
     'throttle' => '登录失败次数过多, 请在 :seconds 秒后重试.',
     'required' => '为必填项',

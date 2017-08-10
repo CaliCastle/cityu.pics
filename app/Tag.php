@@ -34,10 +34,12 @@ class Tag extends Model
     public static function generate($tags, Post $post)
     {
         if (!is_array($tags)) {
+            $tags = str_replace('#', '', $tags);
             return $post->tags()->attach(static::firstOrCreate(['name' => $tags])->id);
         }
 
         foreach ($tags as $tag) {
+            $tag = str_replace('#', '', $tag);
             $tagInstance = static::firstOrCreate(['name' => $tag]);
             $post->tags()->attach($tagInstance->id);
         }

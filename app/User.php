@@ -129,4 +129,34 @@ class User extends Authenticatable
     {
         return !! $post->likes()->wherePivot('user_id', '=', $this->id)->first();
     }
+
+    /**
+     * Gets user's profile link.
+     *
+     * @return string
+     */
+    public function profileLink()
+    {
+        return route('profile', ['user' => $this->name]);
+    }
+
+    /**
+     * Checks if the user is an admin.
+     *
+     * @return bool
+     */
+    public function isAdmin()
+    {
+        return $this->hasRole('admin');
+    }
+
+    /**
+     * Checks if the user is verified.
+     *
+     * @return bool
+     */
+    public function isVerified()
+    {
+        return $this->hasRole('verified');
+    }
 }

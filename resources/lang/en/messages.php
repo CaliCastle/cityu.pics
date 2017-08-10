@@ -31,6 +31,7 @@ return [
         ]
     ],
     'auth' => [
+        'background-description' => 'Welcome to CityU Pics. The Picture Sharing Site for CityU',
         'login' => [
             'heading' => 'Sign In Below',
             'email' => 'CityU Email Only',
@@ -56,6 +57,14 @@ return [
     ],
     'titles' => [
         'feed' => 'Feed',
-        'confirm' => 'Confirm your email'
+        'confirm' => 'Confirm Your Email',
+        'profile' => ':user\'s Profile'
+    ],
+    'email' => [
+        'confirm' => [
+            'title' => 'Confirm Code: :code - Account Registered',
+            'message' => 'Thanks for registering at our website, <a href=":url">click to confirm your account</a> or enter the confirmation code :code',
+            'ignore' => 'If you didn\'t register an account at our website, then ignore this e-mail.'
+        ]
     ]
 ];

@@ -202,6 +202,12 @@ body.auth {
     animation-fill-mode: both;
     animation-name: dropDown;
 }
+a.disabled {
+    user-select: none;
+    cursor: not-allowed;
+    pointer-events: none;
+    opacity: .55;
+}
 .full-overlay {
     position: fixed;
     left: 0;
