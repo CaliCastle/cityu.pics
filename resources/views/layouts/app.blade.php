@@ -19,31 +19,11 @@
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/') }}">
                         <img src="/logo-light.png" alt="Logo">
-                        {{ config('app.name') }}
+                        <span>{{ config('app.name') }}</span>
                     </a>
                 </div>
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="nav navbar-nav">
-                        <li>
-                            <a href="#" title="Home">
-                                <i class="fa fa-home"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" title="Privacy">
-                                <i class="fa fa-user-secret"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" title="Help">
-                                <i class="fa fa-question-circle"></i>
-                            </a>
-                        </li>
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->
                         @if (Auth::guest())
@@ -149,8 +129,7 @@
     </div>
 
     @if(Auth::check())
-    <div class="composer"><!-- add 'open' -->
-        {{--<div class="composer-box animated fadeInDown">--}}
+    <div class="composer">
         <div class="composer-box animated bounceIn">
             <div class="composer-user-section">
                 <img class="img-circle" src="{{ Voyager::image($user->avatar) }}" alt="{{ $user->name }}">
@@ -191,6 +170,12 @@
     <footer>
 
     </footer>
+
+    <div class="flying-buttons">
+        <a class="compose-new animated jackInTheBox" href="javascript:void(0)" title="@lang('messages.navbar.compose-new')" data-toggle="tooltip" data-placement="left">
+            <span class="fa fa-plus-circle"></span>
+        </a>
+    </div>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}?v={{ config('app.version') }}"></script>
@@ -322,23 +307,26 @@
         $(document).ready(function () {
             // Bind composer events.
             $('#compose-new').on('click', clickToggleComposer);
+            $('.flying-buttons .compose-new').on('click', clickToggleComposer);
             $('.composer-actions .composer-cancel').on('click', clickToggleComposer);
             $('.composer .close-button').on('click', clickToggleComposer);
             $('.composer .composer-post').on('click', doneCompose);
+
+//            $('[data-toggle="tooltip"]').tooltip();
 
             // Set up Emoji One Caption.
             $('#composer-comment-area').emojioneArea({
                 pickerPosition: "top",
                 tonesStyle: "bullet",
                 inline: true,
-                placeholder: "@lang('messages.composer.caption-placeholder') ✍ ...",
+                placeholder: "@lang('messages.composer.caption-placeholder')  ✍ ...",
                 useSprite: true
             });
 
             // Set up Taggle for hashtags.
             new Taggle('composer-tags-input', {
                 duplicateTagClass: 'bounce',
-                placeholder: '🙌 @lang('messages.composer.hashtag-placeholder')',
+                placeholder: '🖐  @lang('messages.composer.hashtag-placeholder') ...',
                 onTagAdd: function (event, tag) {
                     composedTags.push(tag);
                 },

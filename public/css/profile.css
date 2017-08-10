@@ -1,0 +1,26 @@
+.profile-content {
+
+}
+.profile--section {
+    margin: 50px 0;
+    min-height: 100px;
+}
+.profile--section .profile--section__user {
+    text-align: center;
+}
+.profile--section .profile--section__user .profile__user-avatar {
+    display: flex;
+    justify-content: center;
+}
+.profile--section .profile--section__user .profile__user-avatar img {
+    width: 100px;
+    height: 100px;
+    display: block;
+}
+.profile--section .profile--section__user .profile__user-name {
+    font-size: 38px;
+    color: #fff;
+}
+.profile-content .feed-layout {
+
+}

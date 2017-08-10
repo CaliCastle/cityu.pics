@@ -16,31 +16,31 @@ return [
         'compose-new' => '发布图文'
     ],
     'composer' => [
-        'description-title' => '拖拽图片到这里或者点击选择',
-        'description-tips' => '(只允许上传:count个图片, 每个不能大于 :size MB)',
+        'description-title' => '拖拽图片到这里 <i>或者</i> 点击选择',
+        'description-tips' => '(限制:count张图片, 每张不大于 :size MB)',
         'cancel' => '算了',
         'post' => '发布',
         'caption-placeholder' => '说些什么吧',
-        'hashtag-placeholder' => '输入 #主题标签, 不用输入 "#"',
+        'hashtag-placeholder' => '参与话题 (如 "mcityu")',
         'dropzone' => [
             'too-big' => '文件过大. 最大限制: {{maxFilesize}}M',
             'invalid' => '你不能上传此类文件',
             'cancel' => '取消上传',
             'remove' => '删除',
-            'max' => '文件超过最多限数'
+            'max' => '文件数量超过限制'
         ]
     ],
     'auth' => [
-        'background-description' => '欢迎来到CityU Pics. CityU的专属图片分享平台',
+        'background-description' => '欢迎来到CityU专属图片分享平台',
         'login' => [
-            'heading' => '填写登录信息',
-            'email' => 'CityU邮箱地址',
+            'heading' => '登录',
+            'email' => 'CityU邮箱',
             'password' => '密码',
             'logging' => '登录中',
             'first-time' => '第一次访问? 立刻注册'
         ],
         'register' => [
-            'heading' => '填写注册信息',
+            'heading' => '注册',
             'name' => '昵称',
             'password' => '密码 (不少于6个字符)',
             'password-confirm' => '确认密码',

@@ -24,19 +24,38 @@
 }
 #app > nav .navbar-brand {
     color: #fff;
+    padding: 3px 15px;
+    margin-top: 5px;
+    line-height: 44px;
 }
 #app > nav .navbar-brand img {
     display: inline-block;
     height: 100%;
     margin: 0 10px 0 0;
 }
-@media (max-width: 768px) {
+#app > nav .navbar-brand span {
+    font-size: 1.3em;
+    height: 100%;
+    vertical-align: middle;
+    display: inline-block;
+}
+@media screen and (max-width: 768px) {
     .navbar {
         display: block !important;
         height: 50px !important;
     }
-    .feed-content .feed-layout {
+    .feed-layout .feed-layout {
         column-count: 1 !important;
+    }
+}
+@media screen and (max-width: 991px) and (min-width: 768px) {
+    .feed-layout .feed-layout {
+        column-count: 2 !important;
+    }
+}
+@media screen and (max-width: 1200px) and (min-width: 991px) {
+    .feed-layout .feed-layout {
+        column-count: 3 !important;
     }
 }
 .navbar-nav > li > a {
@@ -237,6 +256,23 @@ a.disabled {
     -moz-filter: blur(10px);
     -ms-filter: blur(10px);
     -webkit-filter: blur(10px);
+}
+/* Flying Buttons */
+.flying-buttons {
+    position: fixed;
+    right: 25px;
+    bottom: 25px;
+    z-index: 999;
+    display: block;
+}
+.full-overlay.present ~ .flying-buttons {
+    display: none;
+}
+.flying-buttons .compose-new {
+    color: #fff;
+    font-size: 45px;
+    animation-delay: .35s;
+    display: block;
 }
 
 @keyframes dropDown {

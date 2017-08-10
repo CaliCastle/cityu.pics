@@ -25,6 +25,8 @@ class UserController extends Controller
      */
     public function showProfile(User $user)
     {
-        return view('profile', compact('user'));
+        $posts = $user->posts()->latest()->simplePaginate(30);
+
+        return view('profile', compact('user', 'posts'));
     }
 }

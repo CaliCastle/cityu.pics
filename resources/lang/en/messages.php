@@ -16,12 +16,12 @@ return [
         'compose-new' => 'Post new'
     ],
     'composer' => [
-        'description-title' => 'Add images by dragging files here or selecting',
+        'description-title' => 'Add images by dragging files here <i>or</i> select by clicking',
         'description-tips' => '(Only allows :count images maximum, each smaller than :size MB)',
         'cancel' => 'Cancel',
         'post' => 'Post',
         'caption-placeholder' => 'Add a comment',
-        'hashtag-placeholder' => 'Enter #hashtags, without entering "#"',
+        'hashtag-placeholder' => 'Enter #hashtags',
         'dropzone' => [
             'too-big' => 'File is too big. Max size: {{maxFilesize}}M',
             'invalid' => 'You can\'t upload files of this type',
@@ -31,7 +31,7 @@ return [
         ]
     ],
     'auth' => [
-        'background-description' => 'Welcome to CityU Pics. The Picture Sharing Site for CityU',
+        'background-description' => 'Welcome to the Picture Sharing Site for CityU',
         'login' => [
             'heading' => 'Sign In Below',
             'email' => 'CityU Email Only',
