@@ -44,17 +44,17 @@
         display: block !important;
         height: 50px !important;
     }
-    .feed-layout .feed-layout {
+    .feed-layout {
         column-count: 1 !important;
     }
 }
 @media screen and (max-width: 991px) and (min-width: 768px) {
-    .feed-layout .feed-layout {
+    .feed-layout {
         column-count: 2 !important;
     }
 }
 @media screen and (max-width: 1200px) and (min-width: 991px) {
-    .feed-layout .feed-layout {
+    .feed-layout {
         column-count: 3 !important;
     }
 }
@@ -270,9 +270,15 @@ a.disabled {
 }
 .flying-buttons .compose-new {
     color: #fff;
-    font-size: 45px;
+    font-size: 40px;
     animation-delay: .35s;
     display: block;
+    background: #0d3b62;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    padding: 0 0 0 14.5px;
+    box-shadow: 0 0 10px rgba(10, 10, 10, .6);
 }
 
 @keyframes dropDown {

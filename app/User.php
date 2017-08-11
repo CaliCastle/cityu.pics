@@ -159,4 +159,17 @@ class User extends Authenticatable
     {
         return $this->hasRole('verified');
     }
+
+    /**
+     * Changes user's avatar.
+     *
+     * @param $path
+     * @return bool
+     */
+    public function changeAvatar($path)
+    {
+        $this->avatar = 'users/avatars/' . $path;
+
+        return $this->save();
+    }
 }

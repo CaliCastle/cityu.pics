@@ -29,7 +29,7 @@ class RouteServiceProvider extends ServiceProvider
         $this->adjustLocale();
 
         // Bind user route
-        Route::bind('user', function ($value) {
+        Route::bind('userName', function ($value) {
             return \App\User::where('name', $value)->first();
         });
     }

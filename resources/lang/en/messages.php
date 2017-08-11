@@ -66,5 +66,13 @@ return [
             'message' => 'Thanks for registering at our website, <a href=":url">click to confirm your account</a> or enter the confirmation code :code',
             'ignore' => 'If you didn\'t register an account at our website, then ignore this e-mail.'
         ]
+    ],
+    'profile' => [
+        'upload-avatar' => [
+            'title' => 'Upload Avatar',
+            'change' => 'Change file',
+            'done' => 'This is it',
+            'success' => 'You changed your avatar!'
+        ]
     ]
 ];

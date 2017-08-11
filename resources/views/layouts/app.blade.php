@@ -173,7 +173,7 @@
 
     <div class="flying-buttons">
         <a class="compose-new animated jackInTheBox" href="javascript:void(0)" title="@lang('messages.navbar.compose-new')" data-toggle="tooltip" data-placement="left">
-            <span class="fa fa-plus-circle"></span>
+            <span class="fa fa-plus"></span>
         </a>
     </div>
 

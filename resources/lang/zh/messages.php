@@ -21,7 +21,7 @@ return [
         'cancel' => '算了',
         'post' => '发布',
         'caption-placeholder' => '说些什么吧',
-        'hashtag-placeholder' => '参与话题 (如 "mcityu")',
+        'hashtag-placeholder' => '参与话题 (如 "cityu")',
         'dropzone' => [
             'too-big' => '文件过大. 最大限制: {{maxFilesize}}M',
             'invalid' => '你不能上传此类文件',
@@ -65,6 +65,14 @@ return [
             'title' => '验证码: :code - 账号注册成功',
             'message' => '感谢阁下在我们的平台注册账号, <a href=":url">点击此链接通过验证</a> 或者输入验证码： :code',
             'ignore' => '如果您没有在我们的平台注册账号，不要慌，请无视这封邮件'
+        ]
+    ],
+    'profile' => [
+        'upload-avatar' => [
+            'title' => '上传头像',
+            'change' => '换张头像',
+            'done' => '确定剪裁',
+            'success' => '头像更改成功!'
         ]
     ]
 ];

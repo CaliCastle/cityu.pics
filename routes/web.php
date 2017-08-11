@@ -38,7 +38,8 @@ Route::post('locked', 'HomeController@unlock');
 Route::put('locked', 'HomeController@resendCode');
 
 // User
-Route::get('@{user}', 'UserController@showProfile')->name('profile');
+Route::get('@{userName}', 'UserController@showProfile')->name('profile');
+Route::post('upload-avatar', 'UserController@uploadAvatar')->name('upload-avatar');
 
 // Voyager routes
 Route::group(['prefix' => 'admin'], function () {
