@@ -74,6 +74,6 @@ return [
             'done' => 'This is it',
             'success' => 'You changed your avatar!'
         ],
-        'posts-found' => ':total posts found.'
+        'posts-found' => ':total post found.|:total posts found.'
     ]
 ];
