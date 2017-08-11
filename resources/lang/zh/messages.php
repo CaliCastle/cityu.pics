@@ -73,6 +73,7 @@ return [
             'change' => '换张头像',
             'done' => '确定剪裁',
             'success' => '头像更改成功!'
-        ]
+        ],
+        'posts-found' => '共:total条动态'
     ]
 ];

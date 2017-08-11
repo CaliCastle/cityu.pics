@@ -16,7 +16,7 @@ class ComposerServiceProvider extends ServiceProvider
     {
         view()->composer('feed', function ($view) {
             // TODO: Load more
-            $view->with('posts', Post::latest()->simplePaginate(30));
+            $view->with('posts', Post::latest()->paginate(30));
         });
     }
 

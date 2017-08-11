@@ -29,6 +29,9 @@
                 <a href="mailto:{{ $user->email }}" class="profile__user-email">{{ $user->email }}</a>
             </div>
         </div>
+        <div class="row">
+            <h2 style="font-weight: 600;color: #d9d9d9">@lang('messages.profile.posts-found', ['total' => $posts->total()])</h2>
+        </div>
         @include('layouts.feed-layout')
     </div>
 </div>

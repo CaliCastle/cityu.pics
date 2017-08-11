@@ -73,6 +73,7 @@ return [
             'change' => 'Change file',
             'done' => 'This is it',
             'success' => 'You changed your avatar!'
-        ]
+        ],
+        'posts-found' => ':total posts found.'
     ]
 ];
