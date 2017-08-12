@@ -1,4 +1,5 @@
-<div class="feed-layout">
+<div class="feed-layout loading">
+    <div class="feed-sizer"></div>
     @foreach($posts as $post)
         <div class="feed-layout__panel" post-id="{{ $post->id }}">
             <div class="feed-layout__panel-content">

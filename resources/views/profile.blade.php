@@ -8,7 +8,7 @@
 @endpush
 
 @section('content')
-<div class="profile-content">
+<div class="profile-content feed-content loading">
     <div class="container">
         <div class="profile--section">
             <div class="profile--section__user">

@@ -67,6 +67,14 @@
         column-count: 3 !important;
     }
 }
+@media screen and (min-width: 1550px) {
+    .container {
+        width: 1500px;
+    }
+    .feed-layout {
+        column-count: 5 !important;
+    }
+}
 .navbar-nav > li > a {
     color: #fff !important;
 }
@@ -288,6 +296,37 @@ a.disabled {
     border-radius: 50%;
     padding: 0 0 0 14.5px;
     box-shadow: 0 0 10px rgba(10, 10, 10, .6);
+}
+
+.js .loading::before,
+.js .loading::after {
+    content: '';
+    position: fixed;
+    z-index: 1000;
+}
+
+.loading::before {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #0d3b62;
+}
+
+.loading::after {
+    top: 50%;
+    left: 50%;
+    width: 40px;
+    height: 40px;
+    margin: -20px 0 0 -20px;
+    border: 8px solid #7f8b8c;
+    border-bottom-color: #e7eced;
+    border-radius: 50%;
+    animation: animLoader 0.8s linear infinite forwards;
+}
+
+@keyframes animLoader {
+    to { transform: rotate(360deg); }
 }
 
 @keyframes dropDown {

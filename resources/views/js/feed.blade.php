@@ -1,6 +1,113 @@
+<script src="{{ asset('js/imagesloaded.pkgd.min.js') }}"></script>
+<script src="{{ asset('js/masonry.pkgd.min.js') }}"></script>
+<script src="{{ asset('js/anime.min.js') }}"></script>
 <script>
     ;(function (window) {
         'use strict';
+
+        /**
+         * GridLoaderFx obj.
+         */
+        function GridLoaderFx(el, options) {
+            this.el = el;
+            this.items = this.el.querySelectorAll('.feed-layout__panel');
+        }
+
+        GridLoaderFx.prototype.effects = {
+            'fade': {
+                // Sort target elements function.
+                sortTargetsFn: function(a,b) {
+                    var aBounds = a.getBoundingClientRect(),
+                        bBounds = b.getBoundingClientRect();
+
+                    return (aBounds.left - bBounds.left) || (aBounds.top - bBounds.top);
+                },
+                animeOpts: {
+                    duration: function(t,i) {
+                        return 500 + i*50;
+                    },
+                    easing: 'easeOutExpo',
+                    delay: function(t,i) {
+                        return i * 20;
+                    },
+                    opacity: {
+                        value: [0,1],
+                        duration: function(t,i) {
+                            return 250 + i * 50;
+                        },
+                        easing: 'linear'
+                    },
+                    translateY: [400,0]
+                }
+            },
+            'scale': {
+                animeOpts: {
+                    duration: function(t,i) {
+                        return 600 + i*75;
+                    },
+                    easing: 'easeOutExpo',
+                    delay: function(t,i) {
+                        return i*50;
+                    },
+                    opacity: {
+                        value: [0,1],
+                        easing: 'linear'
+                    },
+                    scale: [0,1]
+                }
+            },
+        }
+
+        GridLoaderFx.prototype._render = function(effect) {
+            // Reset styles.
+            this._resetStyles();
+
+            var self = this,
+                effectSettings = this.effects[effect],
+                animeOpts = effectSettings.animeOpts
+
+            if( effectSettings.perspective != undefined ) {
+                [].slice.call(this.items).forEach(function(item) {
+                    item.parentNode.style.WebkitPerspective = item.parentNode.style.perspective = effectSettings.perspective + 'px';
+                });
+            }
+
+            if( effectSettings.origin != undefined ) {
+                [].slice.call(this.items).forEach(function(item) {
+                    item.style.WebkitTransformOrigin = item.style.transformOrigin = effectSettings.origin;
+                });
+            }
+
+            if( effectSettings.itemOverflowHidden ) {
+                [].slice.call(this.items).forEach(function(item) {
+                    item.parentNode.style.overflow = 'hidden';
+                });
+            }
+
+            animeOpts.targets = effectSettings.sortTargetsFn && typeof effectSettings.sortTargetsFn === 'function' ? [].slice.call(this.items).sort(effectSettings.sortTargetsFn) : this.items;
+            anime.remove(animeOpts.targets);
+            anime(animeOpts);
+
+            this.el.classList.remove('loading');
+        };
+
+        GridLoaderFx.prototype._resetStyles = function() {
+            this.el.style.WebkitPerspective = this.el.style.perspective = 'none';
+            [].slice.call(this.items).forEach(function(item) {
+                var gItem = item.parentNode;
+                item.style.opacity = 0;
+                item.style.WebkitTransformOrigin = item.style.transformOrigin = '50% 50%';
+                item.style.transform = 'none';
+
+                gItem.style.overflow = '';
+            });
+        };
+
+        window.GridLoaderFx = GridLoaderFx;
+
+        var body = document.querySelector('.feed-content'),
+            feedGrid = document.querySelector('.feed-layout'),
+            masonry, gridLoader;
 
         // taken from mo.js demos
         function isIOSSafari() {
@@ -68,6 +175,27 @@
         };
 
         function init() {
+            // Preload images
+            imagesLoaded(feedGrid, function () {
+                // Initialize Masonry layout
+                masonry = new Masonry(feedGrid, {
+                    itemSelector: '.feed-layout__panel',
+                    columnWidth: '.feed-sizer',
+                    percentPosition: true,
+                    transitionDuration: 0
+                });
+                // Init GridLoaderFx.
+                gridLoader = new GridLoaderFx(feedGrid);
+                feedGrid.classList.remove('grid--loading');
+
+                setTimeout(function () {
+                    gridLoader._render('scale');
+                }, 850);
+            });
+            // Remove loading class from #app
+            body.classList.remove('loading');
+
+            // Like buttons animation
             $('button.feed-action__like').each(function () {
                 var item = this;
                 var icon = item.querySelector('span.fa'),

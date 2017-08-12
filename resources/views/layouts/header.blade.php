@@ -30,6 +30,7 @@
             'csrfToken' => csrf_token(),
         ]) !!};
     </script>
+    <script>document.documentElement.className = 'js';</script>
     <script src="https://use.fontawesome.com/d91fbb53d7.js"></script>
 
     <!-- Icons -->
