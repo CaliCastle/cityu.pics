@@ -10,7 +10,7 @@
          */
         function GridLoaderFx(el, options) {
             this.el = el;
-            this.items = this.el.querySelectorAll('.feed-layout__panel');
+            this.items = this.el.querySelectorAll('.feed-layout__panel:not(.generated)');
         }
 
         GridLoaderFx.prototype.effects = {
@@ -89,6 +89,10 @@
             anime(animeOpts);
 
             this.el.classList.remove('loading');
+
+            this.items.forEach(function (item) {
+                item.classList.add('generated');
+            });
         };
 
         GridLoaderFx.prototype._resetStyles = function() {
@@ -107,7 +111,7 @@
 
         var body = document.querySelector('.feed-content'),
             feedGrid = document.querySelector('.feed-layout'),
-            masonry, gridLoader;
+            masonry, gridLoader, currentPage = 1, pageLoaded = false;
 
         // taken from mo.js demos
         function isIOSSafari() {
@@ -188,9 +192,14 @@
                 gridLoader = new GridLoaderFx(feedGrid);
                 feedGrid.classList.remove('grid--loading');
 
-                setTimeout(function () {
+                if (pageLoaded) {
                     gridLoader._render('scale');
-                }, 850);
+                } else {
+                    setTimeout(function () {
+                        gridLoader._render('scale');
+                    }, 850);
+                    pageLoaded = true;
+                }
             });
             // Remove loading class from #app
             body.classList.remove('loading');
@@ -343,6 +352,10 @@
                     }
                 });
             });
+
+            $('.feed-loader button').on('click', function (e) {
+                sendMorePostsRequest(e.target.parentNode);
+            });
         }
 
         function addOrRemoveLikeCounter(item, like_counter, icon) {
@@ -369,6 +382,30 @@
                 success: function (status) {
                     if (status.status != 'success')
                         displayErrorMessage();
+                },
+                error: function () {
+                    displayErrorMessage();
+                }
+            });
+        }
+
+        function sendMorePostsRequest($button) {
+            $button.classList.add('requesting');
+
+            $.post({
+                url: '/posts/' + (currentPage + 1),
+                data: {_token: Laravel.csrfToken},
+                success: function (s) {
+                    currentPage++;
+
+                    if (s.hasMore == 'true') {
+                        $(feedGrid).append(s.posts);
+                        $button.classList.remove('requesting');
+
+                        init();
+                    } else {
+                        $button.remove();
+                    }
                 },
                 error: function () {
                     displayErrorMessage();

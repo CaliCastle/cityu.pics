@@ -29,6 +29,13 @@ class HomeController extends Controller
     protected $storageUrl = 'posts/';
 
     /**
+     * Posts per page.
+     *
+     * @var int
+     */
+    protected $postsPerPage = 50;
+
+    /**
      * Creates a new controller instance.
      *
      * @return void
@@ -173,6 +180,25 @@ class HomeController extends Controller
 
         return [
             'status' => 'success'
+        ];
+    }
+
+    /**
+     * Loads more posts by page.
+     *
+     * @param $page
+     * @return array
+     */
+    public function loadMorePosts($page)
+    {
+        $posts = Post::latest()->skip(($page - 1) * $this->postsPerPage)->take($this->postsPerPage)->get();
+
+        if (!$posts->count())
+            return ['hasMore' => 'false'];
+
+        return [
+            'hasMore' => 'true',
+            'posts'   => view('layouts.feed-panel', compact('posts'))->render()
         ];
     }
 
