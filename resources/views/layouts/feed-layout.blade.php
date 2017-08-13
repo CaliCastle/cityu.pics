@@ -4,6 +4,6 @@
 </div>
 @if($posts->hasMorePages())
     <div class="feed-loader">
-        <button>Load more</button>
+        <button>@lang('messages.posts.load-more')</button>
     </div>
 @endif

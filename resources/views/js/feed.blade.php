@@ -5,6 +5,9 @@
     ;(function (window) {
         'use strict';
 
+        var $currentPost,
+            replyTo = false;
+
         /**
          * GridLoaderFx obj.
          */
@@ -353,8 +356,31 @@
                 });
             });
 
+            // Load more button bind.
             $('.feed-loader button').on('click', function (e) {
                 sendMorePostsRequest(e.target.parentNode);
+            });
+
+            var $body = document.body,
+                $postOverlay = document.querySelector('.post-overlay');
+
+            // Feed media zoom in event.
+            $('.feed-layout__panel .feed-media').on('click', function (e) {
+                $currentPost = e.target.parentNode.parentNode;
+                $currentPost.classList.add('expanded');
+                $postOverlay.classList.add('open');
+
+                expandPost();
+            });
+            $('.post-overlay').on('click', function () {
+                $currentPost.classList.add('closing');
+                $currentPost.classList.remove('expanded');
+
+                $('body').animate({scrollTop: $currentPost.style.top.split('px')[0]}, 400, 'swing');
+                setTimeout(function () {
+                    $postOverlay.classList.remove('open');
+                    $currentPost.classList.remove('closing');
+                }, 410);
             });
         }
 
@@ -409,6 +435,52 @@
                 },
                 error: function () {
                     displayErrorMessage();
+                }
+            });
+        }
+
+        function expandPost() {
+            // Display comment input
+            $($currentPost.querySelector('.feed-details__expandable .feed-comment__input')).emojioneArea({
+                pickerPosition: "top",
+                tonesStyle: "bullet",
+                inline: true,
+                placeholder: "@lang('messages.posts.comments.placeholder')  ✍",
+                useSprite: true
+            });
+
+            // Bind comment button
+            $($currentPost.querySelector('.feed-comment__button')).on('click', submitComment);
+            $($currentPost.querySelector('.feed-details__expandable .emojionearea-editor')).keydown(function (e) {
+                if (e.keyCode == 13) {
+                    submitComment();
+                    return false;
+                }
+            });
+        }
+
+        function submitComment() {
+            var $commentButton = $currentPost.querySelector('.feed-comment__button'),
+                data = {
+                    _token: Laravel.csrfToken,
+                    content: $currentPost.querySelector('.emojionearea-editor').innerHTML
+                };
+            $commentButton.classList.toggle('disabled');
+
+            if (replyTo)
+                data.parent = replyTo;
+
+            $.post({
+                url: '/comment/' + $currentPost.getAttribute('post-id'),
+                data: data,
+                success: function (s) {
+                    console.log(s);
+                },
+                error: function () {
+                    displayErrorMessage();
+                },
+                complete: function () {
+                    $commentButton.classList.toggle('disabled');
                 }
             });
         }

@@ -220,7 +220,10 @@ class HomeController extends Controller
 
     public function commentPost(Post $post, Request $request)
     {
+        $comment = $request->user()->commentPost($post, $request->input('content'), $request->input('parent'));
 
+        // Render comment HTML for inserting
+//        return view('');
     }
 
     public function deletePost(Post $post, Request $request)

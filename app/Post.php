@@ -41,6 +41,16 @@ class Post extends Model
     }
 
     /**
+     * Its comments.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    /**
      * Create a post instance from front-end ajax composer request.
      * 
      * @param array $data

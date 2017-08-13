@@ -19,19 +19,20 @@ Route::get('/', function () {
 Auth::routes();
 
 // Pages
-Route::get('/home', 'HomeController@index');
-Route::get('/feed', 'HomeController@showFeed');
+Route::get('home', 'HomeController@index');
+Route::get('feed', 'HomeController@showFeed');
 
 // Confirm
-Route::get('/confirm/{token}/{email}', 'HomeController@confirmUser');
+Route::get('confirm/{token}/{email}', 'HomeController@confirmUser');
 
 Route::get('language/{language}', 'GeneralController@switchLanguage')->name('language');
 
 // Post related
 Route::post('posts/{page}', 'HomeController@loadMorePosts');
-Route::post('/post', 'HomeController@postNew')->name('post-new');
-Route::post('/upload', 'HomeController@uploadImages')->name('upload');
+Route::post('post', 'HomeController@postNew')->name('post-new');
+Route::post('upload', 'HomeController@uploadImages')->name('upload');
 Route::put('like-post/{post}', 'HomeController@likePost')->name('like-post');
+Route::post('comment/{post}', 'HomeController@commentPost');
 
 // Locked
 Route::get('locked', 'HomeController@showLocked')->name('locked');

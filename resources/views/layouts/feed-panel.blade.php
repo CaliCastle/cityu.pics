@@ -53,6 +53,15 @@
                 <div class="feed-details__date">
                     <span title="{{ $post->created_at }}">{{ $post->created_at->diffForHumans() }}</span>
                 </div>
+                <div class="feed-details__expandable">
+                    <div class="feed-details__comments">
+                        <div class="feed-comment__input" contenteditable></div>
+                        <button class="feed-comment__button">@lang('messages.posts.comments.post')</button>
+                        <div class="feed__comments">
+                            @include('discussion.comments', ['comments' => $post->comments()->latest()->get()])
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -39,6 +39,10 @@
     vertical-align: middle;
     display: inline-block;
 }
+button {
+    border: 0;
+    outline: none;
+}
 @media screen and (max-width: 768px) {
     .navbar {
         display: block !important;
@@ -224,7 +228,10 @@
 .checkin.completed > .checkin-button {
     display: none;
 }
-
+.signout {
+    color: #d53e37;
+    font-weight: 600;
+}
 .navbar .composer-new {
     animation: wobble 1.4s 1s 15;
 }
@@ -238,13 +245,13 @@ body.auth {
     animation-fill-mode: both;
     animation-name: dropDown;
 }
-a.disabled {
+.disabled {
     user-select: none;
     cursor: not-allowed;
     pointer-events: none;
     opacity: .55;
 }
-.full-overlay {
+.full-overlay,.post-overlay {
     position: fixed;
     left: 0;
     top: 0;
@@ -257,12 +264,20 @@ a.disabled {
     -ms-transition: background ease-in .3s;
     transition: background ease-in .3s;
 }
+.post-overlay {
+    z-index: 9;
+}
 .full-overlay.present {
     display: block !important;
     background: rgba(10, 10, 10, .2) !important;
 }
+.post-overlay.open {
+    display: block !important;
+    background: rgba(10, 10, 10, .45) !important;
+}
 #app {
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: scroll;
     -webkit-transition: filter ease-in-out .25s;
     -moz-transition: filter ease-in-out .25s;
     -ms-transition: filter ease-in-out .25s;
@@ -285,7 +300,8 @@ a.disabled {
 .full-overlay.present ~ .flying-buttons {
     display: none;
 }
-.flying-buttons .compose-new {
+
+.flying-buttons .flying-button {
     color: #fff;
     font-size: 40px;
     animation-delay: .35s;
@@ -296,8 +312,21 @@ a.disabled {
     border-radius: 50%;
     padding: 0 0 0 14.5px;
     box-shadow: 0 0 10px rgba(10, 10, 10, .6);
+    margin: 15px 0
 }
-
+.flying-buttons .compose-new {
+    background: #0d3b62;
+    color: #fff;
+}
+.flying-buttons #back-to-top {
+    font-size: 25px;
+    color: #222;
+    background: #fff;
+    padding: 7px 0 0 18px;
+    animation-duration: .5s;
+    -webkit-animation-duration: .5s;
+    -moz-animation-duration: .5s;
+}
 .js .loading::before,
 .js .loading::after {
     content: '';

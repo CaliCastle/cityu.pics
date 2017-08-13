@@ -1,6 +1,6 @@
 @include('layouts.header')
 <body>
-    <!-- Add 'present' class -->
+    <div class="post-overlay"></div>
     <div class="full-overlay"></div>
 
     <div id="app">
@@ -59,6 +59,11 @@
                                 </li>
                                 <li>
                                     <a href="#" class="menu-link disabled">
+                                        <i class="fa fa-cog"></i>&nbsp;@lang('messages.navbar.user-menu.settings')
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="menu-link disabled">
                                         <i class="fa fa-check-circle-o"></i>&nbsp;@lang('messages.navbar.user-menu.achievements')
                                     </a>
                                 </li>
@@ -77,8 +82,8 @@
                                 <li>
                                     <form action="{{ route('logout') }}" method="POST">
                                         {{ csrf_field() }}
-                                        <button type="submit" class="menu-link">
-                                            <i class="fa fa-sign-out"></i>&nbsp;@lang('messages.navbar.user-menu.signout')
+                                        <button type="submit" class="menu-link signout">
+                                            <i class="fa fa-power-off"></i>&nbsp;@lang('messages.navbar.user-menu.signout')
                                         </button>
                                     </form>
                                 </li>
@@ -172,8 +177,11 @@
     </footer>
 
     <div class="flying-buttons">
-        <a class="compose-new animated jackInTheBox" href="javascript:void(0)" title="@lang('messages.navbar.compose-new')" data-toggle="tooltip" data-placement="left">
+        <a class="flying-button compose-new animated jackInTheBox" href="javascript:void(0)" title="@lang('messages.navbar.compose-new')" data-toggle="tooltip" data-placement="left">
             <span class="fa fa-plus"></span>
+        </a>
+        <a class="flying-button animated bounceIn hidden" href="javascript:void(0)" id="back-to-top">
+            <span class="fa fa-chevron-up"></span>
         </a>
     </div>
 
@@ -312,6 +320,19 @@
             $('.composer .close-button').on('click', clickToggleComposer);
             $('.composer .composer-post').on('click', doneCompose);
 
+            // Bind 'back to top' button events
+            $('#back-to-top').on('click', function () {
+                $('body').animate({scrollTop: 0}, 600, 'swing');
+            });
+            $(window).scroll(function() {
+                var $top = document.getElementById('back-to-top');
+
+                if ($(this).scrollTop() <= 500) {
+                    $top.classList.add('hidden');
+                } else {
+                    $top.classList.remove('hidden');
+                }
+            });
 //            $('[data-toggle="tooltip"]').tooltip();
 
             // Set up Emoji One Caption.

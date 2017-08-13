@@ -10,6 +10,7 @@ return [
             'admin' => '后台管理',
             'profile' => '个人主页',
             'achievements' => '成就',
+            'settings' => '设置',
             'checkin' => '签到',
             'signout' => '登出'
         ],
@@ -75,5 +76,13 @@ return [
             'success' => '头像更改成功!'
         ],
         'posts-found' => '共:total条动态'
+    ],
+    'posts' => [
+        'load-more' => '继续加载',
+        'comments' => [
+            'placeholder' => '尽情评论... (按回车提交)',
+            'total' => ':total条评论',
+            'post' => '评论'
+        ]
     ]
 ];

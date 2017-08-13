@@ -10,6 +10,7 @@ return [
             'admin' => 'Admin',
             'profile' => 'Profile',
             'achievements' => 'Achievements',
+            'settings' => 'Settings',
             'checkin' => 'Check In',
             'signout' => 'Sign out'
         ],
@@ -75,5 +76,13 @@ return [
             'success' => 'You changed your avatar!'
         ],
         'posts-found' => ':total post found.|:total posts found.'
+    ],
+    'posts' => [
+        'load-more' => 'Load more',
+        'comments' => [
+            'placeholder' => 'Say something... (press Enter to submit)',
+            'total' => ':total comment|:total comments',
+            'post' => 'Post'
+        ]
     ]
 ];

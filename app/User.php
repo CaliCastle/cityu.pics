@@ -110,6 +110,16 @@ class User extends Authenticatable
     }
 
     /**
+     * Gets user's comments collection.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    /**
      * Like/unlike the given post.
      *
      * @param Post $post
@@ -128,6 +138,17 @@ class User extends Authenticatable
     public function likedPost(Post $post)
     {
         return !! $post->likes()->wherePivot('user_id', '=', $this->id)->first();
+    }
+
+    /**
+     * Checks if liked the comment.
+     *
+     * @param Comment $comment
+     * @return bool
+     */
+    public function likedComment(Comment $comment)
+    {
+        return !! $comment->likes()->wherePivot('user_id', '=', $this->id)->first();
     }
 
     /**
@@ -171,5 +192,25 @@ class User extends Authenticatable
         $this->avatar = 'users/avatars/' . $path;
 
         return $this->save();
+    }
+
+    /**
+     * Comments a post.
+     *
+     * @param Post $post
+     * @param $content
+     * @param bool $parent
+     * @return Comment
+     */
+    public function commentPost(Post $post, $content, $parent = false)
+    {
+        $attributes = ['content' => $content, 'post_id' => $post->id];
+
+        if ($parent)
+            $attributes = array_add($attributes, 'parent', $parent);
+
+        $comment = $this->comments()->create($attributes);
+
+        return $comment;
     }
 }
