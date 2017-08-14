@@ -1,5 +1,5 @@
 @foreach($posts as $post)
-    <div class="feed-layout__panel" post-id="{{ $post->id }}">
+    <div class="feed-layout__panel" post-id="{{ $post->id }}" data-title="{{ str_limit(strip_tags($post->caption), 25) }}">
         <div class="feed-layout__panel-content">
             <div class="feed-media">
                 @foreach($post->allMedia() as $media)
@@ -42,10 +42,10 @@
                                 <span class="fa fa-heart-o"></span>
                             @endif
                         </button>
-                        <a class="feed-action__comment" href="#">
+                        <a class="feed-action__comment" href="javascript:void(0)">
                             <i class="fa fa-comment-o"></i>
                         </a>
-                        <a class="feed-action__more" href="#">
+                        <a class="feed-action__more" href="javascript:void(0)">
                             <i class="fa fa-ellipsis-h"></i>
                         </a>
                     </div>
@@ -57,9 +57,9 @@
                     <div class="feed-details__comments">
                         <div class="feed-comment__input" contenteditable></div>
                         <button class="feed-comment__button">@lang('messages.posts.comments.post')</button>
-                        <div class="feed__comments">
-                            @include('discussion.comments', ['comments' => $post->comments()->latest()->get()])
-                        </div>
+
+                        <div class="feed__comments block-loading"></div>
+
                     </div>
                 </div>
             </div>

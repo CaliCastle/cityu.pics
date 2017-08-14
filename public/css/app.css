@@ -60,6 +60,15 @@ button {
     .feed-layout {
         column-count: 1 !important;
     }
+    .flying-buttons #back-to-top {
+        display: none !important;
+    }
+    .flying-buttons .flying-button {
+        font-size: 34px !important;
+        width: 52px !important;
+        height: 52px !important;
+        padding: 0 0 0 13px !important;
+    }
 }
 @media screen and (max-width: 991px) and (min-width: 768px) {
     .feed-layout {
@@ -233,7 +242,7 @@ button {
     font-weight: 600;
 }
 .navbar .composer-new {
-    animation: wobble 1.4s 1s 15;
+    animation: wobble 1.4s 1s 5;
 }
 
 body.auth {
@@ -275,6 +284,9 @@ body.auth {
     display: block !important;
     background: rgba(10, 10, 10, .45) !important;
 }
+.post-overlay.open ~ .flying-buttons {
+    display: none;
+}
 #app {
     overflow-x: hidden;
     overflow-y: scroll;
@@ -315,8 +327,10 @@ body.auth {
     margin: 15px 0
 }
 .flying-buttons .compose-new {
-    background: #0d3b62;
+    background: #3d6c94;
     color: #fff;
+    animation-iteration-count: 10;
+    animation-duration: 1.25s;
 }
 .flying-buttons #back-to-top {
     font-size: 25px;
@@ -334,7 +348,15 @@ body.auth {
     z-index: 1000;
 }
 
-.loading::before {
+.js .block-loading::before,
+.js .block-loading::after {
+    content: '';
+    position: absolute;
+    z-index: 999;
+}
+
+.loading::before,
+.block-loading::before {
     top: 0;
     left: 0;
     width: 100%;
@@ -342,7 +364,12 @@ body.auth {
     background: #0d3b62;
 }
 
-.loading::after {
+.block-loading::before {
+    background: transparent !important;
+}
+
+.loading::after,
+.block-loading::after {
     top: 50%;
     left: 50%;
     width: 40px;

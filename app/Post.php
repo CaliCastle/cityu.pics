@@ -51,6 +51,16 @@ class Post extends Model
     }
 
     /**
+     * Get its super comments
+     *
+     * @return mixed
+     */
+    public function superComments()
+    {
+        return $this->comments()->whereNull('parent');
+    }
+
+    /**
      * Create a post instance from front-end ajax composer request.
      * 
      * @param array $data
@@ -102,5 +112,15 @@ class Post extends Model
         }
 
         return $result;
+    }
+
+    /**
+     * Hot comments
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function hotComments()
+    {
+
     }
 }

@@ -127,6 +127,8 @@ class User extends Authenticatable
     public function likePost(Post $post)
     {
         $post->likes()->toggle($this->id);
+
+        return $this->likedPost($post) ? $post->increment('like_count') : $post->decrement('like_count');
     }
 
     /**
@@ -138,6 +140,18 @@ class User extends Authenticatable
     public function likedPost(Post $post)
     {
         return !! $post->likes()->wherePivot('user_id', '=', $this->id)->first();
+    }
+
+    /**
+     * Like/unlike the given comment.
+     *
+     * @param Comment $comment
+     */
+    public function likeComment(Comment $comment)
+    {
+        $comment->likes()->toggle($this->id);
+
+        return $this->likedComment($comment) ? $comment->increment('like_count') : $comment->decrement('like_count');
     }
 
     /**

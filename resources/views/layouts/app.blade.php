@@ -177,7 +177,7 @@
     </footer>
 
     <div class="flying-buttons">
-        <a class="flying-button compose-new animated jackInTheBox" href="javascript:void(0)" title="@lang('messages.navbar.compose-new')" data-toggle="tooltip" data-placement="left">
+        <a class="flying-button compose-new animated bounce" href="javascript:void(0)" title="@lang('messages.navbar.compose-new')" data-toggle="tooltip" data-placement="left">
             <span class="fa fa-plus"></span>
         </a>
         <a class="flying-button animated bounceIn hidden" href="javascript:void(0)" id="back-to-top">

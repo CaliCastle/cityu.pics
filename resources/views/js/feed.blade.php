@@ -6,7 +6,9 @@
         'use strict';
 
         var $currentPost,
-            replyTo = false;
+            replyTo = false,
+            originalUrl = window.location.href,
+            originalTitle = document.title;
 
         /**
          * GridLoaderFx obj.
@@ -356,7 +358,7 @@
                 });
             });
 
-            // Load more button bind.
+            // Load more button binding.
             $('.feed-loader button').on('click', function (e) {
                 sendMorePostsRequest(e.target.parentNode);
             });
@@ -367,11 +369,11 @@
             // Feed media zoom in event.
             $('.feed-layout__panel .feed-media').on('click', function (e) {
                 $currentPost = e.target.parentNode.parentNode;
-                $currentPost.classList.add('expanded');
                 $postOverlay.classList.add('open');
 
                 expandPost();
             });
+            // Close the expanded post.
             $('.post-overlay').on('click', function () {
                 $currentPost.classList.add('closing');
                 $currentPost.classList.remove('expanded');
@@ -381,9 +383,25 @@
                     $postOverlay.classList.remove('open');
                     $currentPost.classList.remove('closing');
                 }, 410);
+
+                document.title = originalTitle;
+                window.history.pushState({
+                    "pageTitle": originalTitle
+                }, document.title, originalUrl);
+            });
+            // Comment buttons binding.
+            $('.feed-action__comment').on('click', function () {
+                if (!$($postOverlay).hasClass('open')) {
+                    $currentPost = $(this).parents('.feed-layout__panel')[0];
+                    $postOverlay.classList.add('open');
+
+                    expandPost();
+                }
+                focusCommentInput();
             });
         }
 
+        // Front-end likes counter.
         function addOrRemoveLikeCounter(item, like_counter, icon) {
             if ($(item).hasClass('liked')) {
                 $(item).removeClass('liked');
@@ -400,6 +418,7 @@
             }
         }
 
+        // Likes a post.
         function sendLikePostRequest(id) {
             $.ajax({
                 url: '/like-post/' + Number(id),
@@ -415,7 +434,9 @@
             });
         }
 
+        // Send load more request.
         function sendMorePostsRequest($button) {
+            // Prevent from clicking again.
             $button.classList.add('requesting');
 
             $.post({
@@ -439,37 +460,101 @@
             });
         }
 
+        // Zoom in post.
         function expandPost() {
-            // Display comment input
-            $($currentPost.querySelector('.feed-details__expandable .feed-comment__input')).emojioneArea({
-                pickerPosition: "top",
-                tonesStyle: "bullet",
-                inline: true,
-                placeholder: "@lang('messages.posts.comments.placeholder')  ✍",
-                useSprite: true
-            });
+            if (!$($currentPost).hasClass('expanded')) {
+                // Scroll to the post.
+                $('body').animate({scrollTop: $currentPost.style.top.split('px')[0]}, 400, 'swing');
 
-            // Bind comment button
-            $($currentPost.querySelector('.feed-comment__button')).on('click', submitComment);
-            $($currentPost.querySelector('.feed-details__expandable .emojionearea-editor')).keydown(function (e) {
-                if (e.keyCode == 13) {
-                    submitComment();
-                    return false;
+                $currentPost.classList.add('expanded');
+                // Display comment input.
+                $($currentPost.querySelector('.feed-comment__input')).emojioneArea({
+                    pickerPosition: "top",
+                    tonesStyle: "bullet",
+                    inline: true,
+                    placeholder: "@lang('messages.posts.comments.placeholder')  ✍",
+                    useSprite: true
+                });
+
+                // Bind comment button.
+                $($currentPost.querySelector('.feed-comment__button')).on('click', submitComment);
+                $($currentPost.querySelector('.emojionearea-editor')).keydown(function (e) {
+                    if (e.keyCode == 13) {
+                        submitComment();
+                        return false;
+                    }
+                });
+
+                // Load comments from server.
+                loadComments();
+                // Pushes url to browser history.
+                pushPostToBrowserHistory();
+            }
+        }
+
+        // Once clicks on the comment icon on each post.
+        function focusCommentInput() {
+            setTimeout(function () {
+                $($currentPost.querySelector('.emojionearea-editor')).focus();
+            }, 450);
+        }
+
+        var loadingComments = false;
+        // TODO: add comments page
+
+        // Loading comments thru ajax.
+        function loadComments() {
+            if (loadingComments)
+                return false;
+
+            loadingComments = true;
+
+            var postId = $currentPost.getAttribute('post-id');
+
+            $.get({
+                url: '/load-comments/' + postId,
+//                data: {}
+                success: function (s) {
+                    // Remove loading animation.
+                    $currentPost.querySelector('.feed__comments.block-loading').classList.remove('block-loading');
+                    // Add comments to node list.
+                    $($currentPost.querySelector('.feed__comments')).append(s.html);
+                },
+                error: function () {
+                    displayErrorMessage();
+                },
+                complete: function () {
+                    loadingComments = false;
                 }
             });
         }
 
+        // Likes the current comment
+        function likeComment() {
+
+        }
+
+        // Submit a comment
         function submitComment() {
             var $commentButton = $currentPost.querySelector('.feed-comment__button'),
+                content = $currentPost.querySelector('.emojionearea-editor').innerHTML.trim(),
                 data = {
                     _token: Laravel.csrfToken,
-                    content: $currentPost.querySelector('.emojionearea-editor').innerHTML
+                    content: content
                 };
+
+            // Empty string.
+            if (content == '')
+                return false;
+
+            // Prevent from clicking again.
             $commentButton.classList.toggle('disabled');
 
+            // If we are replying to someone else.
             if (replyTo)
                 data.parent = replyTo;
 
+            // Send ajax request.
             $.post({
                 url: '/comment/' + $currentPost.getAttribute('post-id'),
                 data: data,
@@ -483,6 +568,14 @@
                     $commentButton.classList.toggle('disabled');
                 }
             });
+        }
+
+        function pushPostToBrowserHistory() {
+            document.title = $currentPost.getAttribute('data-title');
+
+            window.history.pushState({
+                "pageTitle": document.title
+            }, document.title, window.location.protocol + '//' + window.location.host + '/post/' + $currentPost.getAttribute('post-id'));
         }
 
         init();

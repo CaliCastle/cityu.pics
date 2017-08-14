@@ -272,13 +272,26 @@
     height: 20px;
 }
 
-.feed-details__comments .feed__comments {
+.feed-layout .feed-details__comments .emojionearea {
+    z-index: 999;
+}
 
+.feed-details__comments .feed__comments {
+    position: relative;
+    clear: both;
+}
+
+.feed-details__comments .feed__comments a {
+    text-decoration: none;
 }
 
 .feed-details__comments .feed__comments .feed-comments__list {
     padding: 0;
     clear: both;
+    list-style: none;
+}
+
+.feed-details__comments .feed__comments .feed-comments__list li {
     list-style: none;
 }
 

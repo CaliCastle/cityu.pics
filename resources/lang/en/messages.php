@@ -82,7 +82,8 @@ return [
         'comments' => [
             'placeholder' => 'Say something... (press Enter to submit)',
             'total' => ':total comment|:total comments',
-            'post' => 'Post'
+            'post' => 'Post',
+            'no-comments' => 'No comments yet.',
         ]
     ]
 ];

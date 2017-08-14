@@ -82,7 +82,8 @@ return [
         'comments' => [
             'placeholder' => '尽情评论... (按回车提交)',
             'total' => ':total条评论',
-            'post' => '评论'
+            'post' => '评论',
+            'no-comments' => '暂无评论，快来抢沙发',
         ]
     ]
 ];

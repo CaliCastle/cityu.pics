@@ -32,7 +32,13 @@ Route::post('posts/{page}', 'HomeController@loadMorePosts');
 Route::post('post', 'HomeController@postNew')->name('post-new');
 Route::post('upload', 'HomeController@uploadImages')->name('upload');
 Route::put('like-post/{post}', 'HomeController@likePost')->name('like-post');
+Route::delete('post/{post}', 'HomeController@deletePost');
+
+// Comment related
 Route::post('comment/{post}', 'HomeController@commentPost');
+Route::put('like-comment/{comment}', 'HomeController@likeComment');
+Route::get('load-comments/{post}', 'HomeController@loadComments');
+//Route::delete('comment/{comment}', 'HomeController@loadComments');
 
 // Locked
 Route::get('locked', 'HomeController@showLocked')->name('locked');

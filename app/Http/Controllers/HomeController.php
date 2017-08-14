@@ -8,6 +8,7 @@ use Storage;
 use App\Tag;
 use App\Post;
 use App\User;
+use App\Comment;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Mail\AccountRegistered;
@@ -218,16 +219,72 @@ class HomeController extends Controller
         ];
     }
 
+    /**
+     * Likes a comment.
+     *
+     * @param Comment $comment
+     * @param Request $request
+     * @return array
+     */
+    public function likeComment(Comment $comment, Request $request)
+    {
+        $request->user()->likeComment($comment);
+
+        return [
+            'status' => 'success'
+        ];
+    }
+
+    /**
+     * Comments a post.
+     *
+     * @param Post $post
+     * @param Request $request
+     * @return array
+     */
     public function commentPost(Post $post, Request $request)
     {
         $comment = $request->user()->commentPost($post, $request->input('content'), $request->input('parent'));
 
         // Render comment HTML for inserting
-//        return view('');
+        return [
+            'status' => 'success',
+            'html'   => view('discussion.comment', compact('comment'))->render()
+        ];
     }
 
+    /**
+     * Loads comments of a post.
+     *
+     * @param Post $post
+     * @return array
+     */
+    public function loadComments(Post $post)
+    {
+        // Load hot comments first.
+        $comments = $post->superComments()->orderBy('like_count', 'desc')->latest()->paginate(20);
+
+        return [
+            'html' => view('discussion.comments', compact('comments'))->render()
+        ];
+    }
+
+    /**
+     * Deletes a post.
+     *
+     * @param Post $post
+     * @param Request $request
+     * @return array|bool
+     */
     public function deletePost(Post $post, Request $request)
     {
+        if ($post->user->id != $request->user()->id)
+            return false;
 
+        $post->delete();
+
+        return [
+            'status' => 'success'
+        ];
     }
 }
