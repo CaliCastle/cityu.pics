@@ -55,8 +55,11 @@
                 </div>
                 <div class="feed-details__expandable">
                     <div class="feed-details__comments">
-                        <div class="feed-comment__input" contenteditable></div>
-                        <button class="feed-comment__button">@lang('messages.posts.comments.post')</button>
+                        <div class="feed-details__comment-input animated fadeInUp">
+                            <div class="feed-comment__input" contenteditable></div>
+                            <button class="feed-comment__cancel-reply"><i class="fa fa-times"></i>&nbsp;@lang('messages.posts.comments.cancel')</button>
+                            <button class="feed-comment__button" loading-text="@lang('messages.posts.comments.posting')" origin-text="@lang('messages.posts.comments.post')">@lang('messages.posts.comments.post')</button>
+                        </div>
 
                         <div class="feed__comments block-loading"></div>
 

@@ -9,6 +9,7 @@ return [
         'user-menu' => [
             'admin' => '后台管理',
             'profile' => '个人主页',
+            'liked' => '赞过的动态',
             'achievements' => '成就',
             'settings' => '设置',
             'checkin' => '签到',
@@ -83,7 +84,9 @@ return [
             'placeholder' => '尽情评论... (按回车提交)',
             'total' => ':total条评论',
             'post' => '评论',
+            'posting' => '评论中...',
             'no-comments' => '暂无评论，快来抢沙发',
+            'cancel' => '取消回复',
         ]
     ]
 ];

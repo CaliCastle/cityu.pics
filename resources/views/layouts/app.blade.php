@@ -59,6 +59,11 @@
                                 </li>
                                 <li>
                                     <a href="#" class="menu-link disabled">
+                                        <i class="fa fa-heart"></i>&nbsp;@lang('messages.navbar.user-menu.liked')
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="menu-link disabled">
                                         <i class="fa fa-cog"></i>&nbsp;@lang('messages.navbar.user-menu.settings')
                                     </a>
                                 </li>

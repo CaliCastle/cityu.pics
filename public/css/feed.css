@@ -257,8 +257,8 @@
     margin: 12px 0;
 }
 .feed-layout__panel .feed-details__comments .feed-comment__button{
-    width: 120px;
-    padding: 8px 35px;
+    width: 130px;
+    padding: 8px 15px;
     border: none;
     background: #6770f6;
     color: #fff;
@@ -267,6 +267,17 @@
     border-radius: 10px;
     float: right;
 }
+
+.feed-details__comments.replying .feed-comment__cancel-reply {
+    display: inline-block !important;
+}
+
+.feed-layout__panel .feed-details__comments .feed-comment__cancel-reply {
+    background: transparent;
+    padding: 10px 2px;
+    display: none;
+}
+
 .feed-layout .feed-details__comments .emojioneemoji {
     width: 20px;
     height: 20px;
@@ -279,6 +290,10 @@
 .feed-details__comments .feed__comments {
     position: relative;
     clear: both;
+}
+
+.feed__comments.block-loading {
+    padding: 20px 0;
 }
 
 .feed-details__comments .feed__comments a {
@@ -441,6 +456,11 @@
     border-radius: 50%;
     animation: animLoader 0.8s linear forwards infinite;
 }
+
+.emojionearea .emojionearea-picker {
+    z-index: 99999 !important;
+}
+
 @media screen and (max-width: 768px) {
     .feed-layout .feed-layout__panel,
     .feed-layout .feed-sizer {

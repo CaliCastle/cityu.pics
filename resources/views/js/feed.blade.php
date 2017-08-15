@@ -377,6 +377,8 @@
             $('.post-overlay').on('click', function () {
                 $currentPost.classList.add('closing');
                 $currentPost.classList.remove('expanded');
+                $currentPost.querySelector('.feed__comments').classList.add('block-loading');
+                $currentPost.querySelector('.feed__comments').innerHTML = '';
 
                 $('body').animate({scrollTop: $currentPost.style.top.split('px')[0]}, 400, 'swing');
                 setTimeout(function () {
@@ -519,6 +521,8 @@
                     $currentPost.querySelector('.feed__comments.block-loading').classList.remove('block-loading');
                     // Add comments to node list.
                     $($currentPost.querySelector('.feed__comments')).append(s.html);
+                    // Bind events for each comment.
+                    commentsLoaded();
                 },
                 error: function () {
                     displayErrorMessage();
@@ -529,13 +533,57 @@
             });
         }
 
-        // Likes the current comment
-        function likeComment() {
+        function commentsLoaded() {
+            // Reply to comment.
+            var $commentInput = $currentPost.querySelector('.feed-details__comment-input');
+            $currentPost.querySelectorAll('.comment__reply-button').forEach(function (item) {
+                $(item).on('click', function () {
+                    var parent = $(item).parents(".comment-item")[0];
+                    // Set whom to reply to.
+                    replyTo = $(parent).attr('data-id');
 
+                    $($commentInput).appendTo(parent.querySelector('.details'));
+                    $currentPost.querySelector('.feed-details__comments').classList.add('replying');
+                });
+            });
+
+            // Like to comment.
+            $currentPost.querySelectorAll('.comment__like-button').forEach(function (item) {
+                $(item).on('click', function () {
+                    var parent = $(item).parents('.comment-item')[0];
+                    // Send request to like the comment.
+                    likeComment(parent.getAttribute('data-id'));
+                });
+            });
+
+            // Cancel reply.
+            $($currentPost.querySelector('.feed-comment__cancel-reply')).on('click', function () {
+                resetCommentInput();
+            });
         }
+
+        // Likes the current comment
+        function likeComment(id) {
+            $.ajax({
+                url: '/like-comment/' + id,
+                method: 'PUT',
+                data: {_token: Laravel.csrfToken},
+                success: function (s) {
+
+                },
+                error: function () {
+                    displayErrorMessage();
+                }
+            });
+        }
+
+        var submittingComment = false;
 
         // Submit a comment
         function submitComment() {
+            if (submittingComment)
+                return false;
+
             var $commentButton = $currentPost.querySelector('.feed-comment__button'),
                 content = $currentPost.querySelector('.emojionearea-editor').innerHTML.trim(),
                 data = {
@@ -543,33 +591,62 @@
                     content: content
                 };
 
+            content = content.replace(/&nbsp;/g, "").trim();
             // Empty string.
             if (content == '')
                 return false;
 
             // Prevent from clicking again.
             $commentButton.classList.toggle('disabled');
+            $commentButton.innerText = $commentButton.getAttribute('loading-text');
 
             // If we are replying to someone else.
             if (replyTo)
                 data.parent = replyTo;
 
+            // Set submitting to true.
+            submittingComment = true;
             // Send ajax request.
             $.post({
                 url: '/comment/' + $currentPost.getAttribute('post-id'),
                 data: data,
                 success: function (s) {
-                    console.log(s);
+                    if ($currentPost.querySelector('.no-comments')) {
+                        $currentPost.querySelector('.no-comments').remove();
+                    }
+
+                    if (replyTo) {
+                        var selector = '.comment-item[data-id=' + replyTo + '] .comments-list';
+                        $(s.html).prependTo($(selector)[0])
+                    } else {
+                        $(s.html).prependTo($currentPost.querySelector('ul.feed-comments__list'));
+                    }
                 },
                 error: function () {
                     displayErrorMessage();
                 },
                 complete: function () {
                     $commentButton.classList.toggle('disabled');
+                    $commentButton.innerText = $commentButton.getAttribute('origin-text');
+                    submittingComment = false;
+                    resetCommentInput();
                 }
             });
         }
 
+        // Reset comment input.
+        function resetCommentInput() {
+            replyTo = '';
+
+            // Put HTML node back to where it belongs.
+            var $commentInput = $currentPost.querySelector('.feed-details__comment-input');
+            $($commentInput).prependTo($currentPost.querySelector('.feed-details__comments'));
+
+            // Remove replying class
+            $currentPost.querySelector('.replying').classList.remove('replying');
+        }
+
+        // Change url and push to history.
         function pushPostToBrowserHistory() {
             document.title = $currentPost.getAttribute('data-title');
 

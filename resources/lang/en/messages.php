@@ -9,6 +9,7 @@ return [
         'user-menu' => [
             'admin' => 'Admin',
             'profile' => 'Profile',
+            'liked' => 'Liked',
             'achievements' => 'Achievements',
             'settings' => 'Settings',
             'checkin' => 'Check In',
@@ -83,7 +84,9 @@ return [
             'placeholder' => 'Say something... (press Enter to submit)',
             'total' => ':total comment|:total comments',
             'post' => 'Post',
+            'posting' => 'Posting...',
             'no-comments' => 'No comments yet.',
+            'cancel' => 'Cancel reply',
         ]
     ]
 ];
