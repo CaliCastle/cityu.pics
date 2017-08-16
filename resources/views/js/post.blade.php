@@ -1,122 +1,11 @@
-<script src="{{ asset('js/imagesloaded.pkgd.min.js') }}"></script>
-<script src="{{ asset('js/masonry.pkgd.min.js') }}"></script>
-<script src="{{ asset('js/anime.min.js') }}"></script>
 <script>
     ;(function (window) {
         'use strict';
 
-        var $currentPost,
-            replyTo = false,
-            originalUrl = window.location.href,
-            originalTitle = document.title;
+        var $currentPost = document.querySelector('.feed-layout__panel'),
+            replyTo = false;
 
-        /**
-         * GridLoaderFx obj.
-         */
-        function GridLoaderFx(el, options) {
-            this.el = el;
-            this.items = this.el.querySelectorAll('.feed-layout__panel:not(.generated)');
-        }
-
-        GridLoaderFx.prototype.effects = {
-            'fade': {
-                // Sort target elements function.
-                sortTargetsFn: function(a,b) {
-                    var aBounds = a.getBoundingClientRect(),
-                        bBounds = b.getBoundingClientRect();
-
-                    return (aBounds.left - bBounds.left) || (aBounds.top - bBounds.top);
-                },
-                animeOpts: {
-                    duration: function(t,i) {
-                        return 500 + i*50;
-                    },
-                    easing: 'easeOutExpo',
-                    delay: function(t,i) {
-                        return i * 20;
-                    },
-                    opacity: {
-                        value: [0,1],
-                        duration: function(t,i) {
-                            return 250 + i * 50;
-                        },
-                        easing: 'linear'
-                    },
-                    translateY: [400,0]
-                }
-            },
-            'scale': {
-                animeOpts: {
-                    duration: function(t,i) {
-                        return 600 + i*75;
-                    },
-                    easing: 'easeOutExpo',
-                    delay: function(t,i) {
-                        return i*50;
-                    },
-                    opacity: {
-                        value: [0,1],
-                        easing: 'linear'
-                    },
-                    scale: [0,1]
-                }
-            },
-        }
-
-        GridLoaderFx.prototype._render = function(effect) {
-            // Reset styles.
-            this._resetStyles();
-
-            var self = this,
-                effectSettings = this.effects[effect],
-                animeOpts = effectSettings.animeOpts
-
-            if( effectSettings.perspective != undefined ) {
-                [].slice.call(this.items).forEach(function(item) {
-                    item.parentNode.style.WebkitPerspective = item.parentNode.style.perspective = effectSettings.perspective + 'px';
-                });
-            }
-
-            if( effectSettings.origin != undefined ) {
-                [].slice.call(this.items).forEach(function(item) {
-                    item.style.WebkitTransformOrigin = item.style.transformOrigin = effectSettings.origin;
-                });
-            }
-
-            if( effectSettings.itemOverflowHidden ) {
-                [].slice.call(this.items).forEach(function(item) {
-                    item.parentNode.style.overflow = 'hidden';
-                });
-            }
-
-            animeOpts.targets = effectSettings.sortTargetsFn && typeof effectSettings.sortTargetsFn === 'function' ? [].slice.call(this.items).sort(effectSettings.sortTargetsFn) : this.items;
-            anime.remove(animeOpts.targets);
-            anime(animeOpts);
-
-            this.el.classList.remove('loading');
-
-            this.items.forEach(function (item) {
-                item.classList.add('generated');
-            });
-        };
-
-        GridLoaderFx.prototype._resetStyles = function() {
-            this.el.style.WebkitPerspective = this.el.style.perspective = 'none';
-            [].slice.call(this.items).forEach(function(item) {
-                var gItem = item.parentNode;
-                item.style.opacity = 0;
-                item.style.WebkitTransformOrigin = item.style.transformOrigin = '50% 50%';
-                item.style.transform = 'none';
-
-                gItem.style.overflow = '';
-            });
-        };
-
-        window.GridLoaderFx = GridLoaderFx;
-
-        var body = document.querySelector('.feed-content'),
-            feedGrid = document.querySelector('.feed-layout'),
-            masonry, gridLoader, currentPage = 1, pageLoaded = false;
+        var body = document.querySelector('.feed-content');
 
         // taken from mo.js demos
         function isIOSSafari() {
@@ -185,31 +74,6 @@
 
         // Initialize events.
         function init() {
-            // Preload images
-            imagesLoaded(feedGrid, function () {
-                // Initialize Masonry layout
-                masonry = new Masonry(feedGrid, {
-                    itemSelector: '.feed-layout__panel',
-                    columnWidth: '.feed-sizer',
-                    percentPosition: true,
-                    transitionDuration: 0
-                });
-                // Init GridLoaderFx.
-                gridLoader = new GridLoaderFx(feedGrid);
-                feedGrid.classList.remove('grid--loading');
-
-                if (pageLoaded) {
-                    gridLoader._render('scale');
-                } else {
-                    setTimeout(function () {
-                        gridLoader._render('scale');
-                    }, 850);
-                    pageLoaded = true;
-                }
-            });
-            // Remove loading class from #app
-            body.classList.remove('loading');
-
             // Like buttons animation
             $('button.feed-action__like').each(function () {
                 var item = this;
@@ -361,12 +225,6 @@
 
             // Comment buttons binding.
             $('.feed-action__comment').on('click', function () {
-                if (!$($postOverlay).hasClass('open')) {
-                    $currentPost = $(this).parents('.feed-layout__panel')[0];
-                    $postOverlay.classList.add('open');
-
-                    expandPost();
-                }
                 focusCommentInput();
             });
 
@@ -387,38 +245,26 @@
             // Delete buttons binding.
             $('.feed-more__delete').on('click', deletePost);
 
-            // Load more button binding.
-            $('.feed-loader button').on('click', function (e) {
-                sendMorePostsRequest(e.target.parentNode);
+            // Display comment input.
+            $($currentPost.querySelector('.feed-comment__input')).emojioneArea({
+                pickerPosition: "top",
+                tonesStyle: "bullet",
+                inline: true,
+                placeholder: "@lang('messages.posts.comments.placeholder')  ✍",
+                useSprite: true
             });
 
-            var $body = document.body,
-                $postOverlay = document.querySelector('.post-overlay');
-            // Feed media zoom in event.
-            $('.feed-layout__panel .feed-media').on('click', function (e) {
-                $currentPost = e.target.parentNode.parentNode;
-                $postOverlay.classList.add('open');
-
-                expandPost();
+            // Bind comment button.
+            $($currentPost.querySelector('.feed-comment__button')).on('click', submitComment);
+            $($currentPost.querySelector('.emojionearea-editor')).keydown(function (e) {
+                if (e.keyCode == 13) {
+                    submitComment();
+                    return false;
+                }
             });
-            // Close the expanded post.
-            $('.post-overlay').on('click', function () {
-                $currentPost.classList.add('closing');
-                $currentPost.classList.remove('expanded');
-                $currentPost.querySelector('.feed__comments').classList.add('block-loading');
-                $currentPost.querySelector('.feed__comments').innerHTML = '';
 
-                $('body').animate({scrollTop: $currentPost.style.top.split('px')[0]}, 400, 'swing');
-                setTimeout(function () {
-                    $postOverlay.classList.remove('open');
-                    $currentPost.classList.remove('closing');
-                }, 410);
-
-                document.title = originalTitle;
-                window.history.pushState({
-                    "pageTitle": originalTitle
-                }, document.title, originalUrl);
-            });
+            // Load comments from server.
+            loadComments();
         }
 
         // Front-end likes counter.
@@ -454,67 +300,9 @@
             });
         }
 
-        // Send load more request.
-        function sendMorePostsRequest($button) {
-            // Prevent from clicking again.
-            $button.classList.add('requesting');
-
-            $.post({
-                url: '/posts/' + (currentPage + 1),
-                data: {_token: Laravel.csrfToken},
-                success: function (s) {
-                    currentPage++;
-
-                    if (s.hasMore == 'true') {
-                        $(feedGrid).append(s.posts);
-                        $button.classList.remove('requesting');
-
-                        init();
-                    } else {
-                        $button.remove();
-                    }
-                },
-                error: function () {
-                    displayErrorMessage();
-                }
-            });
-        }
-
-        // Zoom in post.
-        function expandPost() {
-            if (!$($currentPost).hasClass('expanded')) {
-                // Scroll to the post.
-                $('body').animate({scrollTop: $currentPost.style.top.split('px')[0]}, 400, 'swing');
-
-                $currentPost.classList.add('expanded');
-                // Display comment input.
-                $($currentPost.querySelector('.feed-comment__input')).emojioneArea({
-                    pickerPosition: "top",
-                    tonesStyle: "bullet",
-                    inline: true,
-                    placeholder: "@lang('messages.posts.comments.placeholder')  ✍",
-                    useSprite: true
-                });
-
-                // Bind comment button.
-                $($currentPost.querySelector('.feed-comment__button')).on('click', submitComment);
-                $($currentPost.querySelector('.emojionearea-editor')).keydown(function (e) {
-                    if (e.keyCode == 13) {
-                        submitComment();
-                        return false;
-                    }
-                });
-
-                // Load comments from server.
-                loadComments();
-                // Pushes url to browser history.
-                pushPostToBrowserHistory();
-            }
-        }
-
         // Delete a post.
-        function deletePost(e) {
-            var $post = $(e.target).parents('.feed-layout__panel')[0],
+        function deletePost() {
+            var $post = $currentPost,
                 id = $post.getAttribute('post-id');
 
             togglePostModal(function () {
@@ -530,8 +318,6 @@
                             setTimeout(function () {
                                 // Remove Node from HTML.
                                 $post.remove();
-                                // Re-layout the masonry.
-                                masonry.layout();
                             }, 750);
                         }
                     },
@@ -723,15 +509,6 @@
             $currentPost.querySelector('.replying').classList.remove('replying');
             // Clear the comment input.
             $currentPost.querySelector('.emojionearea-editor').innerHTML = '';
-        }
-
-        // Change url and push to history.
-        function pushPostToBrowserHistory() {
-            document.title = $currentPost.getAttribute('data-title');
-
-            window.history.pushState({
-                "pageTitle": document.title
-            }, document.title, window.location.protocol + '//' + window.location.host + '/post/' + $currentPost.getAttribute('post-id'));
         }
 
         init();

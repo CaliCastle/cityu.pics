@@ -333,7 +333,13 @@
                 var $top = document.getElementById('back-to-top');
 
                 if ($(this).scrollTop() <= 500) {
-                    $top.classList.add('hidden');
+                    if (!$($top).hasClass('hidden')) {
+                        $top.classList.add('bounceOut');
+                        setTimeout(function () {
+                            $top.classList.remove('bounceOut');
+                            $top.classList.add('hidden');
+                        }, 1000);
+                    }
                 } else {
                     $top.classList.remove('hidden');
                 }

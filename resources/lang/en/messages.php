@@ -91,8 +91,10 @@ return [
             'no-comments' => 'No comments yet.',
             'cancel'      => 'Cancel reply',
         ],
-        'actions' => [
-            'delete' => 'Delete'
+        'actions'   => [
+            'delete'  => 'Delete',
+            'sign-in' => 'You\'ll need to login to comment.',
+            'confirm' => 'Confirm'
         ]
     ]
 ];

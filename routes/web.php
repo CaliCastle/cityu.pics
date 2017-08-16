@@ -28,6 +28,9 @@ Route::get('confirm/{token}/{email}', 'HomeController@confirmUser');
 Route::get('language/{language}', 'GeneralController@switchLanguage')->name('language');
 
 // Post related
+Route::get('post/{post}', function (\App\Post $post) {
+    return Auth::check() ? view('post-authed', compact('post')) : view('post-unauthed', compact('post'));
+});
 Route::post('posts/{page}', 'HomeController@loadMorePosts');
 Route::post('post', 'HomeController@postNew')->name('post-new');
 Route::post('upload', 'HomeController@uploadImages')->name('upload');

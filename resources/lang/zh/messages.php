@@ -92,7 +92,9 @@ return [
             'cancel'      => '取消回复',
         ],
         'actions'   => [
-            'delete' => '删除'
+            'delete'  => '删除',
+            'sign-in' => '登录后进行回复/点赞',
+            'confirm' => '确定'
         ]
     ]
 ];

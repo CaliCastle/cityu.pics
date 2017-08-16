@@ -44,20 +44,19 @@
                         </a>
                         <a class="feed-action__more" href="javascript:void(0)">
                             <i class="fa fa-ellipsis-h"></i>
-
-                            <div class="feed-more__list animated bounceIn">
-                                @if(Auth::id() == $postAuthor->id)
+                        </a>
+                        <div class="feed-more__list animated flipInY">
+                            @if(Auth::id() == $postAuthor->id)
                                 <div class="feed-more__item feed-more__delete">
                                     <i class="fa fa-trash"></i>
                                     <span>@lang('messages.posts.actions.delete')</span>
                                 </div>
-                                @endif
-                                <div class="feed-more__item">
-                                    <i class="fa fa-times"></i>
-                                    <span>@lang('messages.composer.cancel')</span>
-                                </div>
+                            @endif
+                            <div class="feed-more__item feed-more__cancel">
+                                <i class="fa fa-times"></i>
+                                <span>@lang('messages.composer.cancel')</span>
                             </div>
-                        </a>
+                        </div>
                     </div>
                 </div>
                 <div class="feed-details__date">
@@ -76,6 +75,10 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="feed-layout__modal animated bounceIn">
+            <button class="feed-modal__button feed-modal__cancel">@lang('messages.composer.cancel')</button>
+            <button class="feed-modal__button feed-modal__confirm animated infinite pulse">@lang('messages.posts.actions.confirm')!</button>
         </div>
     </div>
 @endforeach

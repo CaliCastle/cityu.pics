@@ -34,14 +34,55 @@
 .feed-layout .feed-layout__panel.closing {
     z-index: 99;
 }
+.feed-layout .feed-layout__panel.feed-modal {
+    pointer-events: none;
+}
+.feed-layout .feed-layout__panel.feed-modal:before {
+    content: '';
+    background: rgba(0, 0, 0, .65);
+    display: block;
+    width: calc(100% - 10px);
+    height: calc(100% - 10px);
+    position: absolute;
+    z-index: 999;
+    border-radius: 8px
+}
+.feed-layout .feed-layout__panel.feed-modal .feed-layout__modal {
+    display: flex !important;
+    pointer-events: all;
+}
 .feed-layout .feed-layout__panel-content {
     border-radius: 8px;
     background: #fff;
     overflow: hidden;
-    box-shadow: 0 2.5px 15px rgba(0, 0, 0, .3);
+    box-shadow: 0 2.5px 15px rgba(0, 0, 0, .3)
+}
+.feed-layout .feed-layout__modal {
+    display: none;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    position: absolute;
+    z-index: 999;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0
+}
+.feed-layout .feed-layout__modal .feed-modal__button {
+    border: none;
+    background: #ecefe9;
+    color: #444;
+    padding: 7px 20px;
+    border-radius: 6px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, .25)
+}
+.feed-layout .feed-layout__modal .feed-modal__button.feed-modal__confirm {
+    background: #c84328;
+    color: #fff
 }
 .feed-layout .feed-layout__panel.expanded .feed-layout__panel-content {
-    box-shadow: 0 2px 25px rgba(0, 0, 0, .65);
+    box-shadow: 0 2px 25px rgba(0, 0, 0, .65)
 }
 .feed-layout .feed-layout__panel-content:hover {
 }
@@ -205,6 +246,7 @@
     text-align: right;
     padding-right: 3px;
     line-height: 36px;
+    position: relative
 }
 .feed-layout .feed-details__footer .feed-details__actions > a {
     display: inline-block;
@@ -248,8 +290,8 @@
     justify-content: center;
     align-items: center;
     position: absolute;
-    right: -50%;
-    bottom: 0;
+    right: -5px;
+    bottom: 5px;
     padding: 5px;
     background: #f9f9f9;
     border-radius: 8px;
@@ -257,13 +299,15 @@
     z-index: 999;
     min-width: 120px;
 }
-.feed-layout .feed-details__footer .feed-details__actions .feed-action__more.open .feed-more__list {
+.feed-layout .feed-details__footer .feed-details__actions.open .feed-more__list {
     display: flex !important;
 }
 .feed-layout .feed-details__footer .feed-details__actions .feed-more__list .feed-more__item {
     cursor: pointer;
     display: block;
     font-size: 14px;
+    width: 100%;
+    text-align: center
 }
 .feed-more__list .feed-more__item.feed-more__delete {
     color: #cc2317 !important;
@@ -272,10 +316,14 @@
 .feed-layout .feed-details__footer .feed-details__actions .feed-more__list .feed-more__item i {
     color: inherit;
     font-size: inherit;
+    user-select: none;
+    pointer-events: none;
 }
 .feed-layout .feed-details__footer .feed-details__actions .feed-more__list .feed-more__item span {
     color: inherit;
     font-size: inherit;
+    user-select: none;
+    pointer-events: none;
 }
 .feed-layout .feed-details__date {
     text-align: right;
