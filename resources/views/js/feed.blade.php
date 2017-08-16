@@ -553,6 +553,8 @@
                     var parent = $(item).parents('.comment-item')[0];
                     // Send request to like the comment.
                     likeComment(parent.getAttribute('data-id'));
+
+                    return false;
                 });
             });
 

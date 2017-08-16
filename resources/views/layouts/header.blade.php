@@ -2,8 +2,7 @@
 <html lang="{{ app()->getLocale() }}">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="author" content="Cali Castle">
     <meta name="description" content="@lang('messages.app.slogan')">
@@ -53,5 +52,11 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/icons/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
+
+    <meta property="og:url"         content="{{ url()->current() }}" />
+    <meta property="og:title"       content="@yield('title') :: {{ trans('messages.app.slogan') }}" />
+    <meta property="og:description" content="@lang('messages.app.slogan')" />
+    <meta property="og:image"       content="{{ asset('images/cityu.jpg') }}" />
+
     @stack('meta')
 </head>

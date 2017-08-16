@@ -212,6 +212,7 @@
     color: #888;
     margin: 0 0 0 7px;
     text-decoration: none;
+    position: relative
 }
 .feed-layout .feed-details__footer .feed-like__count {
     font-size: 11px;
@@ -240,6 +241,41 @@
 }
 .feed-layout .feed-details__footer .feed-action__like svg {
     left: 0;
+}
+.feed-layout .feed-details__footer .feed-details__actions .feed-more__list {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    right: -50%;
+    bottom: 0;
+    padding: 5px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(10,10,10,.25);
+    z-index: 999;
+    min-width: 120px;
+}
+.feed-layout .feed-details__footer .feed-details__actions .feed-action__more.open .feed-more__list {
+    display: flex !important;
+}
+.feed-layout .feed-details__footer .feed-details__actions .feed-more__list .feed-more__item {
+    cursor: pointer;
+    display: block;
+    font-size: 14px;
+}
+.feed-more__list .feed-more__item.feed-more__delete {
+    color: #cc2317 !important;
+    font-weight: 600;
+}
+.feed-layout .feed-details__footer .feed-details__actions .feed-more__list .feed-more__item i {
+    color: inherit;
+    font-size: inherit;
+}
+.feed-layout .feed-details__footer .feed-details__actions .feed-more__list .feed-more__item span {
+    color: inherit;
+    font-size: inherit;
 }
 .feed-layout .feed-details__date {
     text-align: right;

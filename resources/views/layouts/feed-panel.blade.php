@@ -44,6 +44,19 @@
                         </a>
                         <a class="feed-action__more" href="javascript:void(0)">
                             <i class="fa fa-ellipsis-h"></i>
+
+                            <div class="feed-more__list animated bounceIn">
+                                @if(Auth::id() == $postAuthor->id)
+                                <div class="feed-more__item feed-more__delete">
+                                    <i class="fa fa-trash"></i>
+                                    <span>@lang('messages.posts.actions.delete')</span>
+                                </div>
+                                @endif
+                                <div class="feed-more__item">
+                                    <i class="fa fa-times"></i>
+                                    <span>@lang('messages.composer.cancel')</span>
+                                </div>
+                            </div>
                         </a>
                     </div>
                 </div>
