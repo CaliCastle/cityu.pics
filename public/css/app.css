@@ -290,6 +290,7 @@ body.auth {
 #app {
     overflow-x: hidden;
     overflow-y: scroll;
+    min-height: 100vh;
     -webkit-transition: filter ease-in-out .25s;
     -moz-transition: filter ease-in-out .25s;
     -ms-transition: filter ease-in-out .25s;
