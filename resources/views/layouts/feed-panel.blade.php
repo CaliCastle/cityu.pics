@@ -8,7 +8,6 @@
             </div>
             <div class="feed-details">
             @if($post->hasTags())
-                <!-- Tags -->
                     <div class="feed-details__header">
                         <ul class="feed-details__tags">
                             @foreach($post->tags as $tag)
@@ -19,11 +18,9 @@
                         </ul>
                     </div>
             @endif
-            <!-- Content -->
                 <div class="feed-details__content">
                     <p>{!! $post->caption !!}</p>
                 </div>
-                <!-- Avatar and actions -->
                 <div class="feed-details__footer">
                     <a href="{{ ($postAuthor = $post->user)->profileLink() }}" class="feed-details__user">
                         <div class="avatar">

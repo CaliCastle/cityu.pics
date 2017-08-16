@@ -72,6 +72,7 @@ class HomeController extends Controller
      *
      * @param $token
      * @param $email
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function confirmUser($token, $email)
@@ -80,12 +81,13 @@ class HomeController extends Controller
 
         if ($user && !$user->hasConfirmed() && $user->email == $email) {
             $user->confirmed();
+
             return redirect('feed')->with('status', [
                 'message' => 'Your account has been confirmed!'
             ]);
         } else {
             return redirect('feed')->with('status', [
-                'type' => 'error',
+                'type'    => 'error',
                 'message' => 'The account cannot be confirmed.'
             ]);
         }
@@ -108,6 +110,7 @@ class HomeController extends Controller
      * Unlocks a user.
      *
      * @param Request $request
+     *
      * @return $this|\Illuminate\Http\RedirectResponse
      */
     public function unlock(Request $request)
@@ -128,6 +131,7 @@ class HomeController extends Controller
      * Resends confirmation code.
      *
      * @param Request $request
+     *
      * @return array
      */
     public function resendCode(Request $request)
@@ -144,6 +148,7 @@ class HomeController extends Controller
      * Handler for uploading images.
      *
      * @param Request $request
+     *
      * @return array
      */
     public function uploadImages(Request $request)
@@ -167,6 +172,7 @@ class HomeController extends Controller
      * Posts a new post.
      *
      * @param Request $request
+     *
      * @return array
      */
     public function postNew(Request $request)
@@ -188,6 +194,7 @@ class HomeController extends Controller
      * Loads more posts by page.
      *
      * @param $page
+     *
      * @return array
      */
     public function loadMorePosts($page)
@@ -206,8 +213,9 @@ class HomeController extends Controller
     /**
      * Likes a post.
      *
-     * @param Post $post
+     * @param Post    $post
      * @param Request $request
+     *
      * @return array
      */
     public function likePost(Post $post, Request $request)
@@ -224,6 +232,7 @@ class HomeController extends Controller
      *
      * @param Comment $comment
      * @param Request $request
+     *
      * @return array
      */
     public function likeComment(Comment $comment, Request $request)
@@ -231,15 +240,17 @@ class HomeController extends Controller
         $request->user()->likeComment($comment);
 
         return [
-            'status' => 'success'
+            'status'   => 'success',
+            'newLikes' => $comment->getLikes()
         ];
     }
 
     /**
      * Comments a post.
      *
-     * @param Post $post
+     * @param Post    $post
      * @param Request $request
+     *
      * @return array
      */
     public function commentPost(Post $post, Request $request)
@@ -257,6 +268,7 @@ class HomeController extends Controller
      * Loads comments of a post.
      *
      * @param Post $post
+     *
      * @return array
      */
     public function loadComments(Post $post)
@@ -272,8 +284,9 @@ class HomeController extends Controller
     /**
      * Deletes a post.
      *
-     * @param Post $post
+     * @param Post    $post
      * @param Request $request
+     *
      * @return array|bool
      */
     public function deletePost(Post $post, Request $request)

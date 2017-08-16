@@ -569,7 +569,11 @@
                 method: 'PUT',
                 data: {_token: Laravel.csrfToken},
                 success: function (s) {
-
+                    // Set number to new one.
+                    var $comment = $('.comment-item[data-id=' + id + '] .details .actions .comment__like-button')[0];
+                    $($comment).html(s.newLikes);
+                    // Toggle liked class.
+                    $($comment).toggleClass('liked');
                 },
                 error: function () {
                     displayErrorMessage();
@@ -642,8 +646,10 @@
             var $commentInput = $currentPost.querySelector('.feed-details__comment-input');
             $($commentInput).prependTo($currentPost.querySelector('.feed-details__comments'));
 
-            // Remove replying class
+            // Remove replying class.
             $currentPost.querySelector('.replying').classList.remove('replying');
+            // Clear the comment input.
+            $currentPost.querySelector('.emojionearea-editor').innerHTML = '';
         }
 
         // Change url and push to history.

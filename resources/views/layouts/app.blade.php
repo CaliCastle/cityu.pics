@@ -345,8 +345,7 @@
                 pickerPosition: "top",
                 tonesStyle: "bullet",
                 inline: true,
-                placeholder: "@lang('messages.composer.caption-placeholder')  ✍ ...",
-                useSprite: true
+                placeholder: "@lang('messages.composer.caption-placeholder')  ✍ ..."
             });
 
             // Set up Taggle for hashtags.
