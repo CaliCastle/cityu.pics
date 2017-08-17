@@ -1,5 +1,5 @@
 @foreach($posts as $post)
-    <div class="feed-layout__panel" post-id="{{ $post->id }}" data-title="{{ str_limit(strip_tags($post->caption), 25) }}">
+    <div class="feed-layout__panel" post-id="{{ $post->id }}" data-title="{{ str_limit(strip_tags($post->caption), 30) }}">
         <div class="feed-layout__panel-content">
             <div class="feed-media">
                 @foreach($post->allMedia() as $media)
@@ -46,6 +46,14 @@
                             <i class="fa fa-ellipsis-h"></i>
                         </a>
                         <div class="feed-more__list animated flipInY">
+                            <div class="feed-more__item feed-more__facebook">
+                                <i class="fa fa-facebook"></i>
+                                <span>Facebook</span>
+                            </div>
+                            <div class="feed-more__item feed-more__twitter">
+                                <i class="fa fa-twitter"></i>
+                                <span>Twitter</span>
+                            </div>
                             @if(Auth::id() == $postAuthor->id)
                                 <div class="feed-more__item feed-more__delete">
                                     <i class="fa fa-trash"></i>

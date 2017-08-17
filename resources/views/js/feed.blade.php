@@ -374,6 +374,7 @@
             $('.feed-action__more').on('click', function () {
                 this.parentNode.classList.add('open');
             });
+            // Cancel more actions.
             $('.feed-more__cancel').on('click', function () {
                 var $parent = $(this).parents('.feed-details__actions')[0],
                     $this = this;
@@ -382,6 +383,17 @@
                     $this.parentNode.classList.remove('flipOutY');
                     $parent.classList.remove('open');
                 }, 650);
+            });
+            // Facebook sharing.
+            $('.feed-more__facebook').on('click', function (e) {
+                var $post = $(this).parents('.feed-layout__panel')[0];
+
+				FB.ui({
+					method: 'share',
+					display: 'popup',
+					href: '{{ url('/') }}/post/' + $post.getAttribute('post-id'),
+					quote: $post.getAttribute('data-title')
+				});
             });
 
             // Delete buttons binding.

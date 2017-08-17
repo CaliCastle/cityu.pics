@@ -28,8 +28,8 @@
         window.Laravel = {!! json_encode([
             'csrfToken' => csrf_token(),
         ]) !!};
+        document.documentElement.className = 'js';
     </script>
-    <script>document.documentElement.className = 'js';</script>
     <script src="https://use.fontawesome.com/d91fbb53d7.js"></script>
 
     <!-- Icons -->
@@ -59,31 +59,31 @@
     <meta property="og:image"       content="{{ asset('images/cityu.jpg') }}" />
 
     <!-- Start of Async Drift Code -->
-    <script>
-        !function() {
-            var t;
-            if (t = window.driftt = window.drift = window.driftt || [], !t.init) return t.invoked ? void (window.console && console.error && console.error("Drift snippet included twice.")) : (t.invoked = !0,
-                t.methods = [ "identify", "config", "track", "reset", "debug", "show", "ping", "page", "hide", "off", "on" ],
-                t.factory = function(e) {
-                    return function() {
-                        var n;
-                        return n = Array.prototype.slice.call(arguments), n.unshift(e), t.push(n), t;
-                    };
-                }, t.methods.forEach(function(e) {
-                t[e] = t.factory(e);
-            }), t.load = function(t) {
-                var e, n, o, i;
-                e = 3e5, i = Math.ceil(new Date() / e) * e, o = document.createElement("script"),
-                    o.type = "text/javascript", o.async = !0, o.crossorigin = "anonymous", o.src = "https://js.driftt.com/include/" + i + "/" + t + ".js",
-                    n = document.getElementsByTagName("script")[0], n.parentNode.insertBefore(o, n);
-            });
-        }();
-        drift.SNIPPET_VERSION = '0.3.1';
-        drift.load('eskrtcwcnncv');
-        @if(Auth::check())
-            drift.identify({{ Auth::id() }}, {email: '{{ Auth::user()->email }}',name: '{{ Auth::user()->name }}'});
-        @endif
-    </script>
+    {{--<script>--}}
+        {{--!function() {--}}
+            {{--var t;--}}
+            {{--if (t = window.driftt = window.drift = window.driftt || [], !t.init) return t.invoked ? void (window.console && console.error && console.error("Drift snippet included twice.")) : (t.invoked = !0,--}}
+                {{--t.methods = [ "identify", "config", "track", "reset", "debug", "show", "ping", "page", "hide", "off", "on" ],--}}
+                {{--t.factory = function(e) {--}}
+                    {{--return function() {--}}
+                        {{--var n;--}}
+                        {{--return n = Array.prototype.slice.call(arguments), n.unshift(e), t.push(n), t;--}}
+                    {{--};--}}
+                {{--}, t.methods.forEach(function(e) {--}}
+                {{--t[e] = t.factory(e);--}}
+            {{--}), t.load = function(t) {--}}
+                {{--var e, n, o, i;--}}
+                {{--e = 3e5, i = Math.ceil(new Date() / e) * e, o = document.createElement("script"),--}}
+                    {{--o.type = "text/javascript", o.async = !0, o.crossorigin = "anonymous", o.src = "https://js.driftt.com/include/" + i + "/" + t + ".js",--}}
+                    {{--n = document.getElementsByTagName("script")[0], n.parentNode.insertBefore(o, n);--}}
+            {{--});--}}
+        {{--}();--}}
+        {{--drift.SNIPPET_VERSION = '0.3.1';--}}
+        {{--drift.load('eskrtcwcnncv');--}}
+        {{--@if(Auth::check())--}}
+            {{--drift.identify({{ Auth::id() }}, {email: '{{ Auth::user()->email }}',name: '{{ Auth::user()->name }}'});--}}
+        {{--@endif--}}
+    {{--</script>--}}
     <!-- End of Async Drift Code -->
 
     @stack('meta')
