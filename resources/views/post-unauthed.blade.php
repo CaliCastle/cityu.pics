@@ -2,6 +2,8 @@
 
 @section('title', str_limit(strip_tags($post->caption), 25))
 
+@section('og:image', $post->allMedia()[0])
+
 @section('content')
     <div class="feed-content">
         <div class="container feed-layout" style="column-count: 1">

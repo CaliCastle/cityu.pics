@@ -388,12 +388,11 @@
             $('.feed-more__facebook').on('click', function (e) {
                 var $post = $(this).parents('.feed-layout__panel')[0];
 
-				FB.ui({
-					method: 'share',
-					display: 'popup',
-					href: '{{ url('/') }}/post/' + $post.getAttribute('post-id'),
-					quote: $post.getAttribute('data-title')
-				});
+                var newWindow = window.open(encodeURI('https://www.facebook.com/dialog/share?app_id=2005167386436657&u=' + '{{ url('/') }}/post/' + $post.getAttribute('post-id') + '&display=popup&ref=plugin&src=share_button'),
+                'Facebook', 'height=500,width=600,toolbar=0,menubar=0,location=0');
+                newWindow.focus();
+
+                return false;
             });
 
             // Delete buttons binding.
