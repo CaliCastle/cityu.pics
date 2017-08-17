@@ -118,6 +118,11 @@
     color: #818181;
     display: block;
 }
+.feed__heading {
+    margin: 15px 20px;
+}
+.feed__heading {
+}
 .profile-content .feed-layout {
 
 }

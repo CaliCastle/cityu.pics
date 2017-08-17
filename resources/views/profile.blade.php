@@ -29,7 +29,7 @@
                 <a href="mailto:{{ $user->email }}" class="profile__user-email">{{ $user->email }}</a>
             </div>
         </div>
-        <div class="row">
+        <div class="feed__heading">
             <h2 style="font-weight: 600;color: #d9d9d9">{{ trans_choice('messages.profile.posts-found', $posts->total(), ['total' => $posts->total()]) }}</h2>
         </div>
         @include('layouts.feed-layout')

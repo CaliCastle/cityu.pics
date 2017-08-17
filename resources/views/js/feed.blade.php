@@ -698,6 +698,8 @@
                     } else {
                         $(s.html).prependTo($currentPost.querySelector('ul.feed-comments__list'));
                     }
+
+                    commentsLoaded();
                 },
                 error: function () {
                     displayErrorMessage();

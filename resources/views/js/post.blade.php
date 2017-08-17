@@ -484,6 +484,8 @@
                     } else {
                         $(s.html).prependTo($currentPost.querySelector('ul.feed-comments__list'));
                     }
+
+                    commentsLoaded();
                 },
                 error: function () {
                     displayErrorMessage();
@@ -506,7 +508,8 @@
             $($commentInput).prependTo($currentPost.querySelector('.feed-details__comments'));
 
             // Remove replying class.
-            $currentPost.querySelector('.replying').classList.remove('replying');
+            if ($currentPost.querySelector('.replying'))
+                $currentPost.querySelector('.replying').classList.remove('replying');
             // Clear the comment input.
             $currentPost.querySelector('.emojionearea-editor').innerHTML = '';
         }
