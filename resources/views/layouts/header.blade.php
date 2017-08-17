@@ -56,7 +56,7 @@
     <meta property="og:url"         content="{{ url()->current() }}" />
     <meta property="og:title"       content="@yield('title') :: {{ trans('messages.app.slogan') }}" />
     <meta property="og:description" content="@lang('messages.app.slogan')" />
-    <meta property="og:image"       content="@if(View::hasSection('og:image')) @yield('og:image') @else {{ asset('images/cityu.jpg') }}@endif" />
+    <meta property="og:image"       content="@if(View::hasSection('og:image'))@yield('og:image')@else{{ asset('images/cityu.jpg') }}@endif" />
 
     <!-- Start of Async Drift Code -->
     <script>

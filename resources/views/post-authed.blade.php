@@ -2,7 +2,7 @@
 
 @section('title', str_limit(strip_tags($post->caption), 25))
 
-@section('og:image', $post->allMedia()[0])
+@section('og:image', url($post->allMedia()[0]))
 
 @section('content')
     <div class="feed-content">
