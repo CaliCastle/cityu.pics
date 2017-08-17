@@ -242,11 +242,25 @@
                 }, 650);
             });
             // Facebook sharing.
-            $('.feed-more__facebook').on('click', function (e) {
+            $('.feed-more__facebook').on('click', function () {
                 var $post = $(this).parents('.feed-layout__panel')[0];
+                var left = (screen.width/2)-(600/2);
+                var top = (screen.height/2)-(500/2);
 
                 var newWindow = window.open(encodeURI('https://www.facebook.com/dialog/share?app_id=2005167386436657&href=' + '{{ url('/') }}/post/' + $post.getAttribute('post-id') + '&display=popup&ref=plugin&src=share_button'),
-                    'Facebook', 'height=500,width=600,toolbar=0,menubar=0,location=0');
+                    'Facebook', 'height=500,width=600,toolbar=0,menubar=0,location=0,left=' + left + ',top=' + top);
+                newWindow.focus();
+
+                return false;
+            });
+            // Twitter sharing.
+            $('.feed-more__twitter').on('click', function () {
+                var $post = $(this).parents('.feed-layout__panel')[0];
+                var left = (screen.width/2)-(500/2);
+                var top = (screen.height/2)-(400/2);
+
+                var newWindow = window.open(encodeURI('https://twitter.com/intent/tweet/?url=' + '{{ url('/') }}/post/' + $post.getAttribute('post-id') + '&tw_p=tweetbutton&original_referer={{ url('/') }}'),
+                    'Twitter', 'height=400,width=500,toolbar=0,menubar=0,location=0,left=' + left + ',top=' + top);
                 newWindow.focus();
 
                 return false;
