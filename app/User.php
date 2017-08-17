@@ -89,6 +89,7 @@ class User extends Authenticatable
      * Validates confirmation code.
      *
      * @param $code
+     *
      * @return bool
      */
     public function validateConfirmation($code)
@@ -135,11 +136,12 @@ class User extends Authenticatable
      * Checks if liked the post.
      *
      * @param Post $post
+     *
      * @return bool
      */
     public function likedPost(Post $post)
     {
-        return !! $post->likes()->wherePivot('user_id', '=', $this->id)->first();
+        return !!$post->likes()->wherePivot('user_id', '=', $this->id)->first();
     }
 
     /**
@@ -158,11 +160,12 @@ class User extends Authenticatable
      * Checks if liked the comment.
      *
      * @param Comment $comment
+     *
      * @return bool
      */
     public function likedComment(Comment $comment)
     {
-        return !! $comment->likes()->wherePivot('user_id', '=', $this->id)->first();
+        return !!$comment->likes()->wherePivot('user_id', '=', $this->id)->first();
     }
 
     /**
@@ -199,6 +202,7 @@ class User extends Authenticatable
      * Changes user's avatar.
      *
      * @param $path
+     *
      * @return bool
      */
     public function changeAvatar($path)
@@ -212,8 +216,9 @@ class User extends Authenticatable
      * Comments a post.
      *
      * @param Post $post
-     * @param $content
+     * @param      $content
      * @param bool $parent
+     *
      * @return Comment
      */
     public function commentPost(Post $post, $content, $parent = false)
@@ -226,5 +231,25 @@ class User extends Authenticatable
         $comment = $this->comments()->create($attributes);
 
         return $comment;
+    }
+
+    /**
+     * Gets followers count.
+     *
+     * @return int
+     */
+    public function getFollowersAttribute()
+    {
+        return Follow::followersCount($this);
+    }
+
+    /**
+     * Gets followings count.
+     *
+     * @return int
+     */
+    public function getFollowingsAttribute()
+    {
+        return Follow::followingsCount($this);
     }
 }

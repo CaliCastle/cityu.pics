@@ -79,7 +79,9 @@ return [
             'done'    => '确定剪裁',
             'success' => '头像更改成功!'
         ],
-        'posts-found'   => '共:total条动态'
+        'posts-found'   => '共:total条动态',
+        'followers'     => '粉丝:count人',
+        'followings'    => '已关注:count人'
     ],
     'posts'    => [
         'load-more' => '继续加载',
@@ -95,6 +97,22 @@ return [
             'delete'  => '删除',
             'sign-in' => '登录后进行回复/点赞',
             'confirm' => '确定'
+        ]
+    ],
+    'footer'   => [
+        'info'  => [
+            'title'   => '网站信息',
+            'about'   => '关于本站',
+            'faq'     => '常见问题',
+            'privacy' => '用户隐私'
+        ],
+        'dev'   => [
+            'title'      => '开发相关',
+            'contribute' => '参与贡献',
+            'history'    => '开发记录'
+        ],
+        'links' => [
+            'title' => '相关链接'
         ]
     ]
 ];

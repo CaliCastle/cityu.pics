@@ -79,7 +79,9 @@ return [
             'done'    => 'This is it',
             'success' => 'You changed your avatar!'
         ],
-        'posts-found'   => ':total post found.|:total posts found.'
+        'posts-found'   => ':total post found.|:total posts found.',
+        'followers'     => ':count Follower|:count Followers',
+        'followings'    => ':count Following'
     ],
     'posts'    => [
         'load-more' => 'Load more',
@@ -95,6 +97,22 @@ return [
             'delete'  => 'Delete',
             'sign-in' => 'You\'ll need to login to comment.',
             'confirm' => 'Confirm'
+        ]
+    ],
+    'footer'   => [
+        'info'  => [
+            'title'   => 'Information',
+            'about'   => 'About',
+            'faq'     => 'FAQs',
+            'privacy' => 'Privacy'
+        ],
+        'dev'   => [
+            'title'      => 'Dev',
+            'contribute' => 'Contribute',
+            'history'    => 'Develop History'
+        ],
+        'links' => [
+            'title' => 'Links'
         ]
     ]
 ];

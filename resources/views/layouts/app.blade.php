@@ -177,9 +177,7 @@
     @endif
 
     <!-- Footer section -->
-    <footer>
-
-    </footer>
+    @include('layouts.footer')
 
     <div class="flying-buttons">
         <a class="flying-button compose-new animated bounce" href="javascript:void(0)" title="@lang('messages.navbar.compose-new')" data-toggle="tooltip" data-placement="left">

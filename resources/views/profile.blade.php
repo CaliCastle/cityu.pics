@@ -27,6 +27,9 @@
                 @endif
                 <span class="profile__user-name{{ $user->isAdmin() ? ' admin' : ($user->isVerified() ? ' verified' : '') }}">{{ $user->name }}</span>
                 <a href="mailto:{{ $user->email }}" class="profile__user-email">{{ $user->email }}</a>
+                <div class="profile__user-follow">
+
+                </div>
             </div>
         </div>
         <div class="feed__heading">
