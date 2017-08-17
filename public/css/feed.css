@@ -546,6 +546,14 @@
     z-index: 99999 !important;
 }
 
+.feed-more__facebook {
+	color: #3b5998;
+}
+
+.feed-more__twitter {
+	color: #4099FF;
+}
+
 @media screen and (max-width: 768px) {
     .feed-layout .feed-layout__panel,
     .feed-layout .feed-sizer {
