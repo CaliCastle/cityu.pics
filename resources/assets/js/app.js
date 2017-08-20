@@ -10,6 +10,12 @@ require('mo-js');
 
 require('timeago');
 
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': Laravel.csrfToken
+    }
+});
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -128,12 +134,6 @@ const $vm = new Vue({
 });
 
 window.$vm = $vm;
-
-$.ajaxSetup({
-    headers: {
-        'X-CSRF-TOKEN': Laravel.csrfToken
-    }
-});
 
 jQuery.timeago.settings.strings = TimeStrings;
 
