@@ -52,7 +52,7 @@ Route::put('locked', 'HomeController@resendCode');
 Route::get('@{userName}', 'UserController@showProfile')->name('profile');
 Route::put('@{userName}', 'UserController@followUser')->name('follow');
 Route::post('upload-avatar', 'UserController@uploadAvatar')->name('upload-avatar');
-Route::get('get-inbox', 'UserController@getInbox')->name('get-inbox');
+Route::post('get-inbox', 'UserController@getInbox')->name('get-inbox');
 
 // Notification
 Route::patch('read/notification', 'UserController@readNotifications');

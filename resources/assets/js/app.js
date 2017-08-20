@@ -105,7 +105,7 @@ const $vm = new Vue({
 
             this.request({
                 url: '/get-inbox',
-                type: 'GET',
+                type: 'POST',
                 callback(success, data) {
                     if (success) {
                         for (let i in data.inbox) {
