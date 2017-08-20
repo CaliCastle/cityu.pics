@@ -113,6 +113,9 @@ class Notification extends Model
      */
     public function getMessage()
     {
+        if ($this->relatedDeleted()) {
+            return trans('notifications.deleted', [], $this->user->locale);
+        }
         $message = '';
 
         switch ($this->type) {
@@ -197,6 +200,9 @@ class Notification extends Model
      */
     public function relatedAvatar()
     {
+        if ($this->relatedDeleted()) {
+            return null;
+        }
         if ($this->type != 'user' || !property_exists($this->getRelated(), 'user_id'))
             return null;
 
@@ -210,6 +216,10 @@ class Notification extends Model
      */
     public function relatedLink()
     {
+        if ($this->relatedDeleted()) {
+            return null;
+        }
+
         $link = '';
 
         switch ($this->type) {
@@ -251,6 +261,10 @@ class Notification extends Model
      */
     public function relatedImage()
     {
+        if ($this->relatedDeleted()) {
+            return null;
+        }
+
         if ($this->type == 'user') {
             switch ($this->content) {
                 case 'followed':
@@ -265,6 +279,25 @@ class Notification extends Model
             }
         } else {
             return null;
+        }
+    }
+
+    public function relatedDeleted()
+    {
+        if ($this->type == 'user') {
+            switch ($this->content) {
+                case 'followed':
+                    return false;
+                case 'new-post':
+                case 'liked':
+                    return property_exists($this->getRelated(), 'post_id') ? !Post::find($this->getRelated()->post_id) : true;
+                case 'commented':
+                case 'new-reply':
+                case 'liked-comment':
+                    return property_exists($this->getRelated(), 'comment_id') ? !Comment::find($this->getRelated()->comment_id) : true;
+            }
+        } else {
+            return false;
         }
     }
 }

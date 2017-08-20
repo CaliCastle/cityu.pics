@@ -12,7 +12,7 @@
 			<li class="Inbox__item animated" v-for="(Inbox, index) in Inboxes" :key="index">
 				<a href="#" @click.prevent="readInbox" :inbox-id="Inbox.id" :inbox="index" :data-link="Inbox.link">
 					<div class="badge badge-success" :class="'inbox-type-' + Inbox.type" v-if="Inbox.type != 'user'"></div>
-					<div class="badge badge-avatar inbox-type-user" :style="'background-image: url(' + Inbox.avatar + ')'" v-else></div>
+					<div class="badge badge-avatar inbox-type-user" :style="Inbox.avatar ? 'background-image: url(' + Inbox.avatar + ')' : ''" v-else></div>
 					<div class="Inbox__message" :class="{'full': !Inbox.image}">
 						<p class="details" v-html="Inbox.message"></p>
 						<time class="timeago" :datetime="Inbox.time"></time>

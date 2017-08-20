@@ -12,5 +12,6 @@ return [
     'liked'         => '<b>:user</b> liked your post',
     'new-reply'     => '<b>:user</b> replied: :comment',
     'liked-comment' => '<b>:user</b> liked your comment',
-    'new-post'      => '<b>:user</b> posted: :post'
+    'new-post'      => '<b>:user</b> posted: :post',
+    'deleted'       => 'Content was deleted'
 ];
