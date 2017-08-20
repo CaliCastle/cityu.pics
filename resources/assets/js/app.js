@@ -105,6 +105,7 @@ const $vm = new Vue({
 
             this.request({
                 url: '/get-inbox',
+                data: {_token: Laravel.csrfToken},
                 type: 'POST',
                 callback(success, data) {
                     if (success) {
@@ -131,7 +132,7 @@ window.$vm = $vm;
 
 $.ajaxSetup({
     headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        'X-CSRF-TOKEN': Laravel.csrfToken
     }
 });
 
