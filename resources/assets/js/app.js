@@ -105,7 +105,6 @@ const $vm = new Vue({
 
             this.request({
                 url: '/get-inbox',
-                data: {_token: Laravel.csrfToken},
                 type: 'POST',
                 callback(success, data) {
                     if (success) {
