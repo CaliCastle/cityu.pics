@@ -16,6 +16,21 @@ class EventServiceProvider extends ServiceProvider
         'Illuminate\Auth\Events\Registered' => [
             'App\Listeners\RegistrationListener',
         ],
+        'App\Events\FeedPosted'             => [
+            'App\Listeners\ChangeExperience',
+            'App\Listeners\SendNotification'
+        ],
+        'App\Events\CommentPosted'          => [
+            'App\Listeners\ChangeExperience'
+        ],
+        'App\Events\NewCommentReply'        => [
+            'App\Listeners\ChangeExperience'
+        ],
+        'App\Events\UserFollowed'           => [],
+        'App\Events\LikedPost'              => [],
+        'App\Events\LikedComment'           => [],
+        'App\Events\AnnouncementPosted'     => [],
+        'App\Events\ExperienceHasChanged'   => []
     ];
 
     /**

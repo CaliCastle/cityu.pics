@@ -62,8 +62,9 @@ class Post extends Model
 
     /**
      * Create a post instance from front-end ajax composer request.
-     * 
+     *
      * @param array $data
+     *
      * @return static
      */
     public static function createFromComposer(array $data)
@@ -82,6 +83,16 @@ class Post extends Model
     public function allMedia()
     {
         return explode(',', $this->media);
+    }
+
+    /**
+     * Get the first image of the post.
+     *
+     * @return mixed
+     */
+    public function firstImage()
+    {
+        return $this->allMedia()[0];
     }
 
     /**
@@ -115,12 +126,33 @@ class Post extends Model
     }
 
     /**
-     * Hot comments
+     * Gets link of the post.
      *
-     * @return \Illuminate\Support\Collection
+     * @return string
      */
-    public function hotComments()
+    public function link()
     {
+        return route('post', ['post' => $this->id]);
+    }
 
+    /**
+     * Gets short content.
+     *
+     * @param int $limit
+     *
+     * @return string
+     */
+    public function shortContent($limit = 50)
+    {
+        $content = $this->caption;
+        preg_match_all('/\<img[^\>]*\>/', $content, $matches);
+
+        foreach ($matches[0] as $match) {
+            $content = str_replace($match, preg_replace('#<img.*alt="([^"]+)".*>#', '$1', $match), $content);
+        }
+
+        $content = str_replace('&nbsp;', ' ', $content);
+
+        return str_limit($content, $limit);
     }
 }

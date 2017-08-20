@@ -118,71 +118,6 @@
             feedGrid = document.querySelector('.feed-layout'),
             masonry, gridLoader, currentPage = 1, pageLoaded = false;
 
-        // taken from mo.js demos
-        function isIOSSafari() {
-            var userAgent;
-            userAgent = window.navigator.userAgent;
-            return userAgent.match(/iPad/i) || userAgent.match(/iPhone/i);
-        };
-
-        // taken from mo.js demos
-        function isTouch() {
-            var isIETouch;
-            isIETouch = navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0;
-            return [].indexOf.call(window, 'ontouchstart') >= 0 || isIETouch;
-        };
-
-        // taken from mo.js demos
-        var isIOS = isIOSSafari(),
-            clickHandler = isIOS || isTouch() ? 'touchstart' : 'click';
-
-        function extend( a, b ) {
-            for( var key in b ) {
-                if( b.hasOwnProperty( key ) ) {
-                    a[key] = b[key];
-                }
-            }
-            return a;
-        }
-
-        function Animocon(el, options) {
-            this.el = el;
-            this.options = extend( {}, this.options );
-            extend( this.options, options );
-
-            this.checked = $(el).hasClass('liked');
-
-            this.timeline = new mojs.Timeline();
-
-            for(var i = 0, len = this.options.tweens.length; i < len; ++i) {
-                this.timeline.add(this.options.tweens[i]);
-            }
-
-            var self = this;
-            this.el.addEventListener(clickHandler, function() {
-                if( self.checked ) {
-                    self.options.onUnCheck();
-                }
-                else {
-                    self.options.onCheck();
-                    self.timeline.start();
-                }
-                self.checked = !self.checked;
-                sendLikePostRequest($(el).parents('.feed-layout__panel')[0].getAttribute('post-id'));
-            });
-        }
-
-        Animocon.prototype.options = {
-            tweens : [
-                new mojs.Burst({
-                    shape : 'circle',
-                    isRunLess: true
-                })
-            ],
-            onCheck : function() { return false; },
-            onUnCheck : function() { return false; }
-        };
-
         // Initialize events.
         function init() {
             // Preload images
@@ -448,6 +383,9 @@
 
         // Front-end likes counter.
         function addOrRemoveLikeCounter(item, like_counter, icon) {
+            // Send ajax request.
+            sendLikePostRequest($(item).parents('.feed-layout__panel')[0].getAttribute('post-id'));
+
             if ($(item).hasClass('liked')) {
                 $(item).removeClass('liked');
                 $(icon).removeClass('fa-heart').addClass('fa-heart-o');
@@ -658,6 +596,9 @@
             $($currentPost.querySelector('.feed-comment__cancel-reply')).on('click', function () {
                 resetCommentInput();
             });
+
+            // Refresh time ago.
+            $('.timeago').timeago();
         }
 
         // Likes the current comment

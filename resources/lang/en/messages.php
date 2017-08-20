@@ -4,6 +4,9 @@ return [
     'app'      => [
         'slogan' => 'CityU Photo Sharing Platform'
     ],
+    'alerts'   => [
+        'error' => 'Something went wrong, try again later'
+    ],
     'navbar'   => [
         'sr-only'     => 'Toggle Navigation',
         'user-menu'   => [
@@ -15,7 +18,12 @@ return [
             'checkin'      => 'Check In',
             'signout'      => 'Sign out'
         ],
-        'compose-new' => 'Post new'
+        'compose-new' => 'Post new',
+        'inbox'       => [
+            'unread'  => 'unread message|unread messages',
+            'see-all' => 'See all',
+            'empty'   => 'Empty inbox'
+        ],
     ],
     'composer' => [
         'description-title'   => 'Add images by dragging files here <i>or</i> select by clicking',
@@ -80,8 +88,13 @@ return [
             'success' => 'You changed your avatar!'
         ],
         'posts-found'   => ':total post found.|:total posts found.',
-        'followers'     => ':count Follower|:count Followers',
-        'followings'    => ':count Following'
+        'followers'     => '<span>:count</span> Follower|<span>:count</span> Followers',
+        'followings'    => ':count Following',
+        'follow-state'  => [
+            'followed'      => 'Followed',
+            'followed-back' => 'Friends',
+            'unfollowed'    => 'Follow'
+        ]
     ],
     'posts'    => [
         'load-more' => 'Load more',

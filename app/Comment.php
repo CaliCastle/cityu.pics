@@ -40,7 +40,7 @@ class Comment extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function parent()
+    public function parentComment()
     {
         return $this->belongsTo(static::class, 'parent');
     }
@@ -83,5 +83,36 @@ class Comment extends Model
         }
 
         return $result;
+    }
+
+    /**
+     * Gets the short version of content.
+     *
+     * @param int $limit
+     *
+     * @return string
+     */
+    public function shortContent($limit = 50)
+    {
+        $content = $this->content;
+        preg_match_all('/\<img[^\>]*\>/', $content, $matches);
+
+        foreach ($matches[0] as $match) {
+            $content = str_replace($match, preg_replace('#<img.*alt="([^"]+)".*>#', '$1', $match), $content);
+        }
+
+        $content = str_replace('&nbsp;', ' ', $content);
+
+        return str_limit($content, $limit);
+    }
+
+    /**
+     * Gets the link of the comment.
+     *
+     * @return string
+     */
+    public function link()
+    {
+        return route('post', ['post' => $this->post->id]);
     }
 }

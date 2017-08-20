@@ -140,9 +140,41 @@
 }
 
 .profile--section .profile__user-follow {
-
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
 }
 
-.profile-content .feed-layout {
+.profile--section .profile__user-follow > span {
+	margin: 20px 8px;
+	font-size: 18px;
+	color: #d3d3d3;
+}
 
+.profile--section .profile__follow-button {
+	background: #6770f6;
+	position: relative;
+	color: #fff;
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+	padding: 8px 40px;
+	text-transform: uppercase;
+	font-weight: 600;
+	box-shadow: 0 1px 15px rgba(10, 10, 10, .25);
+	-webkit-transition: all .3s;
+	-moz-transition: all .3s;
+	-ms-transition: all .3s;
+	-o-transition: all .3s;
+	transition: all .3s
+}
+
+.profile--section .profile__follow-button.followed {
+	background: #339656;
+	color: #ddd;
+}
+
+.profile--section .profile__follow-button.followed-back {
+	background: #9f90a2;
 }

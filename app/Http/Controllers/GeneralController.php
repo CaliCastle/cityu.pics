@@ -14,6 +14,10 @@ class GeneralController extends Controller
      */
     public function switchLanguage($language)
     {
+        if (auth()->check()) {
+            auth()->user()->changeLocale($language);
+        }
+
         return redirect()->back()->withCookie(cookie()->forever('lang', $language));
     }
 }

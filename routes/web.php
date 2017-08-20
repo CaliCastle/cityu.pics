@@ -30,7 +30,7 @@ Route::get('language/{language}', 'GeneralController@switchLanguage')->name('lan
 // Post related
 Route::get('post/{post}', function (\App\Post $post) {
     return Auth::check() ? view('post-authed', compact('post')) : view('post-unauthed', compact('post'));
-});
+})->name('post');
 Route::post('posts/{page}', 'HomeController@loadMorePosts');
 Route::post('post', 'HomeController@postNew')->name('post-new');
 Route::post('upload', 'HomeController@uploadImages')->name('upload');
@@ -50,7 +50,12 @@ Route::put('locked', 'HomeController@resendCode');
 
 // User
 Route::get('@{userName}', 'UserController@showProfile')->name('profile');
+Route::put('@{userName}', 'UserController@followUser')->name('follow');
 Route::post('upload-avatar', 'UserController@uploadAvatar')->name('upload-avatar');
+Route::get('get-inbox', 'UserController@getInbox')->name('get-inbox');
+
+// Notification
+Route::patch('read/notification', 'UserController@readNotifications');
 
 // Voyager routes
 Route::group(['prefix' => 'admin'], function () {

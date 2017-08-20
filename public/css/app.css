@@ -43,33 +43,6 @@ button {
     border: 0;
     outline: none;
 }
-@media screen and (max-width: 768px) {
-    .navbar {
-        display: block !important;
-        height: 50px !important;
-    }
-    .navbar .navbar-brand {
-        line-height: 38px !important;
-    }
-    .dropdown.open > .dropdown-menu:before {
-        display: none !important;
-    }
-    .navbar-default .navbar-nav .open .dropdown-menu>li>a {
-        color: #fff !important;
-    }
-    .feed-layout {
-        column-count: 1 !important;
-    }
-    .flying-buttons #back-to-top {
-        display: none !important;
-    }
-    .flying-buttons .flying-button {
-        font-size: 34px !important;
-        width: 52px !important;
-        height: 52px !important;
-        padding: 0 0 0 13px !important;
-    }
-}
 .navbar-nav > li > a {
     color: #fff !important;
 }
@@ -425,6 +398,64 @@ body.auth {
 	font-size: 15px
 }
 
+[v-cloak] {
+    display: none;
+}
+
+.toast-top-right {
+	top: 75px !important;
+}
+
+#toast-container > div {
+	opacity: .95 !important;
+}
+
+@media screen and (max-width: 768px) {
+	.navbar {
+		display: block !important;
+		height: 50px !important;
+	}
+	.navbar .navbar-brand {
+		line-height: 38px !important;
+	}
+	.dropdown.open > .dropdown-menu:before {
+		display: none !important;
+	}
+	.feed-layout {
+		column-count: 1 !important;
+	}
+	.navbar-collapse.in {
+		overflow: visible;
+	}
+	.navbar-nav .open .dropdown-menu {
+		background: #fff !important;
+	}
+	.navbar-nav .open .dropdown-menu>li>a {
+		color: #333 !important;
+	}
+	.Inbox {
+		left: 0 !important;
+	}
+	.flying-buttons {
+		right: 10px !important;
+		bottom: 80px !important;
+	}
+	.flying-buttons .flying-button {
+		font-size: 34px !important;
+		width: 52px !important;
+		height: 52px !important;
+		padding: 0 0 0 13px !important;
+	}
+	.flying-buttons #back-to-top {
+		display: none !important;
+	}
+	.app-footer .footer-copyright p {
+		text-align: center !important;
+	}
+	.toast-top-right {
+		top: 50px !important;
+	}
+}
 @media screen and (max-width: 991px) and (min-width: 768px) {
 	.feed-layout {
 		column-count: 2 !important;

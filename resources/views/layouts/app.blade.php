@@ -5,135 +5,8 @@
     <div class="full-overlay"></div>
 
     <div id="app">
-        <nav class="navbar navbar-default navbar-fixed-top">
-            <div class="container">
-                <div class="navbar-header">
 
-                    <!-- Collapsed Hamburger -->
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
-                        <span class="sr-only">@lang('messages.navbar.sr-only')</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-
-                    <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{ url('/') }}">
-                        <img src="/logo-light.png" alt="Logo">
-                        <span>{{ config('app.name') }}</span>
-                    </a>
-                </div>
-
-                <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                    <ul class="nav navbar-nav navbar-right">
-                        <!-- Authentication Links -->
-                        @if (Auth::guest())
-                            <li>
-                                <a href="{{ route('login') }}">@lang('auth.login')</a>
-                            </li>
-                            <li>
-                                <a href="{{ route('register') }}">@lang('auth.register')</a>
-                            </li>
-                        @else
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                <img src="{{ Voyager::image(($user = Auth::user())->avatar) }}" alt="Avatar" class="img-responsive img-circle nav-avatar">
-                                &nbsp;{{ $user->name }}&nbsp;<span class="caret"></span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li class="rank">
-                                    <!-- TODO: change color -->
-                                    <span class="rank-icon rank-label" data-rank="5"></span>
-                                    <span class="exp-label">Exp: {{ $user->experience }}</span>
-                                </li>
-                                @if($user->hasPermission('browse_admin'))
-                                <li>
-                                    <a href="{{ route('voyager.dashboard') }}" class="menu-link" target="_blank">
-                                        <i class="fa fa-cogs"></i>&nbsp;@lang('messages.navbar.user-menu.admin')
-                                    </a>
-                                </li>
-                                @endif
-                                <li>
-                                    <a href="{{ Auth::user()->profileLink() }}" class="menu-link">
-                                        <i class="fa fa-user-circle-o"></i>&nbsp;@lang('messages.navbar.user-menu.profile')
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="menu-link disabled">
-                                        <i class="fa fa-heart"></i>&nbsp;@lang('messages.navbar.user-menu.liked')
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="menu-link disabled">
-                                        <i class="fa fa-cog"></i>&nbsp;@lang('messages.navbar.user-menu.settings')
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="menu-link disabled">
-                                        <i class="fa fa-check-circle-o"></i>&nbsp;@lang('messages.navbar.user-menu.achievements')
-                                    </a>
-                                </li>
-                                <li class="divider" role="separator"></li>
-                                <li class="checkin"><!-- class="completed" -->
-                                    <i class="fa fa-calendar-o"></i>
-                                    <div class="today">
-                                        <span class="month">{{ \Carbon\Carbon::today()->format('M') }}</span>
-                                        <span class="date">{{ \Carbon\Carbon::today()->day }}</span>
-                                    </div>
-                                    <div class="checkin-button">
-                                        <button>@lang('messages.navbar.user-menu.checkin')</button>
-                                    </div>
-                                </li>
-                                <li class="divider" role="separator"></li>
-                                <li>
-                                    <form action="{{ route('logout') }}" method="POST">
-                                        {{ csrf_field() }}
-                                        <button type="submit" class="menu-link signout">
-                                            <i class="fa fa-power-off"></i>&nbsp;@lang('messages.navbar.user-menu.signout')
-                                        </button>
-                                    </form>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    <img src="{{ asset('images/locale-' . app()->getLocale())  }}.png" alt="" class="locale-img">
-                                    &nbsp;
-                                @lang('languages.' . app()->getLocale())
-                                <span class="caret"></span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                @foreach(trans('languages') as $lang => $string)
-                                    @if($lang != app()->getLocale())
-                                    <li>
-                                        <a href="{{ route('language', ['language' => $lang]) }}" class="menu-link">
-                                            <img src="{{ asset('images/locale-' . $lang) }}.png" alt="" class="locale-img locale-selector">
-                                            <span>@lang('languages.' . $lang)</span>
-                                        </a>
-                                    </li>
-                                    @endif
-                                @endforeach
-                            </ul>
-                        <li>
-                            <a href="#" class="notif-button">
-                                <i class="fa fa-bell-o"></i>
-                            </a>
-                        </li>
-                        <li class="search-container">
-                            <a href="#">
-                                <i class="fa fa-search"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" id="compose-new" class="composer-new" title="@lang('messages.navbar.compose-new')" style="color: #f3e25c !important">
-                                <i class="fa fa-plus-circle"></i>
-                            </a>
-                        </li>
-                        @endif
-                    </ul>
-                </div>
-            </div>
-        </nav>
+	    @include('layouts.partials.navbar')
 
         @yield('content')
 
@@ -143,8 +16,8 @@
     <div class="composer">
         <div class="composer-box animated bounceIn">
             <div class="composer-user-section">
-                <img class="img-circle" src="{{ Voyager::image($user->avatar) }}" alt="{{ $user->name }}">
-                <b>{{ $user->name }}:</b>
+                <img class="img-circle" src="{{ Auth::user()->avatarUrl }}" alt="{{ Auth::user()->name }}">
+                <b>{{ Auth::user()->name }}:</b>
                 <a href="#" class="close-button">
                     <i class="fa fa-close"></i>
                 </a>
@@ -191,13 +64,78 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}?v={{ config('app.version') }}"></script>
+    <script src="{{ asset('js/jquery.slimscroll.min.js') }}"></script>
     <script src="{{ asset('js/emojionearea.min.js') }}"></script>
     <script src="{{ asset('js/taggle.js') }}"></script>
     <script src="{{ voyager_asset('lib/js/toastr.min.js') }}"></script>
     <script>
         function displayErrorMessage() {
-            toastr.error('Something went wrong, try again.');
+            toastr.error('@lang('messages.alerts.error').');
         }
+
+        // taken from mo.js demos
+        function isIOSSafari() {
+            var userAgent;
+            userAgent = window.navigator.userAgent;
+            return userAgent.match(/iPad/i) || userAgent.match(/iPhone/i);
+        };
+
+        // taken from mo.js demos
+        function isTouch() {
+            var isIETouch;
+            isIETouch = navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0;
+            return [].indexOf.call(window, 'ontouchstart') >= 0 || isIETouch;
+        };
+
+        // taken from mo.js demos
+        var isIOS = isIOSSafari(),
+            clickHandler = isIOS || isTouch() ? 'touchstart' : 'click';
+
+        function extend( a, b ) {
+            for( var key in b ) {
+                if( b.hasOwnProperty( key ) ) {
+                    a[key] = b[key];
+                }
+            }
+            return a;
+        }
+
+        function Animocon(el, options) {
+            this.el = el;
+            this.options = extend( {}, this.options );
+            extend( this.options, options );
+
+            this.checked = $(el).hasClass('liked');
+
+            this.timeline = new mojs.Timeline();
+
+            for(var i = 0, len = this.options.tweens.length; i < len; ++i) {
+                this.timeline.add(this.options.tweens[i]);
+            }
+
+            var self = this;
+            this.el.addEventListener(clickHandler, function() {
+                if( self.checked ) {
+                    self.options.onUnCheck();
+                }
+                else {
+                    self.options.onCheck();
+                    self.timeline.start();
+                }
+                self.checked = !self.checked;
+            });
+        }
+
+        Animocon.prototype.options = {
+            tweens : [
+                new mojs.Burst({
+                    shape : 'circle',
+                    isRunLess: true
+                })
+            ],
+            onCheck : function() { return false; },
+            onUnCheck : function() { return false; }
+        };
     </script>
 
     @stack('scripts')
@@ -343,7 +281,6 @@
                     $top.classList.remove('hidden');
                 }
             });
-//            $('[data-toggle="tooltip"]').tooltip();
 
             // Set up Emoji One Caption.
             $('#composer-comment-area').emojioneArea({
@@ -374,9 +311,13 @@
         toastr.options = {
             'progressBar': true,
             'showEasing': "swing",
-            'hideEasing': "linear",
+            'hideEasing': "swing",
             'showMethod': "fadeIn",
-            'hideMethod': "fadeOut"
+            'hideMethod': "fadeOut",
+            "showDuration": 300,
+            "hideDuration": 1000,
+            "timeOut": 8000,
+	        "closeButton": false
         }
 
         function displayStatus(type, message) {

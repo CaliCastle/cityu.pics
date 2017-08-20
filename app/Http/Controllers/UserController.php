@@ -6,6 +6,7 @@ use Image;
 use Session;
 use Storage;
 use App\User;
+use App\Notification;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -31,6 +32,7 @@ class UserController extends Controller
      * Shows the user's profile.
      *
      * @param User $user
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function showProfile(User $user)
@@ -44,6 +46,7 @@ class UserController extends Controller
      * Uploads a new avatar.
      *
      * @param Request $request
+     *
      * @return string
      */
     public function uploadAvatar(Request $request)
@@ -68,5 +71,76 @@ class UserController extends Controller
         Session::flash('status', ['message' => trans('messages.profile.upload-avatar.success')]);
 
         return asset('storage/users/avatars/' . $path);
+    }
+
+    /**
+     * Follows a user.
+     *
+     * @param User    $user
+     * @param Request $request
+     *
+     * @return array|bool
+     */
+    public function followUser(User $user, Request $request)
+    {
+        if ($user->id == $request->user()->id)
+            return false;
+
+        // Follow the user.
+        $request->user()->follow($user);
+
+        return [
+            'state'     => $request->user()->followed($user) ? ($request->user()->followedEachOther($user) ? 'both' : 'followed') : 'unfollowed',
+            'followers' => $user->followers
+        ];
+    }
+
+    /**
+     * Read notifications endpoint.
+     *
+     * @return array
+     */
+    public function readNotifications(Request $request)
+    {
+        if (str_contains($request->input('id'), ',')) {
+            // Multiple read request.
+            foreach (explode(',', $request->input('id')) as $id) {
+                $this->readNotification($id);
+            }
+        } else {
+            // Single read request
+            $this->readNotification(intval($request->input('id')));
+        }
+
+        return [
+            'status' => 'success'
+        ];
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return array
+     */
+    public function getInbox(Request $request)
+    {
+        return [
+            'status' => 'success',
+            'inbox'  => $request->user()->inboxNotifications()
+        ];
+    }
+
+    /**
+     * Read a notification.
+     *
+     * @param $id
+     *
+     * @return mixed
+     */
+    protected function readNotification($id)
+    {
+        $notification = Notification::findOrFail($id);
+
+        return $notification->read();
     }
 }

@@ -10,6 +10,7 @@ use App\Post;
 use App\User;
 use App\Comment;
 use Carbon\Carbon;
+use App\Events\FeedPosted;
 use Illuminate\Http\Request;
 use App\Mail\AccountRegistered;
 
@@ -184,6 +185,9 @@ class HomeController extends Controller
         // Generates associated tags.
         if ($request->has('tags') && $request->input('tags') != '')
             Tag::generate($request->input('tags'), $post);
+
+        // Fire event.
+        event(new FeedPosted($post));
 
         return [
             'status' => 'success'

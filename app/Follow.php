@@ -12,6 +12,13 @@ class Follow extends Model
     protected $table = 'user_followers';
 
     /**
+     * @var array
+     */
+    protected $fillable = [
+        'user_id', 'follower_id'
+    ];
+
+    /**
      * Gets followers count.
      *
      * @param User $user

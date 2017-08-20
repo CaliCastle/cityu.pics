@@ -68,7 +68,7 @@
                     </div>
                 </div>
                 <div class="feed-details__date">
-                    <span title="{{ $post->created_at }}">{{ $post->created_at->diffForHumans() }}</span>
+                    <time title="{{ $post->created_at }}" class="timeago" datetime="{{ $post->created_at->toIso8601String() }}">{{ $post->created_at->diffForHumans() }}</time>
                 </div>
                 <div class="feed-details__expandable">
                     <div class="feed-details__comments">

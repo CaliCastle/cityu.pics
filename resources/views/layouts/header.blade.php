@@ -12,14 +12,16 @@
     <title>@yield('title') :: {{ trans('messages.app.slogan') }}</title>
 
     <!-- Styles -->
+	<link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}?v={{ config('app.version') }}">
     <link rel="stylesheet" href="{{ asset('css/animate.css') }}">
     <link rel="stylesheet" href="{{ asset('css/emojionearea.min.css') }}">
+	<link rel="stylesheet" href="{{ voyager_asset('lib/css/toastr.min.css') }}">
+	<link rel="stylesheet" href="{{ asset('css/dropzone.min.css') }}">
+	<link rel="stylesheet" href="{{ asset('css/taggle.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/feed.css') }}?v={{ config('app.version') }}">
     <link rel="stylesheet" href="{{ asset('css/composer.css') }}?v={{ config('app.version') }}">
-    <link rel="stylesheet" href="{{ voyager_asset('lib/css/toastr.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/dropzone.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/taggle.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/inbox.css') }}?v={{ config('app.version') }}">
 
 @stack('styles')
 
@@ -29,8 +31,11 @@
             'csrfToken' => csrf_token(),
         ]) !!};
         document.documentElement.className = 'js';
+
+        var CurrentUser = JSON.parse('{!! Auth::check() ? addslashes(Auth::user()) : '{}' !!}'),
+            TimeStrings = JSON.parse('{!! json_encode(trans('time')) !!}'),
+            PUSHER_KEY  = '{{ config('broadcasting.connections.pusher.key') }}';
     </script>
-    <script src="https://use.fontawesome.com/d91fbb53d7.js"></script>
 
     <!-- Icons -->
     <link rel="apple-touch-icon" sizes="57x57" href="/icons/apple-icon-57x57.png">

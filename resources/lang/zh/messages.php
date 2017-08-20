@@ -4,6 +4,9 @@ return [
     'app'      => [
         'slogan' => 'CityU图片分享平台'
     ],
+    'alerts'   => [
+        'error' => '出错了，请稍后重试'
+    ],
     'navbar'   => [
         'sr-only'     => '切换导航',
         'user-menu'   => [
@@ -15,7 +18,12 @@ return [
             'checkin'      => '签到',
             'signout'      => '登出'
         ],
-        'compose-new' => '发布图文'
+        'compose-new' => '发布图文',
+        'inbox'       => [
+            'unread'  => '条未读通知',
+            'see-all' => '查看全部',
+            'empty'   => '暂无未读通知'
+        ],
     ],
     'composer' => [
         'description-title'   => '拖拽图片到这里 <i>或者</i> 点击选择',
@@ -80,8 +88,13 @@ return [
             'success' => '头像更改成功!'
         ],
         'posts-found'   => '共:total条动态',
-        'followers'     => '粉丝:count人',
-        'followings'    => '已关注:count人'
+        'followers'     => '粉丝<span>:count</span>人',
+        'followings'    => '已关注:count人',
+        'follow-state'  => [
+            'followed'      => '已关注',
+            'followed-back' => '互相关注',
+            'unfollowed'    => '关注'
+        ]
     ],
     'posts'    => [
         'load-more' => '继续加载',

@@ -54,6 +54,14 @@
                                     <i class="fa fa-ellipsis-h"></i>
                                 </a>
                                 <div class="feed-more__list animated flipInY">
+	                                <div class="feed-more__item feed-more__facebook">
+		                                <i class="fa fa-facebook"></i>
+		                                <span>Facebook</span>
+	                                </div>
+	                                <div class="feed-more__item feed-more__twitter">
+		                                <i class="fa fa-twitter"></i>
+		                                <span>Twitter</span>
+	                                </div>
                                     @if(Auth::id() == $postAuthor->id)
                                         <div class="feed-more__item feed-more__delete">
                                             <i class="fa fa-trash"></i>

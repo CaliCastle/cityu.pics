@@ -13,7 +13,7 @@
                 <p>{!! $comment->content !!}</p>
             </div>
             <div class="actions">
-                <span class="time">{{ $comment->created_at->diffForHumans() }}</span>
+                <time class="time timeago" datetime="{{ $comment->created_at->toIso8601String() }}">{{ $comment->created_at->diffForHumans() }}</time>
                 <ul class="action-list">
                     <li><a href="javascript:;" id="like-button" title="" class="comment__like-button {{ auth()->user()->likedComment($comment) ? "liked" : "" }}">{{ $comment->likes->count() }}</a></li>
                     <li><a href="javascript:;" id="reply-button" title="" class="comment__reply-button"><i class="fa fa-btn fa-reply"></i></a></li>

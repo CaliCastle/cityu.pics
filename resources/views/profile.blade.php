@@ -27,8 +27,27 @@
                 @endif
                 <span class="profile__user-name{{ $user->isAdmin() ? ' admin' : ($user->isVerified() ? ' verified' : '') }}">{{ $user->name }}</span>
                 <a href="mailto:{{ $user->email }}" class="profile__user-email">{{ $user->email }}</a>
-                <div class="profile__user-follow">
-
+                <div class="profile__user-follow-wrapper">
+	                <div class="profile__user-follow">
+		                <span class="profile--following">@lang('messages.profile.followings', ['count' => $user->followings])</span>
+		                <span class="profile--follower">{!! trans_choice('messages.profile.followers', $user->followers, ['count' => $user->followers]) !!}</span>
+	                </div>
+	                @if(Auth::id() != $user->id)
+	                <div class="profile__follow-action">
+		                <button class="profile__follow-button{{ Auth::user()->followed($user) ? (Auth::user()->followedEachOther($user) ? ' followed-back' : ' followed') : '' }}" followed="@lang('messages.profile.follow-state.followed')" followed-back="@lang('messages.profile.follow-state.followed-back')" unfollowed="@lang('messages.profile.follow-state.unfollowed')">
+			                @if(Auth::user()->followedEachOther($user))
+				                <i class="fa fa-exchange"></i>&nbsp;
+				                <span>@lang('messages.profile.follow-state.followed-back')</span>
+							@elseif(Auth::user()->followed($user))
+				                <i class="fa fa-check"></i>&nbsp;
+				                <span>@lang('messages.profile.follow-state.followed')</span>
+			                @else
+				                <i class="fa fa-plus"></i>&nbsp;
+				                <span>@lang('messages.profile.follow-state.unfollowed')</span>
+			                @endif
+		                </button>
+	                </div>
+					@endif
                 </div>
             </div>
         </div>
@@ -43,12 +62,14 @@
 @push('scripts')
     <script src="{{ asset('js/cropper.min.js') }}"></script>
     <script>
-        var reader = new FileReader();
-        var $preview = $('#avatar-cropper > img')[0];
-        var $cropper = $('#avatar-cropper');
-        var $currentAvatar = $('.profile__user-avatar');
-        var cropper;
+        var reader = new FileReader(),
+	        $preview = $('#avatar-cropper > img')[0],
+	        $cropper = $('#avatar-cropper'),
+	        $currentAvatar = $('.profile__user-avatar'),
+	        cropper,
+            following = false;
 
+        // Once ready, set up avatar cropper.
         $(function () {
             $('.profile__user-avatar[data-upload]').click(function () {
                 $('#avatar-selector').click();
@@ -63,14 +84,68 @@
                 var $this = this;
                 reader.readAsDataURL($this.files[0]);
             });
+
+            // Follow button.
+	        $('.profile__follow-button').on('click', function () {
+		        if (following)
+		            return false;
+
+		        var $followButton = this;
+
+		        following = true;
+		        $followButton.style.opacity = 0.5;
+		        // Send ajax request.
+		        $.ajax({
+			        url: '',
+			        method: 'PUT',
+			        data: {_token: Laravel.csrfToken},
+			        success: function (s) {
+			            // Animate button.
+			            followButtonClicked($followButton);
+
+			            // Clear class names.
+			            $followButton.className = 'profile__follow-button';
+			            // Switch to appropriate class and count.
+						switch (s.state) {
+							case 'both':
+							    $followButton.classList.add('followed-back');
+							    $followButton.querySelector('i.fa').className = 'fa fa-exchange';
+							    $followButton.querySelector('span').innerText = $followButton.getAttribute('followed-back');
+								break;
+							case 'followed':
+							    $followButton.classList.add('followed');
+                                $followButton.querySelector('i.fa').className = 'fa fa-check';
+                                $followButton.querySelector('span').innerText = $followButton.getAttribute('followed');
+                                break;
+							default:
+                                $followButton.querySelector('i.fa').className = 'fa fa-plus';
+                                $followButton.querySelector('span').innerText = $followButton.getAttribute('unfollowed');
+                        }
+                        $followButton.parentNode.previousElementSibling.querySelector('.profile--follower span').innerText = Number(s.followers);
+                    },
+			        error: function () {
+				        displayErrorMessage();
+                    },
+			        complete: function () {
+				        following = false;
+                        $followButton.style.opacity = 1;
+                    }
+		        });
+            });
         });
 
+        function followButtonClicked($button) {
+
+        }
+
+        // Listens for input change.
         reader.addEventListener("load", function () {
             $preview.src = reader.result;
             openAvatarCropper();
             setupCropper();
         });
 
+        // Setup cropper.
         function setupCropper() {
             if (!cropper) {
                 cropper = new Cropper($preview, {
@@ -81,7 +156,8 @@
                 cropper.replace($preview.src);
             }
         }
-        
+
+        // Opens up avatar cropper.
         function openAvatarCropper() {
             if ($cropper.hasClass('hidden')) {
                 $cropper.removeClass('hidden');
@@ -89,6 +165,7 @@
             }
         }
 
+        // Close avatar cropper.
         function closeAvatarCropper() {
             $cropper.addClass('fadeOutDown');
             setTimeout(function () {
@@ -98,6 +175,7 @@
             }, 990);
         }
 
+        // Done cropping.
         function doneCrop() {
             var data = cropper.getData();
             closeAvatarCropper();
