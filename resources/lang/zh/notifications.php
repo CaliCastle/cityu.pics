@@ -12,5 +12,6 @@ return [
     'liked'         => '<b>:user</b> 赞了你的动态',
     'new-reply'     => '<b>:user</b> 回复你：:comment',
     'liked-comment' => '<b>:user</b> 赞了你的评论',
-    'new-post'      => '<b>:user</b> 发布了： :post'
+    'new-post'      => '<b>:user</b> 发布了： :post',
+    'deleted'       => '相关内容已被删除'
 ];

@@ -10,6 +10,7 @@ use App\Post;
 use App\User;
 use App\Comment;
 use Carbon\Carbon;
+use App\Notification;
 use App\Events\FeedPosted;
 use Illuminate\Http\Request;
 use App\Mail\AccountRegistered;
