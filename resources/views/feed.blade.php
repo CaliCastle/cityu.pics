@@ -3,7 +3,7 @@
 @section('title', trans('messages.titles.feed'))
 
 @section('content')
-    <div class="feed-content loading">
+    <div class="feed-content">
         <div class="container">
             @include('layouts.feed-layout')
         </div>

@@ -2,7 +2,8 @@
 
 return [
     'app'      => [
-        'slogan' => 'CityU Photo Sharing Platform'
+        'slogan' => 'CityU Photo Sharing Platform',
+        '404'    => 'The page you\'re looking for went M.I.A.'
     ],
     'alerts'   => [
         'error' => 'Something went wrong, try again later'
@@ -24,6 +25,10 @@ return [
             'see-all' => 'See all',
             'empty'   => 'Empty inbox'
         ],
+        'search'      => [
+            'placeholder' => 'Search',
+            'tips'        => 'Hit enter to search or ESC to close'
+        ]
     ],
     'composer' => [
         'description-title'   => 'Add images by dragging files here <i>or</i> select by clicking',
@@ -66,9 +71,10 @@ return [
         ]
     ],
     'titles'   => [
-        'feed'    => 'Feed',
-        'confirm' => 'Confirm Your Email',
-        'profile' => ':user\'s Profile'
+        'feed'     => 'Feed',
+        'confirm'  => 'Confirm Your Email',
+        'profile'  => ':user\'s Profile',
+        'settings' => 'Personal Settings'
     ],
     'email'    => [
         'confirm' => [
@@ -117,7 +123,9 @@ return [
             'title'   => 'Information',
             'about'   => 'About',
             'faq'     => 'FAQs',
-            'privacy' => 'Privacy'
+            'privacy' => 'Privacy',
+            'cookie'  => 'Cookie',
+            'terms'   => 'Terms'
         ],
         'dev'   => [
             'title'      => 'Dev',

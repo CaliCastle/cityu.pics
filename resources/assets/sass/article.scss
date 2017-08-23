@@ -1,0 +1,182 @@
+.Article {
+  header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    margin-bottom: 20px;
+
+    &.Timeline {
+      &:after {
+        content: '';
+        position: absolute;
+        bottom: -5rem;
+        left: 0rem;
+        height: 5.1rem;
+        display: block;
+        width: 100%;
+        z-index: 300;
+        background: -moz-linear-gradient(top, rgb(13, 59, 98) 20%, rgba(13, 59, 98, 0) 100%); /* FF3.6-15 */
+        background: -webkit-linear-gradient(top, rgb(13, 59, 98) 20%, rgba(13, 59, 98, 0) 100%); /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(to bottom, rgb(13, 59, 98) 20%, rgba(13, 59, 98, 0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+      }
+
+      & + main {
+        display: flex;
+        flex: auto;
+        overflow-y: auto;
+        padding: 0rem 1rem 0rem 1rem;
+        max-height: 60vh;
+        background: #0d3b62;
+
+        #timeline {
+          position: relative;
+          display: table; //*For Firefox
+          height: 100%;
+          margin: {
+            left: auto;
+            right: auto;
+            top: 5rem;
+          }
+          div {
+            &:after {
+              content: '';
+              width: 3px;
+              position: absolute;
+              top: .5rem;
+              bottom: 0rem;
+              left: 60px;
+              z-index: 1;
+              background: #49c89b;
+            }
+          }
+          h3 {
+            position: -webkit-sticky;
+            position: sticky;
+            top: 5rem;
+            color: #fff;
+            margin: 0;
+            font: {
+              size: 1.1em;
+              weight: 600;
+            }
+            @media (min-width: 62em) {
+              font-size: 1.2em;
+            }
+          }
+          section.month {
+            position: relative;
+            &:first-of-type section {
+              margin-top: -1.3em;
+              padding-bottom: 2em;
+            }
+            section {
+              position: relative;
+              padding-bottom: 1.25em;
+              margin-bottom: 2.2em;
+              color: #ccc;
+              font-size: 1.1em;
+              h4 {
+                position: absolute;
+                bottom: 0;
+                font: {
+                  size: .9em;
+                  weight: 600;
+                }
+                line-height: 1.2em;
+                margin: 0;
+                padding: 0 0 0 89px;
+                color: #989898;
+                @media (min-width: 62em) {
+                  font-size: 1em;
+                }
+              }
+              a {
+                color: #ed4c5c;
+              }
+              ul {
+                list-style-type: none;
+                padding: 0 0 0 75px;
+                margin: -1.35rem 0 1em;
+                max-width: 50vw;
+                font-size: 1em;
+                @media (min-width: 62em) {
+                  font-size: 1.1em;
+                  padding: 0 0 0 81px;
+                }
+                &:last-child {
+                  margin: {
+                    bottom: 0;
+                  }
+                }
+                &:first-of-type:after {
+                  content: '';
+                  width: 13px;
+                  height: 13px;
+                  background: #49c89b;
+                  border: 2px solid #0d3b62;
+                  @include br(50%);
+                  position: absolute;
+                  left: 55px;
+                  top: 3px;
+                  z-index: 2;
+                }
+                li {
+                  margin-left: .5rem;
+                  &:before {
+                    content: '·';
+                    margin-left: -.5rem;
+                    padding-right: .3rem;
+                  }
+                  &:not(:first-child) {
+                    margin-top: .4rem;
+                  }
+                  span.price {
+                    color: mediumturquoise;
+                    font-weight: 500;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  .intro-icon {
+    text-align: center;
+    font-size: 6.5em;
+  }
+  h1 {
+    font-size: 3em;
+    text-align: center;
+    color: #fff;
+    font-weight: 600;
+  }
+  .description {
+    font-size: 1.45em;
+    text-align: center;
+    color: #aaa;
+    width: 60%;
+    display: block;
+    line-height: 2em;
+    padding: 10px 15px;
+    margin-top: 20px;
+  }
+
+  h2, h3, h4, h5, h6 {
+    color: #ccc;
+  }
+
+  p, ul li, ol, li {
+    color: #ddd;
+    font-size: 1.2em;
+    line-height: 2em;
+    font-weight: 300;
+  }
+  
+  a {
+    color: #d53e37;
+  }
+}

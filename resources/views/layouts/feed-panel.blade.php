@@ -24,10 +24,10 @@
                 <div class="feed-details__footer">
                     <a href="{{ ($postAuthor = $post->user)->profileLink() }}" class="feed-details__user">
                         <div class="avatar">
-                            <img src="{{ Voyager::image($postAuthor->avatar) }}" alt="{{ $postAuthor->name }}" class="img-circle">
+                            <img @if(Auth::id() == $postAuthor->id):src="User.avatarUrl" @else src="{{ $postAuthor->avatarUrl }}"@endif alt="{{ $postAuthor->name }}" class="img-circle">
                         </div>
                         <div class="name{{ $postAuthor->isAdmin() ? ' admin' : ($postAuthor->isVerified() ? ' verified' : '') }}">
-                            <span>{{ $postAuthor->name }}</span>
+                            <span v-cloak>@if(Auth::id() == $postAuthor->id)@{{ User.name }}@else{{ $postAuthor->name }}@endif</span>
                         </div>
                     </a>
                     <div class="feed-details__actions">

@@ -11,11 +11,20 @@
 |
 */
 
+/**
+ * Convert some text to Markdown...
+ */
+function markdown($text) {
+    return (new ParsedownExtra)->text($text);
+}
+
+// Home page.
 Route::get('/', function () {
     return redirect('feed');
 //    return view('welcome');
 });
 
+// Auth routes.
 Auth::routes();
 
 // Pages
@@ -51,11 +60,14 @@ Route::put('locked', 'HomeController@resendCode');
 // User
 Route::get('@{userName}', 'UserController@showProfile')->name('profile');
 Route::put('@{userName}', 'UserController@followUser')->name('follow');
+Route::get('settings', 'UserController@showSettings')->name('settings');
 Route::post('upload-avatar', 'UserController@uploadAvatar')->name('upload-avatar');
 Route::post('get-inbox', 'UserController@getInbox')->name('get-inbox');
 
 // Notification
 Route::patch('read/notification', 'UserController@readNotifications');
+
+Route::get('search', 'UserController@showSearch');
 
 // Voyager routes
 Route::group(['prefix' => 'admin'], function () {
@@ -64,3 +76,6 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('login', 'Auth\LoginController@showLoginForm')->name('voyager.login');
     Route::post('login', 'Auth\LoginController@login');
 });
+
+// Dynamic show page.
+Route::get('{page}', 'PageController@showPage');

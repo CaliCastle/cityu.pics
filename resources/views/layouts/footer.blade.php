@@ -19,6 +19,12 @@
 					<li>
 						<a href="/privacy"><i class="fa fa-user-secret"></i>&nbsp;@lang('messages.footer.info.privacy')</a>
 					</li>
+					<li>
+						<a href="/cookie"><i class="fa fa-database"></i>&nbsp;@lang('messages.footer.info.cookie')</a>
+					</li>
+					<li>
+						<a href="/terms-of-use"><i class="fa fa-briefcase"></i>&nbsp;@lang('messages.footer.info.terms')</a>
+					</li>
 				</ul>
 			</div>
 			<div class="col-xs-6 col-sm-3">
@@ -28,7 +34,10 @@
 						<a href="/contribute"><i class="fa fa-code-fork"></i>&nbsp;@lang('messages.footer.dev.contribute')</a>
 					</li>
 					<li>
-						<a href="/develop"><i class="fa fa-book"></i>&nbsp;@lang('messages.footer.dev.history')</a>
+						<a href="/history"><i class="fa fa-book"></i>&nbsp;@lang('messages.footer.dev.history')</a>
+					</li>
+					<li>
+						<a href="https://github.com/CaliCastle/cityu.pics"><i class="fa fa-github"></i>&nbsp;Github</a>
 					</li>
 				</ul>
 			</div>
@@ -48,6 +57,7 @@
 			<div class="col-xs-12">
 				<div class="footer-copyright">
 					<p>&copy; {{ \Carbon\Carbon::now()->year }} CityU Pics.</p>
+					<p>Designed &amp; Developed by <a href="https://calicastle.com">Cali Castle</a></p>
 				</div>
 			</div>
 		</div>

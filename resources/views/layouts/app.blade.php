@@ -4,12 +4,22 @@
     <div class="post-overlay"></div>
     <div class="full-overlay"></div>
 
-    <div id="app">
+    <main id="app">
 
 	    @include('layouts.partials.navbar')
 
         @yield('content')
+        <!-- Footer section -->
+        @include('layouts.footer')
+    </main>
 
+    <div class="Search">
+        <button id="btn-search-close" class="btn--search-close" aria-label="Close search form"><i class="fa fa-times"></i></button>
+        <form class="Search__form" action="{{ url('search') }}">
+            <input class="Search__input browser-default" type="search" name="q" placeholder="Coming Soon" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+            {{--<input class="Search__input browser-default" type="search" name="q" placeholder="@lang('messages.navbar.search.placeholder')" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />--}}
+            <span class="Search__info">@lang('messages.navbar.search.tips')</span>
+        </form>
     </div>
 
     @if(Auth::check())
@@ -50,9 +60,6 @@
     </div>
     @endif
 
-    <!-- Footer section -->
-    @include('layouts.footer')
-
     <div class="flying-buttons">
         <a class="flying-button compose-new animated bounce" href="javascript:void(0)" title="@lang('messages.navbar.compose-new')" data-toggle="tooltip" data-placement="left">
             <span class="fa fa-plus"></span>
@@ -63,7 +70,8 @@
     </div>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}?v={{ config('app.version') }}"></script>
+    <script src="{{ mix('js/app.js') }}"></script>
+    <script src="{{ asset('js/materialize.min.js') }}"></script>
     <script src="{{ asset('js/jquery.slimscroll.min.js') }}"></script>
     <script src="{{ asset('js/emojionearea.min.js') }}"></script>
     <script src="{{ asset('js/taggle.js') }}"></script>
@@ -152,7 +160,7 @@
             maxFilesize: 5,
             thumbnailWidth: 130,
             thumbnailHeight: 130,
-            acceptedFiles: 'image/*,video/*',
+            acceptedFiles: 'image/*',
             addRemoveLinks: true,
             maxFiles: 6,
             dictFileTooBig: "@lang('messages.composer.dropzone.too-big')",
@@ -194,40 +202,43 @@
             }
         }
 
+        // Toggle post button state.
         function toggleComposerPostButton() {
             $('.composer a.composer-post').toggleClass('disabled');
         }
 
+        // Done composing.
         function doneCompose() {
-            caption = $('.emojionearea-editor').html();
-
             if (uploadedImages.length == 0)
                 return false;
 
             $('.composer').addClass('posting');
-            $.post({
-                url: '{{ route('post-new', [], false) }}',
-                data: {
-                    _token: Laravel.csrfToken,
-                    media: uploadedImages,
-                    caption: caption,
-                    tags: composedTags
-                },
-                success: function (status) {
-                    if(status.status != 'success')
-                        return false;
 
-                    setTimeout(function () {
-                        window.location.reload();
-                    }, 100);
-                },
-                error: function () {
-                    displayErrorMessage();
-                },
-                complete: function () {
-                    $('.composer').removeClass('posting');
-                }
-            });
+            setTimeout(function () {
+                $.post({
+                    url: '{{ route('post-new', [], false) }}',
+                    data: {
+                        _token: Laravel.csrfToken,
+                        media: uploadedImages,
+                        caption: $('.emojionearea-editor').html(),
+                        tags: composedTags
+                    },
+                    success: function (status) {
+                        if (status.status != 'success')
+                            return false;
+
+                        setTimeout(function () {
+                            window.location.reload();
+                        }, 100);
+                    },
+                    error: function () {
+                        displayErrorMessage();
+                    },
+                    complete: function () {
+                        $('.composer').removeClass('posting');
+                    }
+                });
+            }, 500);
         }
 
         function toggleComposer() {
@@ -264,7 +275,7 @@
 
             // Bind 'back to top' button events
             $('#back-to-top').on('click', function () {
-                $('body').animate({scrollTop: 0}, 600, 'swing');
+                $('html,body').animate({scrollTop: 0}, 600, 'swing');
             });
             $(window).scroll(function() {
                 var $top = document.getElementById('back-to-top');

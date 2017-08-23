@@ -1,0 +1,224 @@
+.composer {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+  opacity: 1;
+}
+
+.composer.open {
+  display: flex !important;
+}
+
+.composer.posting {
+  opacity: .6;
+  pointer-events: none;
+}
+
+.composer.posting:before {
+  content: '\f1ce';
+  display: inline-block;
+  position: absolute;
+  z-index: 99999;
+  font-size: 80px;
+  font-family: "FontAwesome";
+  animation: fa-spin .85s infinite;
+}
+
+.composer-box {
+  display: none;
+  width: 540px;
+  background: #fff;
+  min-height: 100px;
+  max-height: calc(100% - 100px);
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(20, 20, 20, .25);
+  /*overflow: hidden;*/
+}
+
+.composer.open .composer-box {
+  display: block !important;
+}
+
+.composer-user-section {
+  position: relative;
+}
+
+.composer-user-section img {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  margin: 10px;
+}
+
+.composer-user-section .close-button {
+  position: absolute;
+  right: 10px;
+  top: 0;
+  display: block;
+  font-size: 18px;
+  line-height: 35px;
+}
+
+.composer-images-section {
+  margin: 10px 0;
+}
+
+.composer-images-section .dropzone {
+  border: 2px dashed rgba(50, 50, 50, .15);
+  border-left: none;
+  border-right: none;
+}
+
+.composer .composer-images-section .dz-message {
+  color: #707070;
+}
+
+.composer .composer-images-section .dz-message span:first-of-type {
+  font-weight: 600;
+}
+
+.composer .composer-images-section .dz-message span:last-of-type {
+  color: #e96b58;
+}
+
+.composer .composer-images-section .composer-images {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 0;
+}
+
+.composer .composer-images-section .composer-images:before {
+  content: '';
+  background: url("/images/images.svg") no-repeat 0 0;
+  width: 45px;
+  height: 45px;
+  display: block;
+  background-size: cover;
+}
+
+.composer .composer-comment-section {
+  position: relative;
+}
+
+.composer .composer-comment-area {
+  outline: none;
+  padding: 0 25px 10px;
+  font-size: 15px;
+  border: none;
+  min-height: 58px;
+  box-shadow: none;
+  height: 80px;
+}
+
+.composer .composer-comment-placeholder {
+  position: absolute;
+  left: 25px;
+  top: 0;
+  pointer-events: none;
+}
+
+.composer .emojionearea-editor {
+  padding: 0 10px 10px !important;
+  white-space: normal !important;
+  left: 10px !important;
+  overflow: scroll !important;
+  height: 70px !important;
+  line-height: 1.5 !important;
+  background: #fff !important;
+}
+
+.composer .emojionearea.focused {
+  box-shadow: none !important;
+  border-color: transparent !important;
+}
+
+.composer-tags-section {
+  position: relative;
+}
+
+.composer-tags-section #composer-tags-input {
+  border-top: 1px solid rgba(25, 25, 25, .15);
+}
+
+.composer-actions {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  clear: both;
+}
+
+.composer-actions .composer-cancel {
+  background: #d8d5d5;
+  border-bottom-left-radius: 8px;
+}
+
+.composer-actions .composer-post {
+  background: #0D3B62;
+  color: #fff;
+  font-weight: 600;
+  border-bottom-right-radius: 8px;
+  transition: opacity .37s ease-in;
+}
+
+.composer-actions .composer-post.disabled {
+  pointer-events: none;
+  opacity: .5;
+  cursor: not-allowed;
+}
+
+.composer-actions > a {
+  display: block;
+  flex: 1;
+  text-align: center;
+  padding: 10px 0;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.dropdown-menu.textcomplete-dropdown[data-strategy=emojionearea] {
+  z-index: 100000 !important;
+}
+
+.dropdown-menu.textcomplete-dropdown[data-strategy=emojionearea] li.textcomplete-item.active a, .dropdown-menu.textcomplete-dropdown[data-strategy=emojionearea] li.textcomplete-item:hover a {
+  color: #fff !important;
+}
+
+.dropzone.dz-drag-hover {
+  border: 2px dashed transparent !important;
+}
+
+.dropzone .dz-preview .dz-image {
+  width: 130px !important;
+  height: 130px !important;
+}
+
+.dropzone .dz-remove {
+  text-transform: uppercase;
+  padding: 5px;
+  margin-top: 10px;
+  background: #e44b4b;
+  color: #fff;
+  border-radius: 15px;
+  text-decoration: none;
+}
+
+.taggle_list {
+  padding-left: 5px !important;
+
+  input {
+    &, &:hover, &:focus {
+      border-bottom: none !important;
+      height: inherit !important;
+      margin: 0 !important;
+      box-shadow: none !important;
+      font-size: inherit !important;
+    }
+  }
+}

@@ -11,5 +11,9 @@ const { mix } = require('laravel-mix');
  |
  */
 
+mix.sass('resources/assets/sass/app.scss', 'public/css');
 mix.js('resources/assets/js/app.js', 'public/js');
-mix.sass('resources/assets/sass/inbox.scss', 'public/css');
+
+if (mix.inProduction()) {
+    mix.version();
+}

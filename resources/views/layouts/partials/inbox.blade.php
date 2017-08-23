@@ -8,8 +8,7 @@
 			<img src="/images/empty-box.png" alt="Empty inbox">
 		</div>
 		<ul class="Inbox__list List--naked" v-else>
-			<transition-group name="expand" leave-active-class="flipOutX">
-			<li class="Inbox__item animated" v-for="(Inbox, index) in Inboxes" :key="index">
+			<li class="Inbox__item animated" v-for="(Inbox, index) in Inboxes">
 				<a href="#" @click.prevent="readInbox" :inbox-id="Inbox.id" :inbox="index" :data-link="Inbox.link">
 					<div class="badge badge-success" :class="'inbox-type-' + Inbox.type" v-if="Inbox.type != 'user'"></div>
 					<div class="badge badge-avatar inbox-type-user" :style="Inbox.avatar ? 'background-image: url(' + Inbox.avatar + ')' : ''" v-else></div>
@@ -20,7 +19,6 @@
 					<div class="Inbox__image" v-if="Inbox.image" :style="'background-image: url(' + Inbox.image + ')'"></div>
 				</a>
 			</li>
-			</transition-group>
 		</ul>
 	</div>
 	<div class="Inbox__footer">

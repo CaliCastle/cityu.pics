@@ -13,15 +13,13 @@
 
     <!-- Styles -->
 	<link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}?v={{ config('app.version') }}">
+    <link rel="stylesheet" href="{{ asset('css/materialize.min.css') }}">
+    <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/animate.css') }}">
     <link rel="stylesheet" href="{{ asset('css/emojionearea.min.css') }}">
 	<link rel="stylesheet" href="{{ voyager_asset('lib/css/toastr.min.css') }}">
 	<link rel="stylesheet" href="{{ asset('css/dropzone.min.css') }}">
 	<link rel="stylesheet" href="{{ asset('css/taggle.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/feed.css') }}?v={{ config('app.version') }}">
-    <link rel="stylesheet" href="{{ asset('css/composer.css') }}?v={{ config('app.version') }}">
-    <link rel="stylesheet" href="{{ asset('css/inbox.css') }}?v={{ config('app.version') }}">
 
 @stack('styles')
 

@@ -53,13 +53,17 @@ const $vm = new Vue({
             });
         },
         readInbox(e) {
-            const inbox = e.target,
+            if (this.readingInbox)
+                return false;
+
+            let inbox = e.target,
                 $this = this;
 
             if ($(inbox).hasClass('reading'))
                 return false;
 
             $(inbox).addClass('reading');
+            this.readingInbox = true;
 
             this.request({
                 url: '/read/notification',
@@ -77,7 +81,10 @@ const $vm = new Vue({
                     }
 
                     if (inbox.getAttribute('data-link') != undefined)
-                        setTimeout(() => window.location.href = inbox.getAttribute('data-link'), 150);
+                        window.location.href = $(inbox).attr('data-link');
+                },
+                complete() {
+                    $this.readingInbox = false;
                 }
             });
         },
@@ -126,7 +133,8 @@ const $vm = new Vue({
     data: {
         User: CurrentUser,
         Inboxes: [],
-        token: Laravel.csrfToken
+        token: Laravel.csrfToken,
+        readingInbox: false,
     },
     mounted() {
         this.getInbox();
@@ -145,6 +153,119 @@ $(document).ready(function () {
 
     // Time ago.
     $('.timeago').timeago();
+
+    // Search
+    let mainContainer = document.querySelector('#app'),
+        openCtrl = document.querySelector('.btn-search'),
+        closeCtrl = document.querySelector('.btn--search-close'),
+        searchContainer = document.querySelector('.Search'),
+        inputSearch = searchContainer.querySelector('.Search__input');
+
+    function initSearchEvents() {
+        openCtrl.addEventListener('click', openSearch);
+        closeCtrl.addEventListener('click', closeSearch);
+        document.addEventListener('keyup', function (ev) {
+            // Escape key.
+            if (ev.keyCode == 27) {
+                closeSearch();
+            }
+        });
+    }
+
+    function openSearch(e) {
+        e.preventDefault();
+
+        mainContainer.classList.add('main-wrap--move');
+        searchContainer.classList.add('search--open');
+        document.body.classList.add('searching');
+        inputSearch.focus();
+    }
+
+    function closeSearch() {
+        mainContainer.classList.remove('main-wrap--move');
+        searchContainer.classList.remove('search--open');
+        document.body.classList.remove('searching');
+        inputSearch.blur();
+        inputSearch.value = '';
+    }
+
+    initSearchEvents();
+
+    const loadingIcon = '<i class="fa fa-circle-o-notch fa-spin"></i>&nbsp;';
+
+    $("form.ajax").each(function () {
+        const form = this;
+        $(this).on('submit', function (e) {
+            e.preventDefault();
+
+            $(form).addClass('loading');
+
+            let button = $(form).find("button[type=submit]")[0];
+
+            if (button) {
+                var originText = button.innerHTML;
+                $(button).html(`${loadingIcon}&nbsp;${originText}`);
+            }
+
+            $.ajax({
+                url: form.action,
+                type: form.method,
+                data: $(form).serialize(),
+                timeout: 0,
+                error(error) {
+                    if (error.status === 422) {
+                        let errors = JSON.parse(error.responseText);
+                        for (let er in errors) {
+                            const sel = `[name=${er}]`,
+                                groupEl = $($(form).find(sel)[0]).parents('.form-group')[0];
+                            // Add error class to the form-group
+                            $(groupEl).addClass('has-error shaky');
+                            setTimeout(() => $(groupEl).removeClass('has-error shaky'), 8000);
+
+                            toastr.error(errors[er][0]);
+                        }
+                    }
+                },
+                success(data) {
+                    if ($(form).attr('callback')) {
+                        const callback = $(form).attr('callback');
+                        callback();
+
+                        return false;
+                    }
+
+                    if (data.status !== 'error') {
+                        if (typeof(data.redirectUrl) != 'undefined') {
+                            if (data.redirectUrl == 'refresh') {
+                                window.location.reload();
+                            } else {
+                                window.location.href = data.redirectUrl;
+                            }
+                        } else if (typeof(data.newWindowUrl) != 'undefined') {
+                            window.open(data.newWindowUrl, "_blank");
+                        } else if (typeof(data.reload) != 'undefined') {
+                            toastr.success(data.message);
+                            $.pjax.reload(pjaxContainer);
+                        } else {
+                            toastr.success(data.message);
+                        }
+                    } else {
+                        toastr.error(data.message);
+                    }
+                },
+                complete() {
+                    if (button) {
+                        $(button).html(originText);
+                        $(form).removeClass('loading');
+                        $(form).addClass('done-loaded');
+                        setTimeout(function () {
+                            $(form).removeClass('done-loaded');
+                        }, 300);
+                    }
+                }
+            });
+        });
+    });
 });
 
 // Only listen if logged in.

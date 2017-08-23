@@ -3,19 +3,22 @@
 @section('title', trans('messages.titles.profile', ['user' => $user->name]))
 
 @push('styles')
-    <link rel="stylesheet" href="{{ asset('css/profile.css') }}?v={{ config('app.version') }}">
     <link rel="stylesheet" href="{{ asset('css/cropper.min.css') }}">
 @endpush
 
 @section('content')
-<div class="profile-content feed-content loading">
+<div class="profile-content feed-content">
     <div class="container">
         <div class="profile--section">
             <div class="profile--section__user">
-                <div class="profile__user-avatar"{{ Auth::user() == $user ? ' data-upload title=' . trans('messages.profile.upload-avatar.title') : '' }}>
-                    <img src="{{ Voyager::image($user->avatar) }}" alt="{{ $user->name }}" class="img-circle">
+                <div class="profile__user-avatar"{{ Auth::id() == $user->id ? ' data-upload title=' . trans('messages.profile.upload-avatar.title') : '' }}>
+                    @if(Auth::id() == $user->id)
+	                <img :src="User.avatarUrl" :alt="User.name" class="img-circle">
+	                @else
+	                <img src="{{ $user->avatarUrl }}" alt="{{ $user->name }}" class="img-circle">
+					@endif
                 </div>
-                @if(Auth::user() == $user)
+                @if(Auth::id() == $user->id)
                 <div class="avatar-editor animated fadeInUp hidden" id="avatar-cropper">
                     <div class="avatar-editor__actions">
                         <button class="avatar-editor__change">@lang('messages.profile.upload-avatar.change')</button>
@@ -25,8 +28,14 @@
                     <img class="avatar-preview" src="{{ Voyager::image($user->avatar) }}" alt="@lang('messages.profile.upload-avatar.title')">
                 </div>
                 @endif
-                <span class="profile__user-name{{ $user->isAdmin() ? ' admin' : ($user->isVerified() ? ' verified' : '') }}">{{ $user->name }}</span>
-                <a href="mailto:{{ $user->email }}" class="profile__user-email">{{ $user->email }}</a>
+                <span class="profile__user-name{{ $user->isAdmin() ? ' admin' : ($user->isVerified() ? ' verified' : '') }}" v-cloak>
+	                @if(Auth::id() == $user->id)
+		                @{{ User.name }}
+	                @else
+		                {{ $user->name }}
+	                @endif
+                </span>
+                <a href="mailto:{{ $user->email }}" class="profile__user-email" v-cloak>@if(Auth::id() == $user->id)@{{ User.email }}@else{{ $user->email }}@endif</a>
                 <div class="profile__user-follow-wrapper">
 	                <div class="profile__user-follow">
 		                <span class="profile--following">@lang('messages.profile.followings', ['count' => $user->followings])</span>
@@ -198,10 +207,7 @@
 
             xhr.onload = function () {
                 if (xhr.status == 200) {
-                    $($currentAvatar).children('img')[0].src = xhr.responseText;
-                    setTimeout(function () {
-                        window.location.reload();
-                    }, 500);
+                    $vm.User.avatarUrl = xhr.responseText;
                 } else {
                     displayErrorMessage();
                 }

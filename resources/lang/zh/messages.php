@@ -2,7 +2,8 @@
 
 return [
     'app'      => [
-        'slogan' => 'CityU图片分享平台'
+        'slogan' => 'CityU图片分享平台',
+        '404'    => '您要找的页面可能找不到回家的路了'
     ],
     'alerts'   => [
         'error' => '出错了，请稍后重试'
@@ -24,6 +25,10 @@ return [
             'see-all' => '查看全部',
             'empty'   => '暂无未读通知'
         ],
+        'search'      => [
+            'placeholder' => '搜索',
+            'tips'        => '按回车搜索或按ESC关闭'
+        ]
     ],
     'composer' => [
         'description-title'   => '拖拽图片到这里 <i>或者</i> 点击选择',
@@ -66,9 +71,10 @@ return [
         ]
     ],
     'titles'   => [
-        'feed'    => '动态',
-        'confirm' => '验证您的邮箱',
-        'profile' => ':user的个人主页'
+        'feed'     => '动态',
+        'confirm'  => '验证您的邮箱',
+        'profile'  => ':user的个人主页',
+        'settings' => '设置'
     ],
     'email'    => [
         'confirm' => [
@@ -117,7 +123,9 @@ return [
             'title'   => '网站信息',
             'about'   => '关于本站',
             'faq'     => '常见问题',
-            'privacy' => '用户隐私'
+            'privacy' => '隐私条款',
+            'cookie'  => 'Cookie条款',
+            'terms'   => '使用条款'
         ],
         'dev'   => [
             'title'      => '开发相关',

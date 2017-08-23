@@ -16,6 +16,8 @@ class GeneralController extends Controller
     {
         if (auth()->check()) {
             auth()->user()->changeLocale($language);
+
+            return redirect()->back();
         }
 
         return redirect()->back()->withCookie(cookie()->forever('lang', $language));

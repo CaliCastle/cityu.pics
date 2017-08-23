@@ -1,0 +1,34 @@
+.fof-container {
+  & > .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .fof {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 70vw;
+    height: 70vh;
+
+    .fof-img {
+      background: url("/images/404.svg") no-repeat;
+      background-size: contain;
+      background-position: center;
+      width: 100%;
+      height: 45%;
+    }
+    h1 {
+      font-weight: 600;
+      color: #fff;
+      margin: 50px 25px;
+    }
+    img.emojioneemoji {
+      width: 60px;
+      height: 60px;
+      display: block;
+    }
+  }
+}

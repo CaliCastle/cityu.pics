@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Image;
-use Session;
 use Storage;
 use App\User;
 use App\Notification;
@@ -67,9 +66,6 @@ class UserController extends Controller
         // Save it to the database.
         $request->user()->changeAvatar($path);
 
-        // Flash message
-        Session::flash('status', ['message' => trans('messages.profile.upload-avatar.success')]);
-
         return asset('storage/users/avatars/' . $path);
     }
 
@@ -96,7 +92,7 @@ class UserController extends Controller
     }
 
     /**
-     * Read notifications endpoint.
+     * Reads notifications endpoint.
      *
      * @return array
      */
@@ -118,6 +114,8 @@ class UserController extends Controller
     }
 
     /**
+     * Gets inbox notifications json.
+     *
      * @param Request $request
      *
      * @return array
@@ -128,6 +126,22 @@ class UserController extends Controller
             'status' => 'success',
             'inbox'  => $request->user()->inboxNotifications()
         ];
+    }
+
+    /**
+     * Shows settings of the user.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function showSettings()
+    {
+        return view('settings');
+    }
+
+    public function showSearch(Request $request)
+    {
+        // TODO: Search implementation
+        return $request->input('q');
     }
 
     /**

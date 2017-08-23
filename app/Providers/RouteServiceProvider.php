@@ -30,7 +30,7 @@ class RouteServiceProvider extends ServiceProvider
 
         // Bind user route
         Route::bind('userName', function ($value) {
-            return \App\User::where('name', $value)->first();
+            return \App\User::where('name', $value)->first() ?: abort(404);
         });
     }
 
@@ -72,6 +72,7 @@ class RouteServiceProvider extends ServiceProvider
             case "zh":
                 app()->setLocale($locale);
                 Carbon::setLocale($locale);
+
                 return;
             default:
                 return;
@@ -88,8 +89,8 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapWebRoutes()
     {
         Route::middleware('web')
-             ->namespace($this->namespace)
-             ->group(base_path('routes/web.php'));
+            ->namespace($this->namespace)
+            ->group(base_path('routes/web.php'));
     }
 
     /**
@@ -102,8 +103,8 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapApiRoutes()
     {
         Route::prefix('api')
-             ->middleware('api')
-             ->namespace($this->namespace)
-             ->group(base_path('routes/api.php'));
+            ->middleware('api')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/api.php'));
     }
 }

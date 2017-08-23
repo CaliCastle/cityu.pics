@@ -57,7 +57,7 @@
 								</a>
 							</li>
 							<li>
-								<a href="#" class="menu-link disabled">
+								<a href="{{ route('settings') }}" class="menu-link">
 									<i class="fa fa-cog"></i>&nbsp;@lang('messages.navbar.user-menu.settings')
 								</a>
 							</li>
@@ -115,7 +115,7 @@
 						@include('layouts.partials.inbox')
 					</li>
 					<li class="search-container">
-						<a href="#">
+						<a href="#" class="btn-search" id="btn-search">
 							<i class="fa fa-search"></i>
 						</a>
 					</li>
