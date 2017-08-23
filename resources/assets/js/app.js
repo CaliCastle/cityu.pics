@@ -141,7 +141,13 @@ const $vm = new Vue({
     }
 });
 
+const $composerVm = new Vue({
+    el: '.composer',
+    data: {captionText: ''}
+});
+
 window.$vm = $vm;
+window.$composerVm = $composerVm;
 
 jQuery.timeago.settings.strings = TimeStrings;
 

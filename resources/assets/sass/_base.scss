@@ -1,3 +1,7 @@
+a:focus {
+  background: transparent !important;
+}
+
 body.auth .language-switch {
   position: absolute;
   left: 20px;
@@ -428,7 +432,6 @@ body.auth {
 .app-footer {
   padding: 80px 0 50px;
   background: linear-gradient(to bottom, #0d3b62 0, #112946 100%) repeat-x;
-  background: -webkit-linear-gradient(to bottom, #0d3b62 0, #112946 100%) repeat-x;
 }
 
 .app-footer .footer-logo {

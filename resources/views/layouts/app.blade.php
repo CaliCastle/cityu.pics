@@ -220,7 +220,7 @@
                     data: {
                         _token: Laravel.csrfToken,
                         media: uploadedImages,
-                        caption: $('.emojionearea-editor').html(),
+                        caption: $composerVm.captionText,
                         tags: composedTags
                     },
                     success: function (status) {
@@ -238,7 +238,7 @@
                         $('.composer').removeClass('posting');
                     }
                 });
-            }, 500);
+            }, 100);
         }
 
         function toggleComposer() {
@@ -298,13 +298,19 @@
                 pickerPosition: "top",
                 tonesStyle: "bullet",
                 inline: true,
-                placeholder: "@lang('messages.composer.caption-placeholder')  ✍ ..."
+                placeholder: "@lang('messages.composer.caption-placeholder')  ✍ ...",
+	            events: {
+                    // Bind comment text to compose new.
+                    change: function (editor, event) {
+                        $composerVm.captionText = editor[0].innerHTML;
+                    }
+	            }
             });
 
             // Set up Taggle for hashtags.
             new Taggle('composer-tags-input', {
                 duplicateTagClass: 'bounce',
-                placeholder: '🖐  @lang('messages.composer.hashtag-placeholder') ...',
+                placeholder: '@lang('messages.composer.hashtag-placeholder') ...',
                 onTagAdd: function (event, tag) {
                     composedTags.push(tag);
                 },

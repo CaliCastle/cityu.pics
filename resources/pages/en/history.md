@@ -33,7 +33,7 @@
                 <section>
                     <h4>Aug 19th</h4>
                     <ul>
-                        <li>Fixex a bug when the notification related object was <b>deleted</b> in the database.</li>
+                        <li>Fixed a bug when the notification related object was <b>deleted</b> in the database.</li>
                         <li><b>Notification inbox</b> is finally here with real-time notification! <img src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f64c.png"></li>
                     </ul>
                 </section>
