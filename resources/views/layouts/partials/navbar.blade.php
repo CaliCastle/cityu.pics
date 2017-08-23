@@ -11,7 +11,7 @@
 			</button>
 
 			<!-- Branding Image -->
-			<a class="navbar-brand" href="{{ url('/') }}">
+			<a class="navbar-brand tooltipped waves-effect waves-light" href="{{ url('/') }}" data-tooltip="@lang('messages.navbar.home')" data-position="bottom" data-delay="50">
 				<img src="/logo-light.png" alt="Logo">
 				<span>{{ config('app.name') }}</span>
 			</a>
@@ -22,10 +22,10 @@
 				<!-- Authentication Links -->
 				@if (Auth::guest())
 					<li>
-						<a href="{{ route('login') }}">@lang('auth.login')</a>
+						<a href="{{ route('login') }}" class="waves-effect waves-light">@lang('auth.login')</a>
 					</li>
 					<li>
-						<a href="{{ route('register') }}">@lang('auth.register')</a>
+						<a href="{{ route('register') }}" class="waves-effect waves-light">@lang('auth.register')</a>
 					</li>
 				@else
 					<li class="dropdown">
@@ -41,28 +41,28 @@
 							</li>
 							@if(Auth::user()->hasPermission('browse_admin'))
 								<li>
-									<a href="{{ route('voyager.dashboard') }}" class="menu-link" target="_blank">
+									<a href="{{ route('voyager.dashboard') }}" class="menu-link waves-effect waves-light" target="_blank">
 										<i class="fa fa-cogs"></i>&nbsp;@lang('messages.navbar.user-menu.admin')
 									</a>
 								</li>
 							@endif
 							<li>
-								<a href="{{ Auth::user()->profileLink() }}" class="menu-link">
+								<a href="{{ Auth::user()->profileLink() }}" class="menu-link waves-effect waves-light">
 									<i class="fa fa-user-circle-o"></i>&nbsp;@lang('messages.navbar.user-menu.profile')
 								</a>
 							</li>
 							<li>
-								<a href="#" class="menu-link disabled">
+								<a href="#" class="menu-link waves-effect waves-light disabled">
 									<i class="fa fa-heart"></i>&nbsp;@lang('messages.navbar.user-menu.liked')
 								</a>
 							</li>
 							<li>
-								<a href="{{ route('settings') }}" class="menu-link">
+								<a href="{{ route('settings') }}" class="menu-link waves-effect waves-light">
 									<i class="fa fa-cog"></i>&nbsp;@lang('messages.navbar.user-menu.settings')
 								</a>
 							</li>
 							<li>
-								<a href="#" class="menu-link disabled">
+								<a href="#" class="menu-link waves-effect waves-light disabled">
 									<i class="fa fa-check-circle-o"></i>&nbsp;@lang('messages.navbar.user-menu.achievements')
 								</a>
 							</li>
@@ -81,7 +81,7 @@
 							<li>
 								<form action="{{ route('logout') }}" method="POST">
 									{{ csrf_field() }}
-									<button type="submit" class="menu-link signout">
+									<button type="submit" class="menu-link waves-effect waves-light signout">
 										<i class="fa fa-power-off"></i>&nbsp;@lang('messages.navbar.user-menu.signout')
 									</button>
 								</form>
@@ -89,7 +89,7 @@
 						</ul>
 					</li>
 					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+						<a href="#" class="dropdown-toggle waves-effect waves-light" data-toggle="dropdown" role="button" aria-expanded="false">
 							<img src="{{ asset('images/locale-' . app()->getLocale())  }}.png" alt="" class="locale-img">
 							&nbsp;
 							@lang('languages.' . app()->getLocale())
@@ -99,7 +99,7 @@
 							@foreach(trans('languages') as $lang => $string)
 								@if($lang != app()->getLocale())
 									<li>
-										<a href="{{ route('language', ['language' => $lang]) }}" class="menu-link">
+										<a href="{{ route('language', ['language' => $lang]) }}" class="menu-link waves-effect waves-light">
 											<img src="{{ asset('images/locale-' . $lang) }}.png" alt="" class="locale-img locale-selector">
 											<span>@lang('languages.' . $lang)</span>
 										</a>
@@ -115,12 +115,12 @@
 						@include('layouts.partials.inbox')
 					</li>
 					<li class="search-container">
-						<a href="#" class="btn-search" id="btn-search">
+						<a href="#" class="btn-search tooltipped" id="btn-search" data-tooltip="@lang('messages.navbar.search.placeholder')" data-position="bottom" data-delay="50">
 							<i class="fa fa-search"></i>
 						</a>
 					</li>
 					<li>
-						<a href="#" id="compose-new" class="composer-new" title="@lang('messages.navbar.compose-new')" style="color: #f3e25c !important">
+						<a href="#" id="compose-new" class="composer-new tooltipped" data-tooltip="@lang('messages.navbar.compose-new')" data-position="bottom" data-delay="50" style="color: #f3e25c !important">
 							<i class="fa fa-plus-circle"></i>
 						</a>
 					</li>

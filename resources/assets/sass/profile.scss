@@ -20,10 +20,10 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, .65);
 }
 
-.profile--section .profile--section__user .profile__user-avatar[data-upload]:hover:after {
+.profile--section .profile--section__user .profile__user-avatar[data-upload]:after {
   content: '\f030';
   font-size: 35px;
-  display: block;
+  display: none;
   position: absolute;
   font-family: "FontAwesome";
   text-rendering: auto;
@@ -38,6 +38,10 @@
   background: rgba(25, 25, 25, .7);
   padding-top: 40px;
   cursor: pointer
+}
+
+.profile--section .profile--section__user .profile__user-avatar[data-upload]:hover:after {
+  display: block;
 }
 
 .profile--section .profile--section__user .profile__user-avatar img {
@@ -173,4 +177,10 @@
 
 .profile--section .profile__follow-button.followed-back {
   background: #9f90a2;
+}
+
+@media screen and (max-width: 768px) {
+  .profile--section .profile--section__user .profile__user-avatar[data-upload]:after {
+    display: block !important;
+  }
 }

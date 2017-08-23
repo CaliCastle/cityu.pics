@@ -39,28 +39,28 @@
                                 <span class="fa fa-heart-o"></span>
                             @endif
                         </button>
-                        <a class="feed-action__comment" href="javascript:void(0)">
+                        <a class="feed-action__comment waves-effect" href="javascript:void(0)">
                             <i class="fa fa-comment-o"></i>
                         </a>
-                        <a class="feed-action__more" href="javascript:void(0)">
+                        <a class="feed-action__more waves-effect" href="javascript:void(0)">
                             <i class="fa fa-ellipsis-h"></i>
                         </a>
                         <div class="feed-more__list animated flipInY">
-                            <div class="feed-more__item feed-more__facebook">
+                            <div class="feed-more__item feed-more__facebook waves-effect">
                                 <i class="fa fa-facebook"></i>
                                 <span>Facebook</span>
                             </div>
-                            <div class="feed-more__item feed-more__twitter">
+                            <div class="feed-more__item feed-more__twitter waves-effect">
                                 <i class="fa fa-twitter"></i>
                                 <span>Twitter</span>
                             </div>
                             @if(Auth::id() == $postAuthor->id)
-                                <div class="feed-more__item feed-more__delete">
+                                <div class="feed-more__item feed-more__delete waves-effect">
                                     <i class="fa fa-trash"></i>
                                     <span>@lang('messages.posts.actions.delete')</span>
                                 </div>
                             @endif
-                            <div class="feed-more__item feed-more__cancel">
+                            <div class="feed-more__item feed-more__cancel waves-effect">
                                 <i class="fa fa-times"></i>
                                 <span>@lang('messages.composer.cancel')</span>
                             </div>
@@ -75,7 +75,7 @@
                         <div class="feed-details__comment-input animated fadeInUp">
                             <div class="feed-comment__input" contenteditable></div>
                             <button class="feed-comment__cancel-reply"><i class="fa fa-times"></i>&nbsp;@lang('messages.posts.comments.cancel')</button>
-                            <button class="feed-comment__button" loading-text="@lang('messages.posts.comments.posting')" origin-text="@lang('messages.posts.comments.post')">@lang('messages.posts.comments.post')</button>
+                            <button class="feed-comment__button waves-effect waves-light" loading-text="@lang('messages.posts.comments.posting')" origin-text="@lang('messages.posts.comments.post')">@lang('messages.posts.comments.post')</button>
                         </div>
 
                         <div class="feed__comments block-loading"></div>
@@ -85,8 +85,8 @@
             </div>
         </div>
         <div class="feed-layout__modal animated bounceIn">
-            <button class="feed-modal__button feed-modal__cancel">@lang('messages.composer.cancel')</button>
-            <button class="feed-modal__button feed-modal__confirm animated infinite pulse">@lang('messages.posts.actions.confirm')!</button>
+            <button class="feed-modal__button feed-modal__cancel waves-effect">@lang('messages.composer.cancel')</button>
+            <button class="feed-modal__button feed-modal__confirm waves-effect waves-light animated infinite pulse">@lang('messages.posts.actions.confirm')!</button>
         </div>
     </div>
 @endforeach

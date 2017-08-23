@@ -1,3 +1,7 @@
+html, body {
+  font-size: 93%;
+}
+
 a:focus {
   background: transparent !important;
 }
@@ -534,9 +538,12 @@ body.auth {
   .Inbox {
     left: 0 !important;
   }
+  #app:before {
+    display: none;
+  }
   .flying-buttons {
     right: 10px !important;
-    bottom: 80px !important;
+    bottom: 60px !important;
   }
   .flying-buttons .flying-button {
     font-size: 34px !important;
@@ -549,6 +556,9 @@ body.auth {
   }
   .toast-top-right {
     top: 50px !important;
+  }
+  .container {
+    width: 100% !important;
   }
 }
 

@@ -32,3 +32,14 @@
     }
   }
 }
+
+@media screen and (max-width: 768px) {
+  .fof-container {
+    .fof {
+      max-width: 95vw;
+    }
+    h1 {
+      margin: 30px 5px;
+    }
+  }
+}

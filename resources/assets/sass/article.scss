@@ -177,6 +177,23 @@
   }
   
   a {
-    color: #d53e37;
+    color: #ffc777;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .Article {
+    h1 {
+      font-size: 2.3em;
+    }
+
+    .description {
+      width: 90%;
+      padding: 10px 5px;
+    }
+
+    header.Timeline + main #timeline section.month section ul {
+      max-width: 90vw;
+    }
   }
 }

@@ -28,7 +28,8 @@ return [
         'search'      => [
             'placeholder' => '搜索',
             'tips'        => '按回车搜索或按ESC关闭'
-        ]
+        ],
+        'home'        => '主页'
     ],
     'composer' => [
         'description-title'   => '拖拽图片到这里 <i>或者</i> 点击选择',
@@ -118,8 +119,20 @@ return [
             'confirm' => '确定'
         ]
     ],
+    'settings' => [
+        'email'          => '邮箱地址 (无法更改)',
+        'password'       => '更改密码',
+        'description'    => '介绍自己',
+        'gender'         => '性别',
+        'gender-options' => [
+            'male'       => '男孩',
+            'female'     => '女孩',
+            'unspecific' => '其他',
+            'secret'     => '保密'
+        ]
+    ],
     'footer'   => [
-        'info'  => [
+        'info'        => [
             'title'   => '网站信息',
             'about'   => '关于本站',
             'faq'     => '常见问题',
@@ -127,13 +140,14 @@ return [
             'cookie'  => 'Cookie条款',
             'terms'   => '使用条款'
         ],
-        'dev'   => [
+        'dev'         => [
             'title'      => '开发相关',
             'contribute' => '参与贡献',
             'history'    => '开发记录'
         ],
-        'links' => [
+        'links'       => [
             'title' => '相关链接'
-        ]
+        ],
+        'back-to-top' => '返回顶部'
     ]
 ];

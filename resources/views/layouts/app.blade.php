@@ -61,10 +61,10 @@
     @endif
 
     <div class="flying-buttons">
-        <a class="flying-button compose-new animated bounce" href="javascript:void(0)" title="@lang('messages.navbar.compose-new')" data-toggle="tooltip" data-placement="left">
+        <a class="flying-button compose-new tooltipped animated bounce" href="javascript:void(0)" data-tooltip="@lang('messages.navbar.compose-new')" data-position="left" data-delay="50">
             <span class="fa fa-plus"></span>
         </a>
-        <a class="flying-button animated bounceIn hidden" href="javascript:void(0)" id="back-to-top">
+        <a class="flying-button tooltipped animated bounceIn hidden" href="javascript:void(0)" id="back-to-top" data-tooltip="@lang('messages.footer.back-to-top')" data-position="left" data-delay="50">
             <span class="fa fa-chevron-up"></span>
         </a>
     </div>
@@ -320,6 +320,8 @@
                     });
                 }
             });
+
+            $('.material-select').material_select();
         });
     </script>
     @endif

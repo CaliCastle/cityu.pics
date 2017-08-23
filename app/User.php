@@ -34,6 +34,37 @@ class User extends Authenticatable
     ];
 
     /**
+     * Gets gender types.
+     *
+     * @return array
+     */
+    public static function genderTypes()
+    {
+        return ['male', 'female', 'unspecific', 'secret'];
+    }
+
+    /**
+     * Gets gender icon names.
+     *
+     * @param $gender
+     *
+     * @return string
+     */
+    public static function genderToIcon($gender)
+    {
+        switch ($gender) {
+            case 'male':
+                return 'mars';
+            case 'female':
+                return 'venus';
+            case 'secret':
+                return 'genderless';
+            default:
+                return 'transgender';
+        }
+    }
+
+    /**
      * Gets the confirmation email link.
      *
      * @return string

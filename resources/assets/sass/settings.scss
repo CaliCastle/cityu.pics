@@ -14,5 +14,11 @@
       margin-top: 50px;
       @include br(12px);
     }
+
+    @include has(form-wrapper) {
+      form {
+        margin-top: 2rem;
+      }
+    }
   }
 }

@@ -28,7 +28,8 @@ return [
         'search'      => [
             'placeholder' => 'Search',
             'tips'        => 'Hit enter to search or ESC to close'
-        ]
+        ],
+        'home'        => 'Home page'
     ],
     'composer' => [
         'description-title'   => 'Add images by dragging files here <i>or</i> select by clicking',
@@ -118,8 +119,20 @@ return [
             'confirm' => 'Confirm'
         ]
     ],
+    'settings' => [
+        'email'          => 'Email (Cannot be changed)',
+        'password'       => 'Change password',
+        'description'    => 'Describe yourself',
+        'gender'         => 'Gender',
+        'gender-options' => [
+            'male'       => 'Boy',
+            'female'     => 'Girl',
+            'unspecific' => 'Other',
+            'secret'     => 'Secret'
+        ]
+    ],
     'footer'   => [
-        'info'  => [
+        'info'        => [
             'title'   => 'Information',
             'about'   => 'About',
             'faq'     => 'FAQs',
@@ -127,13 +140,14 @@ return [
             'cookie'  => 'Cookie',
             'terms'   => 'Terms'
         ],
-        'dev'   => [
+        'dev'         => [
             'title'      => 'Dev',
             'contribute' => 'Contribute',
             'history'    => 'Develop History'
         ],
-        'links' => [
+        'links'       => [
             'title' => 'Links'
-        ]
+        ],
+        'back-to-top' => 'Back to top'
     ]
 ];
