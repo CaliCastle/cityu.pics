@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Image;
+use App\Tag;
 use Storage;
 use App\User;
+use App\Post;
 use App\Notification;
 use Illuminate\Http\Request;
 
@@ -19,10 +21,18 @@ class UserController extends Controller
     protected $avatarStoragePath = 'public/users/avatars/';
 
     /**
+     * Http request.
+     *
+     * @var Request
+     */
+    protected $request;
+
+    /**
      * UserController constructor.
      */
-    public function __construct()
+    public function __construct(Request $request)
     {
+        $this->request = $request;
         $this->middleware('auth');
         $this->middleware('confirmed');
     }
@@ -44,27 +54,25 @@ class UserController extends Controller
     /**
      * Uploads a new avatar.
      *
-     * @param Request $request
-     *
      * @return string
      */
-    public function uploadAvatar(Request $request)
+    public function uploadAvatar()
     {
-        $file = $request->file('image');
-        $size = round($request->width);
-        $resize = $request->width >= 800;
+        $file = $this->request->file('image');
+        $size = round($this->request->width);
+        $resize = $this->request->width >= 800;
         $path = str_random(100) . '.' . $file->clientExtension();
 
         // Crop and resize avatar if necessary.
         $image = Image::make($file->getPathname())
-            ->crop($size, $size, round($request->input('x')), round($request->input('y')));
+            ->crop($size, $size, round($this->request->input('x')), round($this->request->input('y')));
         if ($resize)
             $image->resize(800, 800);
 
         Storage::put($this->avatarStoragePath . $path, $image->encode());
 
         // Save it to the database.
-        $request->user()->changeAvatar($path);
+        $this->request->user()->changeAvatar($path);
 
         return asset('storage/users/avatars/' . $path);
     }
@@ -72,21 +80,20 @@ class UserController extends Controller
     /**
      * Follows a user.
      *
-     * @param User    $user
-     * @param Request $request
+     * @param User $user
      *
      * @return array|bool
      */
-    public function followUser(User $user, Request $request)
+    public function followUser(User $user)
     {
-        if ($user->id == $request->user()->id)
+        if ($user->id == $this->request->user()->id)
             return false;
 
         // Follow the user.
-        $request->user()->follow($user);
+        $this->request->user()->follow($user);
 
         return [
-            'state'     => $request->user()->followed($user) ? ($request->user()->followedEachOther($user) ? 'both' : 'followed') : 'unfollowed',
+            'state'     => $this->request->user()->followed($user) ? ($this->request->user()->followedEachOther($user) ? 'both' : 'followed') : 'unfollowed',
             'followers' => $user->followers
         ];
     }
@@ -96,16 +103,16 @@ class UserController extends Controller
      *
      * @return array
      */
-    public function readNotifications(Request $request)
+    public function readNotifications()
     {
-        if (str_contains($request->input('id'), ',')) {
+        if (str_contains($this->request->input('id'), ',')) {
             // Multiple read request.
-            foreach (explode(',', $request->input('id')) as $id) {
+            foreach (explode(',', $this->request->input('id')) as $id) {
                 $this->readNotification($id);
             }
         } else {
             // Single read request
-            $this->readNotification(intval($request->input('id')));
+            $this->readNotification(intval($this->request->input('id')));
         }
 
         return [
@@ -120,11 +127,11 @@ class UserController extends Controller
      *
      * @return array
      */
-    public function getInbox(Request $request)
+    public function getInbox()
     {
         return [
             'status' => 'success',
-            'inbox'  => $request->user()->inboxNotifications()
+            'inbox'  => $this->request->user()->inboxNotifications()
         ];
     }
 
@@ -138,10 +145,93 @@ class UserController extends Controller
         return view('settings');
     }
 
-    public function showSearch(Request $request)
+    /**
+     * Saves personal settings.
+     *
+     * @return array
+     */
+    public function savePersonalSettings()
     {
-        // TODO: Search implementation
-        return $request->input('q');
+        $this->validate($this->request, $this->getSettingsRule());
+
+        $this->request->user()->changeSettings($this->request->all());
+
+        return $this->successResponse(trans('messages.settings.changed'));
+    }
+
+    /**
+     * Saves privacy settings.
+     *
+     * @return array
+     */
+    public function savePrivacySettings()
+    {
+        $this->request->user()->changePrivacy($this->request->all());
+
+        return $this->successResponse(trans('messages.settings.changed'));
+    }
+
+    /**
+     * Saves feed settings.
+     *
+     * @return array
+     */
+    public function saveFeedSettings()
+    {
+        $this->request->user()->changeFeedSettings($this->request->all());
+
+        return $this->successResponse(trans('messages.settings.changed'));
+    }
+
+    /**
+     * Gets settings validation rules.
+     *
+     * @return array
+     */
+    protected function getSettingsRule()
+    {
+        $attributes = [
+            'name'        => 'required|max:255|unique:users,name,' . $this->request->user()->id,
+            'description' => 'max:120|nullable|string'
+        ];
+
+        if ($this->request->has('password') && trim($this->request->input('password')) != '')
+            $attributes = array_merge($attributes, [
+                'password' => 'required|min:6|confirmed'
+            ]);
+
+        return $attributes;
+    }
+
+    /**
+     * Shows search results.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function showSearch()
+    {
+        $query = $this->request->input('q');
+
+        // Get related users.
+        $users = User::search($query);
+        // Get related tags.
+        $tags = Tag::search($query);
+        // Get related posts.
+        $posts = Post::search($query);
+
+        return view('search', compact('query', 'users', 'tags', 'posts'));
+    }
+
+    /**
+     * Checks in daily.
+     *
+     * @return array
+     */
+    public function checkIn()
+    {
+        $this->request->user()->checkIn();
+
+        return $this->successResponse();
     }
 
     /**

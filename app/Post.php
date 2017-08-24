@@ -155,4 +155,16 @@ class Post extends Model
 
         return str_limit($content, $limit);
     }
+
+    /**
+     * Searches through by the query.
+     *
+     * @param string $query
+     *
+     * @return static
+     */
+    public static function search($query = '')
+    {
+        return static::where('caption', 'like', "%{$query}%")->get()->take(30);
+    }
 }

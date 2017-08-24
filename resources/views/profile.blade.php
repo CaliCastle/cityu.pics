@@ -35,7 +35,12 @@
 		                {{ $user->name }}
 	                @endif
                 </span>
-                <a href="mailto:{{ $user->email }}" class="profile__user-email" v-cloak>@if(Auth::id() == $user->id)@{{ User.email }}@else{{ $user->email }}@endif</a>
+                @if($user->display_email)
+	            <a href="mailto:{{ $user->email }}" class="profile__user-email" v-cloak>@if(Auth::id() == $user->id)@{{ User.email }}@else{{ $user->email }}@endif</a>
+	            @endif
+	            @if($user->description)
+					<p class="description">{{ $user->description }}</p>
+				@endif
                 <div class="profile__user-follow-wrapper">
 	                <div class="profile__user-follow">
 		                <span class="profile--following">@lang('messages.profile.followings', ['count' => $user->followings])</span>

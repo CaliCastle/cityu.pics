@@ -227,8 +227,13 @@ button {
 }
 
 .checkin.completed {
-  color: #fff;
-  background: #0D3B62;
+  color: #378e63;
+
+  button {
+    background: #378e63 !important;
+    pointer-events: none;
+    cursor: not-allowed;
+  }
 }
 
 .checkin > i {
@@ -267,7 +272,8 @@ button {
 .checkin > .checkin-button {
   display: flex;
   justify-content: center;
-  margin: 15px 0 0
+  margin: 15px 0 0;
+  position: relative;
 }
 
 .checkin > .checkin-button > button {
@@ -283,10 +289,6 @@ button {
 
 .checkin > .checkin-button > button:hover {
   opacity: 0.75;
-}
-
-.checkin.completed > .checkin-button {
-  display: none;
 }
 
 .signout {
@@ -507,6 +509,10 @@ body.auth {
 
 #toast-container > div {
   opacity: .95 !important;
+}
+
+.burst-container {
+  z-index: 99999;
 }
 
 @media screen and (max-width: 768px) {

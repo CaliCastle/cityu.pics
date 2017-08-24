@@ -32,4 +32,27 @@ class UserMeta extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    /**
+     * Searches for a query.
+     *
+     * @param string $query
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public static function search($query = '')
+    {
+        $ids = static::where([
+            ['key', 'description'],
+            ['value', 'like', "%{$query}%"]])
+            ->take(10)
+            ->get(['user_id']);
+        $users = collect();
+
+        foreach ($ids as $meta => $id) {
+            $users->push(User::find($id)->first());
+        }
+
+        return $users;
+    }
 }

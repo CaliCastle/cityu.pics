@@ -9,4 +9,21 @@ form {
   .btn i {
     font-size: 1em !important;
   }
+
+  .has-error {
+    input {
+      border-bottom-color: #c93431 !important;
+    }
+    label {
+      color: #c93431 !important;
+    }
+  }
+
+  .shaky {
+    @include am(shake .75s backwards);
+  }
+
+  button.btn {
+    outline: none !important;
+  }
 }

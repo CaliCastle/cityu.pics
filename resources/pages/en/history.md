@@ -10,6 +10,13 @@
             <section class="month">
                 <h3>Aug<br>2017</h3>
                 <section>
+                    <h4>Aug 24th</h4>
+                    <ul>
+                        <li>Daily <b>check-in</b> is available now!</li>
+                        <li>You can now change <b>Settings</b> by clicking the dropdown on the top!</li>
+                    </ul>
+                </section>
+                <section>
                     <h4>Aug 22nd</h4>
                     <ul>
                         <li>Fixed a bug when clicking on POST button immediately after entering the comment would display nothing.</li>

@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Events\CheckedIn;
 use App\Events\LikedPost;
 use App\Events\UserFollowed;
 use App\Events\LikedComment;
@@ -40,7 +41,7 @@ class User extends Authenticatable
      */
     public static function genderTypes()
     {
-        return ['male', 'female', 'unspecific', 'secret'];
+        return ['male', 'female', 'unspecific'];
     }
 
     /**
@@ -57,10 +58,8 @@ class User extends Authenticatable
                 return 'mars';
             case 'female':
                 return 'venus';
-            case 'secret':
-                return 'genderless';
             default:
-                return 'transgender';
+                return 'genderless';
         }
     }
 
@@ -267,6 +266,16 @@ class User extends Authenticatable
     }
 
     /**
+     * Gets experience attribute.
+     *
+     * @return string
+     */
+    public function getExperienceAttribute()
+    {
+        return number_format($this->attributes['experience']);
+    }
+
+    /**
      * Comments a post.
      *
      * @param Post $post
@@ -458,9 +467,21 @@ class User extends Authenticatable
     public function checkedIn()
     {
         /** @var null|UserMeta $latestCheck */
-        $latestCheck = $this->metas()->whereKey('check_in')->latest()->first();
+        $latestCheck = $this->metas()->where('key', 'check_in')->first();
 
         return is_null($latestCheck) ? false : $latestCheck->created_at->isToday();
+    }
+
+    /**
+     * Checks in.
+     */
+    public function checkIn()
+    {
+        if (!$this->checkedIn()) {
+            $this->metas()->updateOrCreate(['key' => 'check_in'], ['value' => true]);
+
+            event(new CheckedIn($this));
+        }
     }
 
     /**
@@ -499,11 +520,11 @@ class User extends Authenticatable
     protected function profileSerializeAttributes()
     {
         return [
-            'checkedIn' => $this->checkedIn(),
-            'email'     => $this->email,
-            'unread'    => $this->unread,
-            'avatarUrl' => url('/storage/' . $this->avatar)
-//            'description' => $this->description
+            'checkedIn'   => $this->checkedIn(),
+            'email'       => $this->email,
+            'unread'      => $this->unread,
+            'avatarUrl'   => url('/storage/' . $this->avatar),
+            'description' => $this->description
         ];
     }
 
@@ -533,5 +554,152 @@ class User extends Authenticatable
         $this->locale = $locale;
 
         return $this->save();
+    }
+
+    /**
+     * Gets description attribute.
+     *
+     * @return $this
+     */
+    public function getDescriptionAttribute()
+    {
+        return $this->metas()->where('key', '=', 'description')->value('value');
+    }
+
+    /**
+     * Sets description attribute.
+     *
+     * @param $value
+     */
+    public function setDescriptionAttribute($value)
+    {
+        $this->metas()->updateOrCreate(['key' => 'description'], ['value' => $value]);
+    }
+
+    /**
+     * Gets display_email attribute.
+     *
+     * @return bool
+     */
+    public function getDisplayEmailAttribute()
+    {
+        if (!$this->metas()->where('key', 'display_email')->exists())
+            return true;
+
+        return !!$this->metas()->where('key', '=', 'display_email')->value('value');
+    }
+
+    /**
+     * Sets display_email attribute.
+     *
+     * @param $value
+     */
+    public function setDisplayEmailAttribute($value)
+    {
+        $this->metas()->updateOrCreate(['key' => 'display_email'], ['value' => $value]);
+    }
+
+    /**
+     * Gets display_email attribute.
+     *
+     * @return bool
+     */
+    public function getSubscribeAttribute()
+    {
+        if (!$this->metas()->where('key', 'subscribe')->exists())
+            return true;
+
+        return !!$this->metas()->where('key', '=', 'subscribe')->value('value');
+    }
+
+    /**
+     * Sets display_email attribute.
+     *
+     * @param $value
+     */
+    public function setSubscribeAttribute($value)
+    {
+        $this->metas()->updateOrCreate(['key' => 'subscribe'], ['value' => $value]);
+    }
+
+    /**
+     * Gets feed_filter attribute.
+     *
+     * @return bool
+     */
+    public function getFeedFilterAttribute()
+    {
+        return !!$this->metas()->where('key', '=', 'feed_filter')->value('value');
+    }
+
+    /**
+     * Sets feed_filter attribute.
+     *
+     * @param $value
+     */
+    public function setFeedFilterAttribute($value)
+    {
+        $this->metas()->updateOrCreate(['key' => 'feed_filter'], ['value' => $value]);
+    }
+
+    /**
+     * Saves settings.
+     *
+     * @param array $attributes
+     *
+     * @return bool
+     */
+    public function changeSettings(array $attributes)
+    {
+        if ($attributes['password']) {
+            $this->password = bcrypt($attributes['password']);
+        }
+
+        if ($attributes['name'] != $this->name) {
+            $this->name = $attributes['name'];
+        }
+
+        $this->description = $attributes['description'] ? : '';
+        $this->gender = $attributes['gender'];
+
+        return $this->save();
+    }
+
+    /**
+     * Changes privacy settings.
+     *
+     * @param array $attributes
+     */
+    public function changePrivacy(array $attributes)
+    {
+        $this->display_email = array_key_exists('display_email', $attributes);
+        $this->subscribe = array_key_exists('subscribe', $attributes);
+    }
+
+    /**
+     * Changes feed settings.
+     *
+     * @param array $attributes
+     */
+    public function changeFeedSettings(array $attributes)
+    {
+        $this->feed_filter = array_key_exists('feed_filter', $attributes);
+    }
+
+    /**
+     * Searches by query to match name, email and description.
+     *
+     * @param string $query
+     *
+     * @return static
+     */
+    public static function search($query = '')
+    {
+        return static::where([
+            ['name', 'like', "%{$query}%"],
+            ['email', 'like', "%{$query}%"]])
+            ->take(10)
+            ->get()
+            ->merge(UserMeta::search($query));
     }
 }

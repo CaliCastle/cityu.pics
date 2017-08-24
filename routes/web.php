@@ -61,12 +61,17 @@ Route::put('locked', 'HomeController@resendCode');
 Route::get('@{userName}', 'UserController@showProfile')->name('profile');
 Route::put('@{userName}', 'UserController@followUser')->name('follow');
 Route::get('settings', 'UserController@showSettings')->name('settings');
+Route::post('settings/personal', 'UserController@savePersonalSettings')->name('settings.personal');
+Route::post('settings/privacy', 'UserController@savePrivacySettings')->name('settings.privacy');
+Route::post('settings/feed', 'UserController@saveFeedSettings')->name('settings.feed');
 Route::post('upload-avatar', 'UserController@uploadAvatar')->name('upload-avatar');
 Route::post('get-inbox', 'UserController@getInbox')->name('get-inbox');
+Route::post('check-in', 'UserController@checkIn')->name('checkin');
 
 // Notification
 Route::patch('read/notification', 'UserController@readNotifications');
 
+// Search
 Route::get('search', 'UserController@showSearch');
 
 // Voyager routes

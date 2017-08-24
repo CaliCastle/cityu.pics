@@ -34,10 +34,11 @@
 							&nbsp;@{{ User.name }}&nbsp;<span class="caret"></span>
 						</a>
 						<ul class="dropdown-menu">
-							<li class="rank">
-								<!-- TODO: change color -->
-								<span class="rank-icon rank-label" data-rank="5"></span>
-								<span class="exp-label" v-cloak>@{{ User.experience }}</span>
+							<li>
+								<a class="menu-link disabled">
+									<i class="fa fa-bolt"></i>
+									<span class="exp-label" v-cloak>@{{ User.experience }}</span>
+								</a>
 							</li>
 							@if(Auth::user()->hasPermission('browse_admin'))
 								<li>
@@ -67,14 +68,15 @@
 								</a>
 							</li>
 							<li class="divider" role="separator"></li>
-							<li class="checkin"><!-- class="completed" -->
+							<li class="checkin animated" :class="{'completed rubberBand' : User.checkedIn}">
 								<i class="fa fa-calendar-o"></i>
 								<div class="today">
 									<span class="month">{{ \Carbon\Carbon::today()->format('M') }}</span>
 									<span class="date">{{ \Carbon\Carbon::today()->day }}</span>
 								</div>
 								<div class="checkin-button">
-									<button>@lang('messages.navbar.user-menu.checkin')</button>
+									<button v-if="!User.checkedIn">@lang('messages.navbar.user-menu.checkin')</button>
+									<button v-else><i class="fa fa-check"></i></button>
 								</div>
 							</li>
 							<li class="divider" role="separator"></li>

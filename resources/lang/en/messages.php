@@ -75,7 +75,8 @@ return [
         'feed'     => 'Feed',
         'confirm'  => 'Confirm Your Email',
         'profile'  => ':user\'s Profile',
-        'settings' => 'Personal Settings'
+        'settings' => 'Personal Settings',
+        'search'   => 'Everything Related to ":query"'
     ],
     'email'    => [
         'confirm' => [
@@ -120,6 +121,11 @@ return [
         ]
     ],
     'settings' => [
+        'tabs'           => [
+            'personal' => 'Personal',
+            'privacy'  => 'Privacy',
+            'feed'     => 'Feed'
+        ],
         'email'          => 'Email (Cannot be changed)',
         'password'       => 'Change password',
         'description'    => 'Describe yourself',
@@ -127,9 +133,16 @@ return [
         'gender-options' => [
             'male'       => 'Boy',
             'female'     => 'Girl',
-            'unspecific' => 'Other',
-            'secret'     => 'Secret'
-        ]
+            'unspecific' => 'Secret'
+        ],
+        'changed'        => 'Settings have been changed',
+        'switches'       => [
+            'on'  => 'On',
+            'off' => 'Off'
+        ],
+        'display-email'  => 'Display E-mail on profile page',
+        'subscribe'      => 'Subscribe to our newsletter or announcement email',
+        'feed-filter'    => 'Show the feed from your following users only'
     ],
     'footer'   => [
         'info'        => [

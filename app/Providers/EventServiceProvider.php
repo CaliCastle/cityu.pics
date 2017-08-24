@@ -30,7 +30,10 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\LikedPost'              => [],
         'App\Events\LikedComment'           => [],
         'App\Events\AnnouncementPosted'     => [],
-        'App\Events\ExperienceHasChanged'   => []
+        'App\Events\ExperienceHasChanged'   => [],
+        'App\Events\CheckedIn'              => [
+            'App\Listeners\ChangeExperience'
+        ]
     ];
 
     /**

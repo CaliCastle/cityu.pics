@@ -223,8 +223,8 @@ $(document).ready(function () {
                         let errors = JSON.parse(error.responseText);
                         for (let er in errors) {
                             const sel = `[name=${er}]`,
-                                groupEl = $($(form).find(sel)[0]).parents('.form-group')[0];
-                            // Add error class to the form-group
+                                groupEl = $($(form).find(sel)[0]).parents('.input-field')[0];
+                            // Add error class to the input-field
                             $(groupEl).addClass('has-error shaky');
                             setTimeout(() => $(groupEl).removeClass('has-error shaky'), 8000);
 

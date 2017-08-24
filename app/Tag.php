@@ -55,4 +55,16 @@ class Tag extends Model
     {
         return !is_null(static::where('name', $tag)->first());
     }
+
+    /**
+     * Searches through by the query.
+     *
+     * @param string $query
+     *
+     * @return static
+     */
+    public static function search($query = '')
+    {
+        return static::where('name', 'like', "%{$query}%")->get()->take(15);
+    }
 }

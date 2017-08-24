@@ -3,9 +3,10 @@
 return [
     'earned-exp'    => '参与:reason 获得了:exp经验',
     'reasons'       => [
-        'commented' => '留言评论',
-        'new-reply' => '回复评论',
-        'new-post'  => '发布新动态'
+        'commented'  => '留言评论',
+        'new-reply'  => '回复评论',
+        'new-post'   => '发布新动态',
+        'checked-in' => '签到'
     ],
     'followed'      => '<b>:user</b> 关注了你',
     'commented'     => '<b>:user</b> 评论你：:comment',

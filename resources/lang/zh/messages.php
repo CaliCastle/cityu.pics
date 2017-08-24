@@ -75,7 +75,8 @@ return [
         'feed'     => '动态',
         'confirm'  => '验证您的邮箱',
         'profile'  => ':user的个人主页',
-        'settings' => '设置'
+        'settings' => '设置',
+        'search'   => '":query"的查找结果'
     ],
     'email'    => [
         'confirm' => [
@@ -120,6 +121,11 @@ return [
         ]
     ],
     'settings' => [
+        'tabs'           => [
+            'personal' => '个人',
+            'privacy'  => '隐私',
+            'feed'     => '动态'
+        ],
         'email'          => '邮箱地址 (无法更改)',
         'password'       => '更改密码',
         'description'    => '介绍自己',
@@ -127,9 +133,16 @@ return [
         'gender-options' => [
             'male'       => '男孩',
             'female'     => '女孩',
-            'unspecific' => '其他',
-            'secret'     => '保密'
-        ]
+            'unspecific' => '保密'
+        ],
+        'changed'        => '设置成功保存',
+        'switches'       => [
+            'on'  => '开启',
+            'off' => '关闭'
+        ],
+        'display-email'  => '在个人主页显示邮箱地址',
+        'subscribe'      => '接收网站新闻通知邮件',
+        'feed-filter'    => '只显示您关注的用户的动态'
     ],
     'footer'   => [
         'info'        => [

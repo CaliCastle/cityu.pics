@@ -1,4 +1,5 @@
 .settings-content {
+  margin: 35px 0;
 
   .settings-panel {
     display: flex;
@@ -7,17 +8,37 @@
     align-items: center;
 
     @include has(content) {
-      padding: 35px 20px;
+      padding: 0 20px;
       background: #fff;
       box-shadow: 0 8px 20px -3px rgba(0, 0, 0, .5);
       width: 80%;
-      margin-top: 50px;
+      margin-top: 1rem;
       @include br(12px);
     }
 
     @include has(form-wrapper) {
       form {
         margin-top: 2rem;
+      }
+    }
+  }
+
+  .tabs-wrapper {
+    margin-top: 30px;
+    width: 80%;
+    left: 10%;
+    position: relative;
+
+    .tabs {
+      background: transparent !important;
+
+      .tab a {
+        color: #fff !important;
+        text-decoration: none;
+      }
+
+      .indicator {
+        background-color: #fff !important;
       }
     }
   }
