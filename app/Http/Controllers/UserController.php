@@ -234,6 +234,11 @@ class UserController extends Controller
         return $this->successResponse();
     }
 
+    public function showTag(Tag $tag)
+    {
+
+    }
+
     /**
      * Read a notification.
      *

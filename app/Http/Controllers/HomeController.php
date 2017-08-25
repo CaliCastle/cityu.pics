@@ -39,12 +39,20 @@ class HomeController extends Controller
     protected $postsPerPage = 50;
 
     /**
+     * Request.
+     *
+     * @var Request
+     */
+    protected $request;
+
+    /**
      * Creates a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Request $request)
     {
+        $this->request = $request;
         $this->middleware('auth', ['except' => 'confirmUser']);
         $this->middleware('confirmed', ['except' => ['confirmUser', 'showLocked', 'unlock', 'resendCode']]);
     }
@@ -66,7 +74,12 @@ class HomeController extends Controller
      */
     public function showFeed()
     {
-        return view('feed');
+        if ($this->request->user()->filteredFeed())
+            $posts = Post::filterByFollowing($this->request->user())->paginate();
+        else
+            $posts = Post::latest()->paginate();
+
+        return view('feed', compact('posts'));
     }
 
     /**

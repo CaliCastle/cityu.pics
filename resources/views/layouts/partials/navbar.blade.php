@@ -11,7 +11,7 @@
 			</button>
 
 			<!-- Branding Image -->
-			<a class="navbar-brand tooltipped waves-effect waves-light" href="{{ url('/') }}" data-tooltip="@lang('messages.navbar.home')" data-position="bottom" data-delay="50">
+			<a class="navbar-brand tooltipped waves-effect waves-light" href="{{ url('/') }}" data-tooltip="@lang('messages.navbar.home')" data-position="bottom">
 				<img src="/logo-light.png" alt="Logo">
 				<span>{{ config('app.name') }}</span>
 			</a>
@@ -37,7 +37,7 @@
 							<li>
 								<a class="menu-link disabled">
 									<i class="fa fa-bolt"></i>
-									<span class="exp-label" v-cloak>@{{ User.experience }}</span>
+									<span class="exp-label">@{{ Experience }}</span>
 								</a>
 							</li>
 							@if(Auth::user()->hasPermission('browse_admin'))
@@ -117,12 +117,12 @@
 						@include('layouts.partials.inbox')
 					</li>
 					<li class="search-container">
-						<a href="#" class="btn-search tooltipped" id="btn-search" data-tooltip="@lang('messages.navbar.search.placeholder')" data-position="bottom" data-delay="50">
+						<a href="#" class="btn-search" id="btn-search">
 							<i class="fa fa-search"></i>
 						</a>
 					</li>
 					<li>
-						<a href="#" id="compose-new" class="composer-new tooltipped" data-tooltip="@lang('messages.navbar.compose-new')" data-position="bottom" data-delay="50" style="color: #f3e25c !important">
+						<a href="#" id="compose-new" class="composer-new tooltipped" data-tooltip="@lang('messages.navbar.compose-new')" data-position="bottom" style="color: #f3e25c !important">
 							<i class="fa fa-plus-circle"></i>
 						</a>
 					</li>

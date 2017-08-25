@@ -65,8 +65,7 @@
 @endif
 
 <div class="flying-buttons">
-	<a class="flying-button compose-new tooltipped animated bounce" href="javascript:void(0)"
-	   data-tooltip="@lang('messages.navbar.compose-new')" data-position="left" data-delay="50">
+	<a class="flying-button compose-new animated bounce" href="javascript:void(0)">
 		<span class="fa fa-plus"></span>
 	</a>
 	<a class="flying-button tooltipped animated bounceIn hidden" href="javascript:void(0)" id="back-to-top"
@@ -351,7 +350,7 @@
                 pickerPosition: "top",
                 tonesStyle: "bullet",
                 inline: true,
-                placeholder: "@lang('messages.composer.caption-placeholder')  ✍ ...",
+                placeholder: "@lang('messages.composer.caption-placeholder') ✍️ ...",
                 events: {
                     // Bind comment text to compose new.
                     change: function (editor, event) {

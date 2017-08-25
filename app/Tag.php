@@ -67,4 +67,24 @@ class Tag extends Model
     {
         return static::where('name', 'like', "%{$query}%")->get()->take(15);
     }
+
+    /**
+     * Gets related posts count.
+     *
+     * @return int
+     */
+    public function relatedPostsCount()
+    {
+        return number_format($this->posts()->count());
+    }
+
+    /**
+     * Gets its link.
+     *
+     * @return string
+     */
+    public function link()
+    {
+        return route('tag', ['tag' => $this->name]);
+    }
 }

@@ -29,6 +29,7 @@
                 </div>
                 @endif
                 <span class="profile__user-name{{ $user->isAdmin() ? ' admin' : ($user->isVerified() ? ' verified' : '') }}" v-cloak>
+	                <i class="fa fa-{{ $user->gender == 'unspecific' ? '' : App\User::genderToIcon($user->gender) }}"></i>
 	                @if(Auth::id() == $user->id)
 		                @{{ User.name }}
 	                @else

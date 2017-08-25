@@ -266,11 +266,11 @@ class User extends Authenticatable
     }
 
     /**
-     * Gets experience attribute.
+     * Gets formatted experience.
      *
      * @return string
      */
-    public function getExperienceAttribute()
+    public function formattedExperience()
     {
         return number_format($this->attributes['experience']);
     }
@@ -376,25 +376,37 @@ class User extends Authenticatable
     /**
      * Gets its followers.
      *
-     * @param array $columns
+     * @param $key
      *
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public function getFollowers($columns = ['*'])
+    public function getFollowers($key = null)
     {
-        return Follow::where('user_id', '=', $this->id)->latest()->get($columns);
+        $users = collect([]);
+
+        foreach (Follow::where('user_id', '=', $this->id)->cursor() as $item) {
+            $users->push(User::find($item->follower_id));
+        }
+
+        return $key ? $users->keyBy($key)->keys() : $users;
     }
 
     /**
      * Gets its followings.
      *
-     * @param array $columns
+     * @param $key
      *
      * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Support\Collection|static[]
      */
-    public function getFollowings($columns = ['*'])
+    public function getFollowings($key = null)
     {
-        return Follow::where('follower_id', '=', $this->id)->latest()->get($columns);
+        $users = collect([]);
+
+        foreach (Follow::where('follower_id', '=', $this->id)->latest()->cursor() as $item) {
+            $users->push(User::find($item->user_id));
+        }
+
+        return $key ? $users->keyBy($key)->keys() : $users;
     }
 
     /**
@@ -684,6 +696,16 @@ class User extends Authenticatable
     public function changeFeedSettings(array $attributes)
     {
         $this->feed_filter = array_key_exists('feed_filter', $attributes);
+    }
+
+    /**
+     * Checks if feed needs to be filtered.
+     *
+     * @return bool
+     */
+    public function filteredFeed()
+    {
+        return !!$this->feed_filter;
     }
 
     /**

@@ -136,6 +136,11 @@ const $vm = new Vue({
         token: Laravel.csrfToken,
         readingInbox: false,
     },
+    computed: {
+        Experience() {
+            return this.User.experience.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+    },
     mounted() {
         this.getInbox();
     }

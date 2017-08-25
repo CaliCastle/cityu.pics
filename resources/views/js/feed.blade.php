@@ -368,7 +368,7 @@
                 $currentPost.querySelector('.feed__comments').classList.add('block-loading');
                 $currentPost.querySelector('.feed__comments').innerHTML = '';
 
-                $('body').animate({scrollTop: $currentPost.style.top.split('px')[0]}, 400, 'swing');
+                $('html,body').animate({scrollTop: $currentPost.style.top.split('px')[0]}, 400, 'swing');
                 setTimeout(function () {
                     $postOverlay.classList.remove('open');
                     $currentPost.classList.remove('closing');
@@ -447,7 +447,7 @@
         function expandPost() {
             if (!$($currentPost).hasClass('expanded')) {
                 // Scroll to the post.
-                $('body').animate({scrollTop: $currentPost.style.top.split('px')[0]}, 400, 'swing');
+                $('html,body').animate({scrollTop: $currentPost.style.top.split('px')[0]}, 400, 'swing');
 
                 $currentPost.classList.add('expanded');
                 // Display comment input.

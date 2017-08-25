@@ -28,9 +28,13 @@ class RouteServiceProvider extends ServiceProvider
         parent::boot();
         $this->adjustLocale();
 
-        // Bind user route
+        // Bind user route.
         Route::bind('userName', function ($value) {
             return \App\User::where('name', $value)->first() ?: abort(404);
+        });
+        // Bind tag route.
+        Route::bind('tagName', function ($value) {
+            return \App\Tag::where('name', $value)->first() ?: abort(404);
         });
     }
 

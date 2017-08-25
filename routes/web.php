@@ -74,6 +74,9 @@ Route::patch('read/notification', 'UserController@readNotifications');
 // Search
 Route::get('search', 'UserController@showSearch');
 
+// Tag
+Route::get('tag/{tagName}', 'UserController@showTag')->name('tag');
+
 // Voyager routes
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();

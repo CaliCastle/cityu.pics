@@ -6,6 +6,10 @@ a:focus {
   background: transparent !important;
 }
 
+.no-decoration:hover, .no-decoration:focus {
+  text-decoration: none !important;
+}
+
 body.auth .language-switch {
   position: absolute;
   left: 20px;

@@ -14,10 +14,7 @@ class ComposerServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        view()->composer('feed', function ($view) {
-            // TODO: Load more
-            $view->with('posts', Post::latest()->paginate(50));
-        });
+
     }
 
     /**

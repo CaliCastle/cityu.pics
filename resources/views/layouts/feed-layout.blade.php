@@ -2,7 +2,7 @@
     <div class="feed-sizer"></div>
     @include('layouts.feed-panel')
 </div>
-@if($posts->hasMorePages())
+@if(method_exists($posts, 'hasMorePages') && $posts->hasMorePages())
     <div class="feed-loader">
         <button>@lang('messages.posts.load-more')</button>
     </div>

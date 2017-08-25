@@ -10,8 +10,15 @@
             <section class="month">
                 <h3>Aug<br>2017</h3>
                 <section>
+                    <h4>Aug 25th</h4>
+                    <ul>
+                        <li><b>Search</b> is finally here!<img alt="😆" class="emojioneemoji" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f606.png"></li>
+                    </ul>
+                </section>
+                <section>
                     <h4>Aug 24th</h4>
                     <ul>
+                        <li>Fixed a <b>Firefox</b> bug for confirmation page.</li>
                         <li>Daily <b>check-in</b> is available now!</li>
                         <li>You can now change <b>Settings</b> by clicking the dropdown on the top!</li>
                     </ul>

@@ -6,9 +6,21 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
+    /**
+     * Fillable attributes.
+     *
+     * @var array
+     */
     protected $fillable = [
         'caption', 'media'
     ];
+
+    /**
+     * Per page count.
+     *
+     * @var int
+     */
+    protected $perPage = 50;
 
     /**
      * Whose post it is.
@@ -166,5 +178,19 @@ class Post extends Model
     public static function search($query = '')
     {
         return static::where('caption', 'like', "%{$query}%")->get()->take(30);
+    }
+
+    /**
+     * Gets the posts by filtered following plus him/herself only.
+     *
+     * @param User $user
+     *
+     * @return \Illuminate\Database\Query\Builder|static
+     */
+    public static function filterByFollowing(User $user)
+    {
+        $users = $user->getFollowings('id')->push($user->id);
+
+        return static::whereIn('user_id', $users)->latest();
     }
 }

@@ -1,20 +1,24 @@
 $(document).ready(function () {
-    setTimeout(function () {$($('.number-box:first-of-type')[0]).focus();}, 200);
+    setTimeout(function () {
+        $($('.number-box:first-of-type')[0]).focus();
+    }, 200);
 
     $('.number-box:not(:last-of-type)').each(function () {
         $(this).keypress(function (e) {
-            var $this = this;
+            var $this = this,
+                keyCode = e.which || e.keyCode;
 
-            if (e.keyCode >= 48 && e.keyCode <= 57 && $this.innerText.length < 1) {
+            if (keyCode >= 48 && keyCode <= 57 && $this.innerText.length < 1) {
                 focusNext($this);
             } else {
                 return false;
             }
         });
         $(this).keyup(function (e) {
-            var $this = this;
+            var $this = this,
+                keyCode = e.which || e.keyCode;
 
-            if (e.keyCode == 8 || e.keyCode == 46 && $this.inner.length < 1) {
+            if (keyCode == 8 || keyCode == 46 && $this.inner.length < 1) {
                 focusLast($this);
                 return false;
             }
@@ -22,14 +26,15 @@ $(document).ready(function () {
     });
 
     $('.number-box:last-of-type').keydown(function (e) {
-        var $this = this;
+        var $this = this,
+            keyCode = e.which || e.keyCode;
 
-        if (e.keyCode == 8) {
+        if (keyCode == 8) {
             focusLast($this);
             return false;
         }
 
-        if (e.keyCode >= 48 && e.keyCode <= 57 && $this.innerText.length < 1) {
+        if (keyCode >= 48 && keyCode <= 57 && $this.innerText.length < 1) {
             setTimeout(function () {
                 fillDigits();
                 submitCode();
@@ -58,9 +63,11 @@ $(document).ready(function () {
 });
 
 function focusLast($current) {
+    $current.value = '';
+
     setTimeout(function () {
         $($current).prev(".number-box").focus();
-        $($current).prev(".number-box").html('');
+        $($current).prev(".number-box").val('');
     }, 2);
 }
 
@@ -73,10 +80,10 @@ function focusNext($current) {
 function fillDigits() {
     var digits = '';
 
-    $('div.number-box').each(function () {
-       digits += this.innerText;
+    $('.number-box').each(function () {
+        digits += this.value;
     });
-    $('form input[name=code]').val(digits);
+    document.querySelector('form input[name=code]').value = digits;
 }
 
 function submitCode() {
