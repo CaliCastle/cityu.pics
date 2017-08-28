@@ -10,6 +10,16 @@
             <section class="month">
                 <h3>Aug<br>2017</h3>
                 <section>
+                    <h4>Aug 28th</h4>
+                    <ul>
+                        <li><a href="/">Home page</a> has finally made its entrance, PEOPLE!</li>
+                        <li><b>Liked</b> page available now.</li>
+                        <li>Added <b>Pagination</b> for posts.</li>
+                        <li>Changed <b>footer</b> design to polygon instead of rectangle.</li>
+                        <li><b>Crazy bugs</b> fixed.</li>
+                    </ul>
+                </section>
+                <section>
                     <h4>Aug 25th</h4>
                     <ul>
                         <li><b>Tag</b> page has arrived, too!</li>
