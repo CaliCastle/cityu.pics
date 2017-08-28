@@ -28,8 +28,7 @@ class SendNotification
     {
         $user = $event->user();
         // Create notifications for individuals.
-        foreach ($user->getFollowers() as $f) {
-            $follower = User::find($f->follower_id);
+        foreach ($user->getFollowers() as $follower) {
             $follower->notifications()->create($event->getNotification());
         }
     }
