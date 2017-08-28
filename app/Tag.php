@@ -29,12 +29,14 @@ class Tag extends Model
      * Create the tag/tags.
      *
      * @param $tags
+     *
      * @return Model
      */
     public static function generate($tags, Post $post)
     {
         if (!is_array($tags)) {
             $tags = str_replace('#', '', $tags);
+
             return $post->tags()->attach(static::firstOrCreate(['name' => $tags])->id);
         }
 
@@ -49,6 +51,7 @@ class Tag extends Model
      * Checks if the tag exists.
      *
      * @param $tag
+     *
      * @return bool
      */
     public static function checkExistence($tag)
@@ -60,12 +63,13 @@ class Tag extends Model
      * Searches through by the query.
      *
      * @param string $query
+     * @param int    $count
      *
      * @return static
      */
-    public static function search($query = '')
+    public static function search($query = '', $count = 25)
     {
-        return static::where('name', 'like', "%{$query}%")->get()->take(15);
+        return static::where('name', 'like', "%{$query}%")->get()->take($count);
     }
 
     /**

@@ -37,6 +37,7 @@ class AccountRegistered extends Mailable
     public function build()
     {
         return $this->from(config('mail.from.address'))
-                    ->view('emails.registered');
+            ->subject(trans('messages.email.confirm.title', ['code' => $this->user->getConfirmationCode()]))
+            ->view('emails.registered');
     }
 }

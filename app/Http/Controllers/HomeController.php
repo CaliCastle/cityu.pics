@@ -64,7 +64,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        return redirect('/feed');
     }
 
     /**
@@ -75,9 +75,9 @@ class HomeController extends Controller
     public function showFeed()
     {
         if ($this->request->user()->filteredFeed())
-            $posts = Post::filterByFollowing($this->request->user())->paginate();
+            $posts = Post::filterByFollowing($this->request->user())->paginate($this->postsPerPage);
         else
-            $posts = Post::latest()->paginate();
+            $posts = Post::latest()->paginate($this->postsPerPage);
 
         return view('feed', compact('posts'));
     }
@@ -209,26 +209,6 @@ class HomeController extends Controller
     }
 
     /**
-     * Loads more posts by page.
-     *
-     * @param $page
-     *
-     * @return array
-     */
-    public function loadMorePosts($page)
-    {
-        $posts = Post::latest()->skip(($page - 1) * $this->postsPerPage)->take($this->postsPerPage)->get();
-
-        if (!$posts->count())
-            return ['hasMore' => 'false'];
-
-        return [
-            'hasMore' => 'true',
-            'posts'   => view('layouts.feed-panel', compact('posts'))->render()
-        ];
-    }
-
-    /**
      * Likes a post.
      *
      * @param Post    $post
@@ -317,5 +297,10 @@ class HomeController extends Controller
         return [
             'status' => 'success'
         ];
+    }
+
+    public function showRank()
+    {
+//        return view('');
     }
 }

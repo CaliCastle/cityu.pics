@@ -2,10 +2,13 @@
 
 namespace App;
 
+use TCG\Voyager\Traits\Translatable;
 use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
+    use Translatable;
+
     /**
      * Fillable attributes.
      *
@@ -88,7 +91,7 @@ class Post extends Model
     }
 
     /**
-     * Get all media each by each in an array.
+     * Gets all media each by each in an array.
      *
      * @return array
      */
@@ -98,13 +101,23 @@ class Post extends Model
     }
 
     /**
-     * Get the first image of the post.
+     * Gets the first image of the post.
      *
      * @return mixed
      */
     public function firstImage()
     {
         return $this->allMedia()[0];
+    }
+
+    /**
+     * Gets the first image with url.
+     *
+     * @return \Illuminate\Contracts\Routing\UrlGenerator|string
+     */
+    public function firstImageUrl()
+    {
+        return url($this->firstImage());
     }
 
     /**
@@ -172,12 +185,13 @@ class Post extends Model
      * Searches through by the query.
      *
      * @param string $query
+     * @param int    $count
      *
      * @return static
      */
-    public static function search($query = '')
+    public static function search($query = '', $count = 30)
     {
-        return static::where('caption', 'like', "%{$query}%")->get()->take(30);
+        return static::where('caption', 'like', "%{$query}%")->get()->take($count);
     }
 
     /**
@@ -192,5 +206,29 @@ class Post extends Model
         $users = $user->getFollowings('id')->push($user->id);
 
         return static::whereIn('user_id', $users)->latest();
+    }
+
+    /**
+     * Orders by popularity.
+     *
+     * @param $query
+     *
+     * @return mixed
+     */
+    public function scopePopular($query)
+    {
+        return $query->orderBy('like_count', 'desc');
+    }
+
+    /**
+     * Random order.
+     *
+     * @param $query
+     *
+     * @return mixed
+     */
+    public function scopeRandom($query)
+    {
+        return $query->orderBy(\DB::raw('RAND()'));
     }
 }

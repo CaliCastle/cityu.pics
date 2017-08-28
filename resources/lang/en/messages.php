@@ -5,6 +5,33 @@ return [
         'slogan' => 'CityU Photo Sharing Platform',
         '404'    => 'The page you\'re looking for went M.I.A.'
     ],
+    'welcome'  => [
+        'introduction' => 'Introducing',
+        'popular'      => 'See what\'s popular',
+        'subtitle'     => 'Join in the big family now -> <a href=":url">Register</a>',
+        'show-feed'    => 'Show all feed',
+        'likes'        => ':like like|:like likes',
+        'share'        => [
+            'top'    => 'Share',
+            'bottom' => 'The CityU Way'
+        ],
+        'comment'      => [
+            'top'    => 'A fun way',
+            'bottom' => 'to interact'
+        ],
+        'inbox'        => [
+            'top'    => 'Real-time',
+            'bottom' => 'notifications update'
+        ],
+        'checkin'      => [
+            'top'    => 'Daily Check in',
+            'bottom' => 'Keep the streak'
+        ],
+        'languages'    => [
+            'top'    => 'Multi-language support',
+            'bottom' => 'Wanna help out?'
+        ]
+    ],
     'alerts'   => [
         'error' => 'Something went wrong, try again later'
     ],
@@ -72,20 +99,26 @@ return [
         ]
     ],
     'titles'   => [
+        'welcome'  => 'Welcome',
         'feed'     => 'Feed',
         'confirm'  => 'Confirm Your Email',
         'profile'  => ':user\'s Profile',
         'settings' => 'Personal Settings',
-        'search'   => 'Everything Related to ":query"'
+        'search'   => 'Everything Related to ":query"',
+        'tag'      => '#:tag Post|#:tag Posts',
+        'liked'    => 'Feed I Liked'
     ],
     'email'    => [
         'confirm' => [
             'title'   => 'Confirm Code: :code - Account Registered',
-            'message' => 'Thanks for registering at our website, <a href=":url">click to confirm your account</a> or enter the confirmation code :code',
+            'heading' => 'Confirm Your Email',
+            'message' => 'Thanks for registering at our website <br><br><a href=":url">Click to confirm your account</a> or enter the confirmation code <b>:code</b>',
             'ignore'  => 'If you didn\'t register an account at our website, then ignore this e-mail.'
         ],
         'base'    => [
-            'sent-from' => 'Sent from'
+            'sent-from'        => 'Sent with ❤️ from',
+            'unsubscribe-tips' => 'You\'re receiving this email because you\'ve signed up to receive updates from us. If you\'d prefer not to or feel annoyed, you can change your preferences in the settings.',
+            'unsubscribe'      => 'Unsubscribe'
         ]
     ],
     'profile'  => [
@@ -119,6 +152,13 @@ return [
             'sign-in' => 'You\'ll need to login to comment.',
             'confirm' => 'Confirm'
         ]
+    ],
+    'search'   => [
+        'related-tags'  => 'Related Tags',
+        'related-users' => 'Related Users',
+        'related-posts' => 'Related Posts',
+        'none-found'    => 'None found',
+        'posts'         => 'post|posts'
     ],
     'settings' => [
         'tabs'           => [

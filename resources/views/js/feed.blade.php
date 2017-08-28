@@ -347,11 +347,6 @@
             // Delete buttons binding.
             $('.feed-more__delete').on('click', deletePost);
 
-            // Load more button binding.
-            $('.feed-loader button').on('click', function (e) {
-                sendMorePostsRequest(e.target.parentNode);
-            });
-
             var $body = document.body,
                 $postOverlay = document.querySelector('.post-overlay');
             // Feed media zoom in event.
@@ -410,32 +405,6 @@
                 success: function (status) {
                     if (status.status != 'success')
                         displayErrorMessage();
-                },
-                error: function () {
-                    displayErrorMessage();
-                }
-            });
-        }
-
-        // Send load more request.
-        function sendMorePostsRequest($button) {
-            // Prevent from clicking again.
-            $button.classList.add('requesting');
-
-            $.post({
-                url: '/posts/' + (currentPage + 1),
-                data: {_token: Laravel.csrfToken},
-                success: function (s) {
-                    currentPage++;
-
-                    if (s.hasMore == 'true') {
-                        $(feedGrid).append(s.posts);
-                        $button.classList.remove('requesting');
-
-                        init();
-                    } else {
-                        $button.remove();
-                    }
                 },
                 error: function () {
                     displayErrorMessage();

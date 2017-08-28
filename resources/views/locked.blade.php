@@ -44,7 +44,7 @@
             <h4 class="description center">@lang('messages.auth.confirm.description')</h4>
             <div class="enter-box">
                 @for($i = 1; $i < 6; $i++)
-                <input class="number-box animated fadeInUp" type="number" pattern="[0-9]" style="animation-delay: .{{ ($i * 12) + 5 }}s">
+                <input class="number-box animated fadeInUp" type="number" min="0" max="9" style="animation-delay: .{{ ($i * 12) + 5 }}s">
                 @endfor
             </div>
             <div class="error center @if($errors->isEmpty())hidden @endif animated bounceIn">
@@ -59,7 +59,7 @@
 
     <form action="{{ route('locked') }}" class="hidden" method="POST">
         {{ csrf_field() }}
-        <input type="number" name="code">
+        <input type="number" name="code" hidden>
     </form>
 
     <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>

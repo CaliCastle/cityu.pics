@@ -5,6 +5,33 @@ return [
         'slogan' => 'CityU图片分享平台',
         '404'    => '您要找的页面可能找不到回家的路了'
     ],
+    'welcome'  => [
+        'introduction' => '重磅推荐',
+        'popular'      => '热门动态',
+        'subtitle'     => '赶快加入这个大家庭吧 -> <a href=":url">注册账号</a>',
+        'show-feed'    => '查看所有动态',
+        'likes'        => ':like个点赞',
+        'share'        => [
+            'top'    => '分享',
+            'bottom' => 'CityU的点点滴滴'
+        ],
+        'comment'      => [
+            'top'    => '有趣',
+            'bottom' => '不同的互动体验'
+        ],
+        'inbox'        => [
+            'top'    => '更新',
+            'bottom' => '实时通知推送'
+        ],
+        'checkin'      => [
+            'top'    => '签到',
+            'bottom' => '每日打卡涨经验'
+        ],
+        'languages'    => [
+            'top'    => '多语言支持',
+            'bottom' => '想帮忙翻译?'
+        ]
+    ],
     'alerts'   => [
         'error' => '出错了，请稍后重试'
     ],
@@ -16,7 +43,7 @@ return [
             'liked'        => '赞过的动态',
             'achievements' => '成就',
             'settings'     => '设置',
-            'checkin'      => '签到',
+            'checkin'      => '每日签到',
             'signout'      => '登出'
         ],
         'compose-new' => '发布图文',
@@ -72,20 +99,26 @@ return [
         ]
     ],
     'titles'   => [
+        'welcome'  => '欢迎',
         'feed'     => '动态',
         'confirm'  => '验证您的邮箱',
         'profile'  => ':user的个人主页',
         'settings' => '设置',
-        'search'   => '":query"的查找结果'
+        'search'   => '":query"的查找结果',
+        'tag'      => '#:tag的动态',
+        'liked'    => '我赞过的动态'
     ],
     'email'    => [
         'confirm' => [
             'title'   => '验证码: :code - 账号注册成功',
-            'message' => '感谢阁下在我们的平台注册账号, <a href=":url">点击此链接通过验证</a> 或者输入验证码： :code',
+            'heading' => '确认您的邮箱',
+            'message' => '感谢阁下在我们的平台注册账号 <br><br><a href=":url">点击此链接通过验证</a> 或者输入验证码：<b>:code</b>',
             'ignore'  => '如果您没有在我们的平台注册账号，不要慌，请无视这封邮件'
         ],
         'base'    => [
-            'sent-from' => '邮件来自'
+            'sent-from'        => '邮件发自满满 ❤️ 的',
+            'unsubscribe-tips' => '您收到这封邮件是因为您订阅了邮件推送通知功能，您可以前往您的设置页面更改取消。',
+            'unsubscribe'      => '取消通知邮件'
         ]
     ],
     'profile'  => [
@@ -119,6 +152,13 @@ return [
             'sign-in' => '登录后进行回复/点赞',
             'confirm' => '确定'
         ]
+    ],
+    'search'   => [
+        'related-tags'  => '相关主题标签',
+        'related-users' => '相关用户',
+        'related-posts' => '相关动态',
+        'none-found'    => '暂无结果',
+        'posts'         => '条动态'
     ],
     'settings' => [
         'tabs'           => [

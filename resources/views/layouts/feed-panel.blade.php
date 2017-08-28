@@ -12,7 +12,7 @@
                         <ul class="feed-details__tags">
                             @foreach($post->tags as $tag)
                                 <li>
-                                    <a href="#" class="feed-tag">{{ $tag->name }}</a>
+                                    <a href="{{ $tag->link() }}" class="feed-tag">{{ $tag->name }}</a>
                                 </li>
                             @endforeach
                         </ul>

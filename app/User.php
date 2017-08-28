@@ -162,7 +162,7 @@ class User extends Authenticatable
      */
     public function likePost(Post $post)
     {
-        $post->likes()->toggle($this->id);
+        $post->likes()->withTimestamps()->toggle($this->id);
 
         // Fire event.
         if ($this->likedPost($post))
@@ -181,6 +181,16 @@ class User extends Authenticatable
     public function likedPost(Post $post)
     {
         return !!$post->likes()->wherePivot('user_id', '=', $this->id)->first();
+    }
+
+    /**
+     * Gets the user's liked posts.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function likedPosts()
+    {
+        return $this->belongsToMany(Post::class, 'likes');
     }
 
     /**
@@ -481,7 +491,7 @@ class User extends Authenticatable
         /** @var null|UserMeta $latestCheck */
         $latestCheck = $this->metas()->where('key', 'check_in')->first();
 
-        return is_null($latestCheck) ? false : $latestCheck->created_at->isToday();
+        return is_null($latestCheck) ? false : $latestCheck->updated_at->isToday();
     }
 
     /**
@@ -712,15 +722,16 @@ class User extends Authenticatable
      * Searches by query to match name, email and description.
      *
      * @param string $query
+     * @param int    $count
      *
      * @return static
      */
-    public static function search($query = '')
+    public static function search($query = '', $count = 10)
     {
         return static::where([
             ['name', 'like', "%{$query}%"],
             ['email', 'like', "%{$query}%"]])
-            ->take(10)
+            ->take($count)
             ->get()
             ->merge(UserMeta::search($query));
     }

@@ -3,11 +3,13 @@
 
 // Variables
 @import "variables";
+@import "mixins";
 
 // Bootstrap
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 
 @import "base";
+@import "welcome";
 @import "inbox";
 @import "search";
 @import "feed";

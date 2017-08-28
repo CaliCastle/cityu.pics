@@ -12,6 +12,7 @@
                 <section>
                     <h4>Aug 25th</h4>
                     <ul>
+                        <li><b>Tag</b> page has arrived, too!</li>
                         <li><b>Search</b> is finally here!<img alt="😆" class="emojioneemoji" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f606.png"></li>
                     </ul>
                 </section>

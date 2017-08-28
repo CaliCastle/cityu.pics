@@ -1,6 +1,9 @@
 @include('layouts.header')
 <body>
 
+@if(url()->current() == url('/'))
+    @yield('content')
+@else
 <div class="post-overlay"></div>
 <div class="full-overlay"></div>
 
@@ -406,5 +409,6 @@
         displayStatus('success', alert.message);
 	@endif
 </script>
+@endif
 </body>
 </html>

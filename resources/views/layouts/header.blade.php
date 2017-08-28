@@ -13,7 +13,7 @@
 
     <!-- Styles -->
 	<link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/materialize.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/materialize.min.css') }}?v={{ config('app.version') }}">
     <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/animate.css') }}">
     <link rel="stylesheet" href="{{ asset('css/emojionearea.min.css') }}">
@@ -21,7 +21,7 @@
 	<link rel="stylesheet" href="{{ asset('css/dropzone.min.css') }}">
 	<link rel="stylesheet" href="{{ asset('css/taggle.min.css') }}">
 
-@stack('styles')
+    @stack('styles')
 
     <!-- Scripts -->
     <script>

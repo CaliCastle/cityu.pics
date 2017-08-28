@@ -6,7 +6,7 @@ return [
         'commented'  => '留言评论',
         'new-reply'  => '回复评论',
         'new-post'   => '发布新动态',
-        'checked-in' => '签到'
+        'checked-in' => '每日签到'
     ],
     'followed'      => '<b>:user</b> 关注了你',
     'commented'     => '<b>:user</b> 评论你：:comment',

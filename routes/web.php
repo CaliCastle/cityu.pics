@@ -20,8 +20,12 @@ function markdown($text) {
 
 // Home page.
 Route::get('/', function () {
-    return redirect('feed');
-//    return view('welcome');
+    return view('welcome');
+})->name('home');
+
+// TODO: temporary
+Route::get('/mail', function () {
+    return view('emails.notification-base', ['user' => $user = App\User::first()]);
 });
 
 // Auth routes.
@@ -29,10 +33,11 @@ Auth::routes();
 
 // Pages
 Route::get('home', 'HomeController@index');
-Route::get('feed', 'HomeController@showFeed');
+Route::get('feed', 'HomeController@showFeed')->name('feed');
+Route::get('rank', 'HomeController@showRank')->name('rank');
 
 // Confirm
-Route::get('confirm/{token}/{email}', 'HomeController@confirmUser');
+Route::get('confirm/{token}/{email}', 'HomeController@confirmUser')->name('confirm');
 
 Route::get('language/{language}', 'GeneralController@switchLanguage')->name('language');
 
@@ -61,6 +66,7 @@ Route::put('locked', 'HomeController@resendCode');
 Route::get('@{userName}', 'UserController@showProfile')->name('profile');
 Route::put('@{userName}', 'UserController@followUser')->name('follow');
 Route::get('settings', 'UserController@showSettings')->name('settings');
+Route::get('liked', 'UserController@showLiked')->name('liked');
 Route::post('settings/personal', 'UserController@savePersonalSettings')->name('settings.personal');
 Route::post('settings/privacy', 'UserController@savePrivacySettings')->name('settings.privacy');
 Route::post('settings/feed', 'UserController@saveFeedSettings')->name('settings.feed');
@@ -70,6 +76,7 @@ Route::post('check-in', 'UserController@checkIn')->name('checkin');
 
 // Notification
 Route::patch('read/notification', 'UserController@readNotifications');
+Route::post('make-announcement/{content}/{to?}', 'UserController@makeAnnouncement');
 
 // Search
 Route::get('search', 'UserController@showSearch');

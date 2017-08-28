@@ -23,7 +23,8 @@
 	</div>
 	<div class="Inbox__footer">
 		{{-- TODO: Add href link --}}
-		<a href="#">@lang('messages.navbar.inbox.see-all')</a>
-		<a href="#" class="clear-all waves-effect waves-light" @click.prevent="readAllInbox" v-if="Inboxes.length"><i class="fa fa-trash-o"></i></a>
+{{--		<a href="#">@lang('messages.navbar.inbox.see-all')</a>--}}
+		<a href="#">&nbsp;</a>
+		<a href="#" class="clear-all waves-effect waves-light" @click.prevent="readAllInbox" v-if="Inboxes.length"><i class="fa fa-trash"></i></a>
 	</div>
 </div>

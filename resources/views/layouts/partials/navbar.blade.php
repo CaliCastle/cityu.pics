@@ -11,13 +11,21 @@
 			</button>
 
 			<!-- Branding Image -->
-			<a class="navbar-brand tooltipped waves-effect waves-light" href="{{ url('/') }}" data-tooltip="@lang('messages.navbar.home')" data-position="bottom">
+			<a class="navbar-brand tooltipped waves-effect waves-light" href="{{ route('home') }}" data-tooltip="@lang('messages.navbar.home')" data-position="bottom">
 				<img src="/logo-light.png" alt="Logo">
 				<span>{{ config('app.name') }}</span>
 			</a>
 		</div>
 
 		<div class="collapse navbar-collapse" id="app-navbar-collapse">
+			<ul class="nav navbar-nav navbar-left">
+				<li>
+					<a href="{{ route('feed') }}" class="waves-effect waves-light"><i class="fa fa-compass"></i>&nbsp;Feed</a>
+				</li>
+				<li>
+					<a href="{{ route('rank') }}" class="waves-effect waves-light disabled"><i class="fa fa-star"></i>&nbsp;Rank</a>
+				</li>
+			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				<!-- Authentication Links -->
 				@if (Auth::guest())
@@ -53,7 +61,7 @@
 								</a>
 							</li>
 							<li>
-								<a href="#" class="menu-link waves-effect waves-light disabled">
+								<a href="{{ route('liked') }}" class="menu-link waves-effect waves-light">
 									<i class="fa fa-heart"></i>&nbsp;@lang('messages.navbar.user-menu.liked')
 								</a>
 							</li>
@@ -109,6 +117,7 @@
 								@endif
 							@endforeach
 						</ul>
+					</li>
 					<li class="dropdown">
 						<a href="#" class="notif-button animated" data-toggle="dropdown" role="button" aria-expanded="false">
 							<i class="fa" :class="{'fa-bell': User.unread, 'fa-bell-o': !User.unread}"></i>

@@ -28,6 +28,13 @@ class UserController extends Controller
     protected $request;
 
     /**
+     * Posts per page.
+     *
+     * @var int
+     */
+    protected $postsPerPage = 50;
+
+    /**
      * UserController constructor.
      */
     public function __construct(Request $request)
@@ -46,7 +53,7 @@ class UserController extends Controller
      */
     public function showProfile(User $user)
     {
-        $posts = $user->posts()->latest()->paginate(50);
+        $posts = $user->posts()->latest()->paginate($this->postsPerPage);
 
         return view('profile', compact('user', 'posts'));
     }
@@ -213,11 +220,11 @@ class UserController extends Controller
         $query = $this->request->input('q');
 
         // Get related users.
-        $users = User::search($query);
+        $users = User::search($query, 20);
         // Get related tags.
         $tags = Tag::search($query);
         // Get related posts.
-        $posts = Post::search($query);
+        $posts = Post::search($query, $this->postsPerPage);
 
         return view('search', compact('query', 'users', 'tags', 'posts'));
     }
@@ -234,9 +241,35 @@ class UserController extends Controller
         return $this->successResponse();
     }
 
+    /**
+     * Shows tag page.
+     *
+     * @param Tag $tag
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function showTag(Tag $tag)
     {
+        $posts = $tag->posts()->popular()->latest()->paginate($this->postsPerPage);
 
+        return view('tag', compact('tag', 'posts'));
+    }
+
+    /**
+     * Shows liked feed.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function showLiked()
+    {
+        $posts = $this->request->user()->likedPosts()->latest()->paginate($this->postsPerPage);
+
+        return view('liked', compact('posts'));
+    }
+
+    public function makeAnnouncement($content, $to)
+    {
+        // TODO make announcement.
     }
 
     /**

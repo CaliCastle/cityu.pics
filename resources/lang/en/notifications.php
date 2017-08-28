@@ -6,7 +6,7 @@ return [
         'commented'  => 'posting a new comment',
         'new-reply'  => 'posting a new reply',
         'new-post'   => 'posting a new feed',
-        'checked-in' => 'checking in'
+        'checked-in' => 'checking in daily'
     ],
     'followed'      => '<b>:user</b> started following you',
     'commented'     => '<b>:user</b> commented: :comment',

@@ -14,7 +14,9 @@ class ComposerServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-
+        view()->composer('welcome', function ($view) {
+            $view->with('posts', Post::popular()->random()->take(12)->get());
+        });
     }
 
     /**
