@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', trans('messages.titles.tag', ['tag' => $tag->name]))
+@section('title', trans_choice('messages.titles.tag', $posts->count(), ['tag' => $tag->name]))
 
 @section('content')
 	<div class="tag-container">

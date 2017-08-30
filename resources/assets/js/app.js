@@ -114,6 +114,11 @@ const $vm = new Vue({
             });
         },
         getInbox() {
+            // Check for logged-in.
+            if (this.User.id == undefined) {
+                return false;
+            }
+
             let $this = this;
 
             this.request({
@@ -173,6 +178,10 @@ $(document).ready(function () {
         inputSearch = searchContainer.querySelector('.Search__input');
 
     function initSearchEvents() {
+        if ($vm.User.id == undefined) {
+            return false;
+        }
+
         openCtrl.addEventListener('click', openSearch);
         closeCtrl.addEventListener('click', closeSearch);
         document.addEventListener('keyup', function (ev) {

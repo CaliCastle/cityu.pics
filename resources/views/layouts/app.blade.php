@@ -400,7 +400,7 @@
         }, 350);
     }
 
-			@if(session('status'))
+    @if(session('status'))
     var alert = {!! json_encode(session('status')) !!};
 
     if (alert.type)
