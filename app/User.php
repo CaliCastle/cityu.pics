@@ -728,9 +728,8 @@ class User extends Authenticatable
      */
     public static function search($query = '', $count = 10)
     {
-        return static::where([
-            ['name', 'like', "%{$query}%"],
-            ['email', 'like', "%{$query}%"]])
+        return static::where('name', 'like', "%{$query}%")
+            ->orWhere('email', 'like', "%{$query}%")
             ->take($count)
             ->get()
             ->merge(UserMeta::search($query));
