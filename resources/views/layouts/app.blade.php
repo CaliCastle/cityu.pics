@@ -17,6 +17,7 @@
 
 </main>
 
+@if(Auth::check())
 <div class="Search">
 	<button id="btn-search-close" class="btn--search-close" aria-label="Close search form"><i class="fa fa-times"></i>
 	</button>
@@ -27,6 +28,7 @@
 		<span class="Search__info">@lang('messages.navbar.search.tips')</span>
 	</form>
 </div>
+@endif
 
 @if(Auth::check())
 	<div class="composer">
@@ -65,7 +67,6 @@
 			</div>
 		</div>
 	</div>
-@endif
 
 <div class="flying-buttons">
 	<a class="flying-button compose-new animated bounce" href="javascript:void(0)">
@@ -76,6 +77,7 @@
 		<span class="fa fa-chevron-up"></span>
 	</a>
 </div>
+@endif
 
 <!-- Scripts -->
 <script src="{{ mix('js/app.js') }}"></script>
