@@ -59,14 +59,14 @@
                     <h4>Aug 19th</h4>
                     <ul>
                         <li>Fixed a bug when the notification related object was <b>deleted</b> in the database.</li>
-                        <li><b>Notification inbox</b> is finally here with real-time notification! <img src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f64c.png"></li>
+                        <li><b>Notification inbox</b> is finally here with real-time notification! <img class="emojioneemoji" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f64c.png"></li>
                     </ul>
                 </section>
                 <section>
                     <h4>Aug 17th</h4>
                     <ul>
                         <li>Fixed the pop-up window of social sharing's postion to be <b>centered</b>.</li>
-                        <li><b><i class="fa fa-facebook"></i> Facebook and <i class="fa fa-twitter"></i> Twitter</b> sharing feature up and running. <img src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f465.png"></li>
+                        <li><b><i class="fa fa-facebook"></i> Facebook and <i class="fa fa-twitter"></i> Twitter</b> sharing feature up and running. <img class="emojioneemoji" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f465.png"></li>
                     </ul>
                 </section>
                 <section>
@@ -94,7 +94,7 @@
                 <section>
                     <h4>Aug 13rd</h4>
                     <ul>
-                        <li><b>Commenting</b> works now! <img src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/270d.png"></li>
+                        <li><b>Commenting</b> works now! <img class="emojioneemoji" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/270d.png"></li>
                     </ul>
                 </section>
                 <section>
@@ -108,7 +108,7 @@
                     <h4>Aug 10th</h4>
                     <ul>
                         <li>You can finally change and upload your own <b>avatar</b> now!</li>
-                        <li><b>Profile page</b> available now! <img src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f913.png"></li>
+                        <li><b>Profile page</b> available now! <img class="emojioneemoji" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f913.png"></li>
                     </ul>
                 </section>
                 <section>
@@ -123,7 +123,7 @@
                     <ul>
                         <li>Changed <b>maximum</b> upload file size to 5MB.</li>
                         <li><b>Version control</b> for front-end assets (css/js).</li>
-                        <li><b>Like</b> button for posts animation and implementation! <img src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f44f.png"></li>
+                        <li><b>Like</b> button for posts animation and implementation! <img class="emojioneemoji" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f44f.png"></li>
                     </ul>
                 </section>
                 <section>
@@ -156,7 +156,7 @@
                 <section>
                     <h4>Aug 1st</h4>
                     <ul>
-                        <li>Login &amp; register page done. <img src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/270c.png"></li>
+                        <li>Login &amp; register page done. <img class="emojioneemoji" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/270c.png"></li>
                     </ul>
                 </section>
             </section>
